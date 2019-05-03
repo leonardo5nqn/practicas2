@@ -1,1 +1,3 @@
 03/05/2019 - 19:37
+Aprendiendo a modificar Git (veririficando datos).
+Sacar una captura de pantalla.
