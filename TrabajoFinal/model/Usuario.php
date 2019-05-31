@@ -13,7 +13,8 @@
         }
         
 
-        function validoUsuario($usuario,$password){
+        function validoUsuario($usuario,$password)
+        {
             $usuario=$_POST["usuario"];
             $password=$_POST["contrasena"];
             $sql="SELECT * FROM Usuario WHERE ((Nombre Usuario=$usuario)AND(Contrasena=$password))";
@@ -22,6 +23,4 @@
         }
         //crear un return
         //devolver a damian una instancia del objeto
-    }
-    
-?>
+    }?>
