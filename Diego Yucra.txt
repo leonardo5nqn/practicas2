@@ -1,3 +1,7 @@
 03/05/2019 - hora: 19:46
 Aprendiendo a modificar Git (veririficando datos).
 Sacar una captura de pantalla.
+
+10062019 Modificaicon 2
+
+modificacion 3
