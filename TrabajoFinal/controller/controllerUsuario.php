@@ -11,10 +11,7 @@ if(!empty($_POST['Usuario']) && !empty($_POST['Password']))
     {
     echo "contrasena o usuario incorrecto";
     }
-    else 
-    {
-        echo "<p> Es necesario que completes los campos.</p>";
-    }
+   
 }
 
 exit();
