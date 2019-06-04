@@ -13,7 +13,7 @@ if(!empty($_POST['Usuario']) && !empty($_POST['Password']))
     }
     else 
     {
-        echo "<p> Es necesario que completes tu constrasena.</p>";
+        echo "<p> Es necesario que completes los campos.</p>";
     }
 }
 
