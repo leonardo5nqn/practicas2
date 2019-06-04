@@ -1,12 +1,12 @@
 <?php
 include "Usuario.php";
 
-$_POST ['usuario'];
-$_POST ['password'];
+$_POST ['Usuario'];
+$_POST ['Password'];
 
-if (Usuario :: nombreUsuario ($_POST["usuario"],$_POST["password"])
+if (Usuario :: validoUsuario ($_POST["Usuario"],$_POST["Password"])
 {
-    print_r($_POST["usuario"],$_POST["password"]);
+    print_r($_POST["Usuario"],$_POST["Password"]);
 }
 
 else 
