@@ -8,16 +8,16 @@
         var $password;
         
         //CREO EL CONSTRUCTOR
-        function __construc(){
-            parent:: __construc();
+        function __construct(){
+            parent:: __construct();
         }
         
 
         function validoUsuario($usuario,$password){
             
-            $usuario=$_POST["Usuario"];
-            $password=$_POST["Password"];
-            $sql="SELECT * FROM Usuario WHERE ((Nombre Usuario=$usuario)AND(Contrasena=$password))";
+            //$usuario=$_POST["Usuario"];
+            //$password=$_POST["Password"];
+            $sql="SELECT * FROM Usuario WHERE ((NombreUsuario='$usuario')AND(Contrasena='$password'))";
             $respuesta=$this->conn->query ($sql);
 
             return ($respuesta);
