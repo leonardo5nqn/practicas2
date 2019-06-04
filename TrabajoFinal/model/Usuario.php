@@ -15,8 +15,8 @@
 
         function validoUsuario($usuario,$password){
             
-            $usuario=$_POST["usuario"];
-            $password=$_POST["contrasena"];
+            $usuario=$_POST["Usuario"];
+            $password=$_POST["Password"];
             $sql="SELECT * FROM Usuario WHERE ((Nombre Usuario=$usuario)AND(Contrasena=$password))";
             $respuesta=$this->conn->query ($sql);
 
