@@ -1,17 +1,17 @@
 <?php
-include "usuario.php";
+include "Usuario.php";
 
-$_POST ['nombre'];
-$_POST ['contraseña'];
+$_POST ['Usuario'];
+$_POST ['Password'];
 
-if (usuario :: nombreUsuario ($_POST["nombre"],$_POST["contraseña"])
+if (Usuario :: nombreUsuario ($_POST["Usuario"],$_POST["Password"])
 {
-    print_r($_POST["nombre"],$_POST["contraseña"]);
+    print_r($_POST["Usuario"],$_POST["Password"]);
 }
 
 else 
 {
-    echo "contraseña o usuario incorrecto";
+    echo "contrasena o usuario incorrecto";
 }
 exit();
 
