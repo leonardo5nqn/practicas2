@@ -4,8 +4,8 @@
 
     class Usuario extends conexion
     {
-        $usuario;
-        $password;
+        var $usuario;
+        var $password;
         
         //CREO EL CONSTRUCTOR
         function __construc(){
@@ -13,13 +13,14 @@
         }
         
 
-        function validoUsuario($usuario,$password)
-        {
+        function validoUsuario($usuario,$password){
+            
             $usuario=$_POST["usuario"];
             $password=$_POST["contrasena"];
             $sql="SELECT * FROM Usuario WHERE ((Nombre Usuario=$usuario)AND(Contrasena=$password))";
             $respuesta=$this->conn->query ($sql);
 
+            return ($respuesta);
         }
         //crear un return
         //devolver a damian una instancia del objeto
