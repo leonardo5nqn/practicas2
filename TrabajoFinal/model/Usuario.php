@@ -1,6 +1,6 @@
 <?php
     //LLAMO A LA CLASE CONEXION
-    require_once ("utils/conexion.php");
+    require_once ("..utils/conexion.php");
 
     class Usuario extends conexion
     {
