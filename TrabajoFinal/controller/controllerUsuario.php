@@ -1,5 +1,5 @@
 <?php
-include "Usuario.php";
+include "../model/Usuario.php";
 
 if(!empty($_POST['Usuario']) && !empty($_POST['Password'])) 
 {
