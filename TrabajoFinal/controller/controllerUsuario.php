@@ -1,5 +1,5 @@
 <?php
-include "Usuario.php";
+include "../model/Usuario.php";
 
 if(!empty($_POST['Usuario']) && !empty($_POST['Password'])) 
 {
@@ -11,10 +11,7 @@ if(!empty($_POST['Usuario']) && !empty($_POST['Password']))
     {
     echo "contrasena o usuario incorrecto";
     }
-    else 
-    {
-        echo "<p> Es necesario que completes tu constrasena.</p>";
-    }
+   
 }
 
 exit();
