@@ -1,11 +1,9 @@
 <?php
 include "../model/Usuario.php";
 
-$usr= new Usuario(); 
-
 if(!empty($_POST['Usuario']) && !empty($_POST['Password'])) 
 {
-    if ($usr -> validoUsuario ($_POST["Usuario"],$_POST["Password"]))
+    if (Usuario::validoUsuario ($_POST["Usuario"],$_POST["Password"]))
     {
     print_r($_POST["Usuario"],$_POST["Password"]);
     }
