@@ -2,18 +2,13 @@
     //LLAMO A LA CLASE CONEXION
     require_once ("../utils/conexion.php");
 
-    class Usuario extends conexion
+    class Usuario 
     {
         var $usuario;
         var $password;
-        
-        //CREO EL CONSTRUCTOR
-        function __construct(){
-            parent:: __construct();
-        }
-        
 
-        function validoUsuario($usuario,$password){
+
+        static function validoUsuario($usuario,$password){
             
             //$usuario=$_POST["Usuario"];
             //$password=$_POST["Password"];
