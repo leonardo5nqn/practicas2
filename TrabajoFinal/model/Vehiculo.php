@@ -4,17 +4,17 @@ require_once ("../utils/conexion.php");
 
 class Vehiculo 
 {
-    var $marca;
-    var $modelo;
-    var $color;
-    var $numPatente;
-    var $tipoVehiculo;
-    var $id;
+   private $marca;
+   private $modelo;
+   private $color;
+   private $numPatente;
+   private $tipoVehiculo;
+   private $id;
 
     function insertVehiculo ($numPatente, $marca, $modelo, $color, $tipoVehiculo)
     {
         $sql = ("INSERT INTO Vehiculo (Patente, Marca, Modelo, Color, TipoVehiculo)
-        values ('$numPatente', '$marca', '$modelo', '$color', '$TipoVehiculo')");
+        values ('$numPatente', '$marca', '$modelo', '$color', '$tipoVehiculo')");
         $respuesta=$this->conn->query ($sql);
          
         return ($respuesta);
