@@ -6,6 +6,11 @@
     {
         var $usuario;
         var $password;
+        var $idUsuario;
+        var $idPersona;
+        var $idRol;
+        var $huella;
+
 
 
 
@@ -26,4 +31,13 @@
         }
         //crear un return
         //devolver a damian una instancia del objeto
+
+        static function nuevoUsuario($idUsuario,$idPersona, $idRol, $usuario, $password, $huella){
+                
+
+        }
+
+
+
+
     }?>
