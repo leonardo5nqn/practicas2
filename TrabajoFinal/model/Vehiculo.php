@@ -11,24 +11,24 @@ class Vehiculo
    private $tipoVehiculo;
    private $id;
 
-    function insertVehiculo ($numPatente, $marca, $modelo, $color, $tipoVehiculo)
+    static function insertVehiculo ($numPatente, $marca, $modelo, $color, $tipoVehiculo)
     {
         $sql = ("INSERT INTO Vehiculo (Patente, Marca, Modelo, Color, TipoVehiculo)
         values ('$numPatente', '$marca', '$modelo', '$color', '$tipoVehiculo')");
-        $respuesta=$this->conn->query ($sql);
+        $respuesta=Conexion:: conectar->query ($sql);
          
         return ($respuesta);
     }
 
-    function deleteVehiculo ($id)
+    static function deleteVehiculo ($id)
     {
-        $this->conn->query("DELETE from where IDVehiculo = $id");
+        Conexion:: conectar->query("DELETE from where IDVehiculo = $id");
     }
 
-    function updateVehiulo($numPatente, $marca, $modelo, $color, $tipoVehiculo, $vehiculoID)
+    static function updateVehiulo($numPatente, $marca, $modelo, $color, $tipoVehiculo, $vehiculoID)
     {
 
-      $this->conn->query("UPDATE Vehiculo set Patente = '$numPatente', Marca = '$marca', Modelo = '$modelo', Color = '$color', TipoVehiculo = '$tipoVehiculo'
+        Conexion:: conectar->query("UPDATE Vehiculo set Patente = '$numPatente', Marca = '$marca', Modelo = '$modelo', Color = '$color', TipoVehiculo = '$tipoVehiculo'
         where IDVehiculo = $vehiculoID");
     }
 
