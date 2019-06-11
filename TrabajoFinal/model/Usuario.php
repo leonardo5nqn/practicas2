@@ -34,17 +34,17 @@
 
          static function insertUsuario($idPersona, $idRol, $usuario, $password, $huella){
             
-            $this->conn->query("INSERT INTO Usuario (PersonaID, RolID, NombreUsuario, Contrasena, Huella)
+            Conexion:: conectar->query("INSERT INTO Usuario (PersonaID, RolID, NombreUsuario, Contrasena, Huella)
             values ('$idPersona','$idRol','$usuario','$password','$huella')");
 
         }
 
         static function deletUsuario($idUsuario){
-            $this->conn->query("DELETE FROM Usuario where IDUsuario = $idUsuario");
+            Conexion:: conectar->query("DELETE FROM Usuario where IDUsuario = $idUsuario");
         }
         
         static function updateUsuario($idUsuario, $usuario, $password){
-            $this->conn->quert("UPDATE Usuario set $usuario, $password where IDUsuario = $idUsuario");
+            Conexion:: conectar->query("UPDATE Usuario set $usuario, $password where IDUsuario = $idUsuario");
         }
 
 
