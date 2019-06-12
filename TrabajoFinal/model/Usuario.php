@@ -33,18 +33,16 @@
         //devolver a damian una instancia del objeto
 
          static function insertUsuario($idPersona, $idRol, $usuario, $password, $huella){
-            
-            Conexion:: conectar->query("INSERT INTO Usuario (PersonaID, RolID, NombreUsuario, Contrasena, Huella)
+            Conexion::conectar()->query ("INSERT INTO Usuario (PersonaID, RolID, NombreUsuario, Contrasena, Huella)
             values ('$idPersona','$idRol','$usuario','$password','$huella')");
-
         }
 
         static function deletUsuario($idUsuario){
-            Conexion:: conectar->query("DELETE FROM Usuario where IDUsuario = $idUsuario");
+            Conexion::conectar()->query("DELETE FROM Usuario where IDUsuario = $idUsuario");
         }
         
         static function updateUsuario($idUsuario, $usuario, $password){
-            Conexion:: conectar->query("UPDATE Usuario set $usuario, $password where IDUsuario = $idUsuario");
+            Conexion::conectar()->query("UPDATE Usuario set $usuario, $password where IDUsuario = $idUsuario");
         }
 
 
