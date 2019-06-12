@@ -5,10 +5,10 @@
         private static $instance = null;
         
         //AGREGO LA CONEXION A LA BASE DE DATOS
-        const $host="db4free.net";
-        const $usuario="admcisterna";
-        const $pass="cisterna2019nqn";
-        const $nameBD="cisterna";
+        const host="db4free.net";
+        const usuario="admcisterna";
+        const pass="cisterna2019nqn";
+        const nameBD="cisterna";
 
         function __construct()
         {
