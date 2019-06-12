@@ -11,33 +11,28 @@ class Vehiculo
    private $tipoVehiculo;
    private $id;
 
-    static function insertVehiculo ($numPatente, $marca, $modelo, $color, $tipoVehiculo)
+    static function insertVehiculo($numPatente, $marca, $modelo, $color, $tipoVehiculo)
     {
-        $sql = ("INSERT INTO Vehiculo (Patente, Marca, Modelo, Color, TipoVehiculo)
+        $respuesta = Conexion::conectar()->query("INSERT INTO Vehiculo (Patente, Marca, Modelo, Color, TipoVehiculo)
         values ('$numPatente', '$marca', '$modelo', '$color', '$tipoVehiculo')");
-        $respuesta=Conexion:: conectar->query ($sql);
          
         return ($respuesta);
     }
 
     static function deleteVehiculo ($id)
     {
-        Conexion:: conectar->query("DELETE from where IDVehiculo = $id");
+        Conexion::conectar()->query("DELETE from Vehiculo where IDVehiculo = $id");
     }
 
     static function updateVehiulo($numPatente, $marca, $modelo, $color, $tipoVehiculo, $vehiculoID)
     {
 
-        Conexion:: conectar->query("UPDATE Vehiculo set Patente = '$numPatente', Marca = '$marca', Modelo = '$modelo', Color = '$color', TipoVehiculo = '$tipoVehiculo'
+        Conexion::conectar()->query("UPDATE Vehiculo set Patente = '$numPatente', Marca = '$marca', Modelo = '$modelo', Color = '$color', TipoVehiculo = '$tipoVehiculo'
         where IDVehiculo = $vehiculoID");
     }
 
+    static function getAllVehiculos(){
+        Conexion::conectar()->query("SELECT * from Vehiculo");
+    }
 }
-
-
-
-
-
-
-
 ?>
