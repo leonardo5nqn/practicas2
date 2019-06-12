@@ -12,7 +12,7 @@
 
         function __construct()
         {
-         self::$instance = new mysqli($host,$usuario,$pass,$nameBD);   
+         self::$instance = new mysqli(host,usuario,pass,nameBD);   
         }
 
        public static function conectar () {
