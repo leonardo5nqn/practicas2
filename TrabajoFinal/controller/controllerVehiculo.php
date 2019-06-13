@@ -34,7 +34,7 @@ if($_POST["accion"]==='eliminar'){
 if($_POST["accion"]==='editar'){
     if ($VehiculoID = "IDVehiculo")
     {
-        if (Vehiculo::deleteVehiculo ($_POST["IDVehiculo"]))
+        if (Vehiculo::updateVehiulo ($_POST["IDVehiculo"]))
     {
         print_r($_POST["Patente"],$_POST["Marca"],$_POST['Modelo'],$_POST['Color'],$_POST['TipoVehiculo']); 
     }
