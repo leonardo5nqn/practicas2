@@ -45,7 +45,7 @@ if($_POST["accion"]==='editar'){
 if($_POST["accion"]==='mostrar'){
     if ($VehiculoID = "IDVehiculo")
     {
-        if (Vehiculo::deleteVehiculo ($_POST["IDVehiculo"]))
+        if (Vehiculo::getAllVehiculos())
     {
        Vehiculo::getAllVehiculos();
     }
