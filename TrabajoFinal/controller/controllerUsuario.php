@@ -68,11 +68,10 @@ exit();
             {
                 echo "No se pudo actualizar el usuario";
             }
-    
-            break;
-
         }
+        
     }
+    break;
         
     case($opcion = 'deletUsuario'):
     function deletUsuario()
@@ -88,8 +87,9 @@ exit();
                 }
             }
         }
-        break;
+        
     }
+    break;
 
 
     case($opcion='listarUsuario'):
@@ -101,8 +101,9 @@ exit();
                     }
                 }
             }
-            break;
+            
         }
+        break;
       
 
 }
