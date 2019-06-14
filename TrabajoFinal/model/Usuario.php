@@ -20,14 +20,7 @@
         private $Email;
         private $id;
 
-    
-    
-        
-
-
-
-
-        static function validoUsuario($usuario,$password){
+            static function validoUsuario($usuario,$password){
             
             //
             $sql="SELECT * FROM Usuario WHERE ((NombreUsuario='$usuario')AND(Contrasena='$password'))";
@@ -52,15 +45,11 @@
               Conexion::conectar()->query("INSERT INTO Persona (IDPersona, Nombre, Apellido, Telefono, Documento, FechaNacimiento, Domicilio, Email)
             values ('$IDPersona', '$Nombre', '$Apellido', '$Telefono', '$Documento', '$FechaNacimiento', '$Domicilio', '$Email')");
                 
-        }
-
-        
+        }  
         //Listado de personas
         static function mostrarUsuario(){
                 Conexion::conectar()->query("SELECT *from Usuario");
         }
-
-        
         //Crear nuevo usuario
          static function insertUsuario($id, $idRol, $usuario, $password, $huella){
             Conexion::conectar()->query ("INSERT INTO Usuario (PersonaID, RolID, NombreUsuario, Contrasena, Huella)
