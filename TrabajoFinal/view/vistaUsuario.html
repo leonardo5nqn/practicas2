@@ -13,35 +13,35 @@
             <div class="col-6">
                 <div class="card">
                     <div class="form-group">
-                            <h3>Formulario Persona</h3>
+                            <h3>Formulario Usuario</h3>
                     </div>
                     <div form-group>
                         <form action="../controller/controllerUsuario.php" method="POST">
                             <div>
                                 <p>
-                                    <h6>Nombre</h6>
-                                    <input type="text" class="form-control"  name="Nombre" required />
+                                    <h6>Nombre Usuario</h6>
+                                    <input type="text" class="form-control"  name="NomUsuario" required />
                                 </p>
                             </div>
                             <div>
                                 <p>
-                                    <h6>Apellido</h6>
-                                    <input type="text" class="form-control"  name="Apellido" required />
+                                    <h6>Contraseña</h6>
+                                    <input type="text" class="form-control"  name="contrasena" required />
                                 </p>
                             </div>
-                            <div class="form-group">
-                                
-                                    <h6>Telefono</h6>
-                                    <input type="text" class="form-control"  name="Telefono" required />
-                                
-                            </div>
+                            
                             <div>
                                 <p>
-                                    <h6>Numero Documento</h6>
-                                    <input type="text" class="form-control" name="Documento" required/>
+                                    <h6>Rol</h6>
+                                    <select>
+                                        <option value="administrativo">administrativo</option>
+                                        <option value="chofer">chofer</option>
+                                        <option value="Playero">Playero</option>
+                                    </select>
                                 </p>
                             </div>
                             <div>
+                                <h6>Domicilio</h6>
                                 <input type="text" class="form-control" placeholder="Domicilio" name="Domicilio" required/>
                             </div>
                             <div class="form-group">
@@ -52,7 +52,10 @@
                                 </p>
                             </div>
                             <div class="justify-content-center">
-                                <input type="email" class="form-control justify-content-center" placeholder="Email" name="Email" required/>
+                                <p>
+                                    <h6>Email</h6>
+                                    <input type="email" class="form-control justify-content-center" placeholder="Email" name="Email" required/>
+                                </p>
                             </div>
                             <br>
                             <div>
@@ -66,6 +69,7 @@
                     </div>
                 </div>
             </div>
+            
         </div>
     </div>
 
@@ -82,5 +86,3 @@
         integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
         crossorigin="anonymous"></script>
 </body>
-
-</html>
