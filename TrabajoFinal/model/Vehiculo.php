@@ -21,14 +21,14 @@ class Vehiculo
 
     static function deleteVehiculo ($id)
     {
-        Conexion::conectar()->query("DELETE from Vehiculo where IDVehiculo = $id");
+        Conexion::conectar()->query("DELETE from Vehiculo where IDVehiculo = $Vehiculoid");
     }
 
     static function updateVehiulo($numPatente, $marca, $modelo, $color, $tipoVehiculo, $vehiculoID)
     {
 
         Conexion::conectar()->query("UPDATE Vehiculo set Patente = '$numPatente', Marca = '$marca', Modelo = '$modelo', Color = '$color', TipoVehiculo = '$tipoVehiculo'
-        where IDVehiculo = $vehiculoID");
+        where IDVehiculo = $vehiculoid");
     }
 
     static function getAllVehiculos(){
