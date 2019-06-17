@@ -20,7 +20,54 @@
         private $Email;
         private $id;
 
-            static function validoUsuario($usuario,$password){
+        //constructor
+        public function Usuario() 
+        {
+        }
+
+        //metodos get y set Usuario
+        public function getUsuario()
+        {
+            return $this->usuario;
+        }
+     
+        public function setUsuario($us)
+        {
+            $this->usuario = $us;
+        }
+        //metodos get y set Password
+        public function getPassword()
+        {
+            return $this->password;
+        }
+     
+        public function setUsuario($pass)
+        {
+            $this->password = $pass;
+        }
+        
+        //Crear nuevo usuario
+        static function insert()
+        {
+            $respuesta = Conexion::conectar()->query("INSERT INTO Usuario (PersonaID, RolID, NombreUsuario, Contrasena, Huella)
+            values (".$this->idUsuario.",".$this->idRol.",".$this->usuario.",".$this->password." ,".$this->huella." )");
+            return ($respuesta);
+        }
+        //eliminar usuario
+        static function delete()
+        {
+            $respuesta = Conexion::conectar()->query("DELETE FROM Usuario where IDUsuario =".$this->idUsuario."");
+            return ($respuesta);
+        }
+        //editar usuario
+        static function update()
+        {
+            $respuesta = Conexion::conectar()->query("UPDATE Usuario set  NombreUsuario =".$this->usuario.", Contrasena =".$this->password." 
+            where IDUsuario =".$this->idUsuario."");
+            return ($respuesta);
+        }
+
+           /* static function validoUsuario($usuario,$password){
             
             //
             $sql="SELECT * FROM Usuario WHERE ((NombreUsuario='$usuario')AND(Contrasena='$password'))";
@@ -34,35 +81,20 @@
             }
             else return null;
            
-        }
-        //crear un return
-        //devolver a damian una instancia del objeto
-
-        //Para crear un nuevo usuario es necesario tener la persona
-        //Para ello se hará el insert de la persona para luego crear el usuario 
-        static function insertPersona($IDPersona, $Nombre, $Apellido, $Telefono, $Documento, $FechaNacimiento, $Domicilio, $Email)
+        }*/
+       
+       /* static function insertPersona($IDPersona, $Nombre, $Apellido, $Telefono, $Documento, $FechaNacimiento, $Domicilio, $Email)
         {
               Conexion::conectar()->query("INSERT INTO Persona (IDPersona, Nombre, Apellido, Telefono, Documento, FechaNacimiento, Domicilio, Email)
             values ('$IDPersona', '$Nombre', '$Apellido', '$Telefono', '$Documento', '$FechaNacimiento', '$Domicilio', '$Email')");
                 
         }  
         //Listado de personas
-        static function mostrarUsuario(){
-                Conexion::conectar()->query("SELECT *from Usuario");
-        }
-        //Crear nuevo usuario
-         static function insertUsuario($id, $idRol, $usuario, $password, $huella){
-            Conexion::conectar()->query ("INSERT INTO Usuario (PersonaID, RolID, NombreUsuario, Contrasena, Huella)
-            values ('$id','$idRol','$usuario','$password','$huella')");
-        }
+        static function mostrarPersona(){
+                Conexion::conectar()->query("SELECT * from Persona");
+        }*/
 
-        static function deletUsuario($idUsuario){
-            Conexion::conectar()->query("DELETE FROM Usuario where IDUsuario = $idUsuario");
-        }
         
-        static function updateUsuario($idUsuario, $usuario, $password){
-            Conexion::conectar()->query("UPDATE Usuario set  NombreUsuario = '$usuario', Contrasena = '$password' where IDUsuario = $idUsuario");
-        }
 
     
     }?>
