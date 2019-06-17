@@ -10,15 +10,7 @@
         private  $idPersona;
         private  $idRol;
         private  $huella;
-        private $IDPersona;
-        private $Nombre;
-        private $Apellido;
-        private $Telefono;
-        private $Documento;
-        private $FechaNacimiento;
-        private $Domicilio;
-        private $Email;
-        private $id;
+       
 
         //constructor
         public function Usuario() 
@@ -83,16 +75,7 @@
            
         }*/
        
-       /* static function insertPersona($IDPersona, $Nombre, $Apellido, $Telefono, $Documento, $FechaNacimiento, $Domicilio, $Email)
-        {
-              Conexion::conectar()->query("INSERT INTO Persona (IDPersona, Nombre, Apellido, Telefono, Documento, FechaNacimiento, Domicilio, Email)
-            values ('$IDPersona', '$Nombre', '$Apellido', '$Telefono', '$Documento', '$FechaNacimiento', '$Domicilio', '$Email')");
-                
-        }  
-        //Listado de personas
-        static function mostrarPersona(){
-                Conexion::conectar()->query("SELECT * from Persona");
-        }*/
+      
 
         
 
