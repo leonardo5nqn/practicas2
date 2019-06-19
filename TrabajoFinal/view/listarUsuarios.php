@@ -40,7 +40,10 @@
                         ?>
                     </table>
                     <input type="button" onclick="location.href='operacion.html'" name="btn_atras" value="Atras" style='width:125px; height:40px'/>
-            </form>
+                            
+                    <!-- vehiculo, cisterna, solcitante
+                    atributos privados,, constructor, get, set, findById, find All + where, insert5, delete, update -->
+                </form>
         </div>
     </body>
 </html>
