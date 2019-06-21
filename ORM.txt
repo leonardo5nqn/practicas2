@@ -1,0 +1,37 @@
+¿Qué es un ORM?
+
+Object-Relational mapping, o lo que es lo mismo, mapeo de objeto-relacional, es un modelo de programación que consiste en la transformación de las tablas de una base de datos, en una serie de entidades que simplifiquen las tareas básicas de acceso a los datos para el programador.
+
+Desde hace muchos años el lenguaje más usado para acceder a las bases de datos relacionales ha sido el SQL. ¿Por qué entonces cambiar y pasarse a un ORM?
+
+¿Por qué usar un ORM?
+Aunque el lenguaje SQL se usa para acceder a muchas de las bases de datos existentes, existen múltiples varianzas en las funciones que los distintos SGBD han usado. Un ejemplo muy sencillo sería delimitar el número de registros de una consulta:
+
+
+SELECT TOP 10 * FROM usuarios //SqlServer
+SELECT * FROM usuarios LIMIT 10 //MySQL
+SELECT * FROM usuarios WHERE rownum<=20; //Oracle
+
+Tres de las bases de datos más importantes, y como veis, para algo tan fácil vemos diferencias. Esto para el programador supone tener que conocer el lenguaje para cada Base de datos, y más importante aún, si en un futuro se desea migrar la aplicación, habría que reescribir gran número de las consultas.
+
+Esto el ORM al tener un capa intermedia, abstrae al programador de la base de datos y le centra en el desarrollo de la aplicación.
+
+Otro punto importante es la facilidad de trabajo, un ORM, nos facilita las labores básicas de cualquier acceso a datos , el CRUD (Create, Read, Update y Delete). Realizando todas estas labores a través de un lenguaje de alto nivel orientado a objetos. Ahora que ya sabemos que es un ORM y porque usarlo, vamos a ver sus ventajas y desventajas.
+
+Ventajas y desventajas de un ORM
+Ventajas
+Facilidad y velocidad de uso
+Abstracción de la base de datos usada.
+Seguridad de la capa de acceso a datos contra ataques.
+Desventajas
+En entornos con gran carga poner una capa más en el proceso puede mermar el rendimiento.
+Aprender el nuevo lenguaje del ORM.
+ORMs más utilizados
+Casi todos los lenguajes de alto nivel actualmente disponen de alguna solución de este tipo, una de las más conocidas es Hibernate para JAVA, pero existen muchas más:
+
+Java => Hibernate, iBatis, Ebean, etc..
+.NET=> Entity Framework, nHibernate, etc..
+PHP=> Doctrine, Propel, ROcks, Torpor, etc..
+
+
+https://www.slant.co/topics/5639/~php-orms
