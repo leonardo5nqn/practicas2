@@ -13,7 +13,7 @@
        
 
         //constructor
-        public function Usuario() 
+        function __construct()
         {
         }
 
