@@ -25,7 +25,7 @@
         //--------------------------
 
         //GET Y SET IdCisterna
-        public function getIdSolicitanye(){
+        public function getIdSolicitante(){
             return $this->IdSolicitante;
         }
         public function setIdSolicitante($IdSoli){
