@@ -1,3 +1,4 @@
+
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -52,4 +53,15 @@
     <button type="submit" class="btn btn-outline-dark"> Editar </button>
   </form> 
 </body>
+</html>
+
+<?php 
+
+?>
+
+<html>
+  <head> Datos Vehiculos </head>
+    <body>
+    
+    </body>
 </html>

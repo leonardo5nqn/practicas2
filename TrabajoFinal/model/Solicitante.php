@@ -16,8 +16,10 @@
         //---------------------------
         //DEFINO EL CONSTRUCTOR
         //----------------------------
-        function __construct(){
-
+        function __construct($Id_Solicitante,$Id_Persona,$Id_Empresa){
+            $this->IdSolicitante=$Id_Solicitante;
+            $this->IdPersona=$Id_Persona;
+            $this->IdEmpresa=$Id_Empresa;
         }
 
         //---------------------------
@@ -28,25 +30,50 @@
         public function getIdSolicitante(){
             return $this->IdSolicitante;
         }
-        public function setIdSolicitante($IdSoli){
-            $this->IdSolicitante=$IdSoli;
+        public function setIdSolicitante($Id_Solicitante){
+            $this->IdSolicitante=$Id_Solicitante;
+        }
+
+        //GET Y SET IdPersona}
+        public function getIdPersona(){
+            return $this->getIdPersona;
+        }
+        public function setIdPersona($Id_Persona){
+            $this->IdPersona=$Id_Persona;
+        }
+
+        //GET Y SET IdEmpresa
+        public function getIdEmpresa(){
+            return $this->getIdEmpresa;
+        }
+        public function setIdEmpresa($Id_Empresa){
+            $this->IdEmpresa=$Id_Empresa;
         }
 
         //--------------------------------------------------------------------------------
         //CREO LAS FUNCIONES con ACCESO STATIC --------------------------------------------
         //--------------------------------------------------------------------------------
-
+        
         //-------------------------
         //FUNCION Agrego Un solicitante 
         //------------------------
+        public function SolicitanteInsert (){
+            
+        }
 
         //----------------------------
         //ELIMINO UN Solcitante POR ID
         //----------------------------
+        public function SolicitanteDelete(){
+
+        }
 
         //------------------------------------
         //modifico un Solicitante
         //------------------------------------
+        public function SolicitanteUpdate(){
+
+        }
 
         //----------------------------------
         //OBTENGO/Listo TODAS Los Solicitantes
