@@ -15,7 +15,7 @@ class Persona
     private $Email;
 
     //constructor
-    public function Persona() 
+    function __construct()
     {
     }
 
@@ -93,27 +93,27 @@ class Persona
 
      //ingresar persona
      static function insert()
-        {
-            $respuesta = Conexion::conectar()->query("INSERT INTO Persona (IDPersona, Nombre, Apellido, Telefono, Documento, FechaNacimiento, Domicilio, Email)
-            values (".$this->personaid.",".$this->Nombre.",".$this->Apellido.",".$this->Telefono.",".$this->Documento.",".$this->FechaNacimiento.",".$this->Domicilio.",".$this->Email.")");
-            return ($respuesta);    
-        }  
+      {
+         $respuesta = Conexion::conectar()->query("INSERT INTO Persona (IDPersona, Nombre, Apellido, Telefono, Documento, FechaNacimiento, Domicilio, Email)
+         values (".$this->personaid.",".$this->Nombre.",".$this->Apellido.",".$this->Telefono.",".$this->Documento.",".$this->FechaNacimiento.",".$this->Domicilio.",".$this->Email.")");
+         return ($respuesta);    
+      }  
      //eliminar persona
      static function delete()
-        {
-            $respuesta = Conexion::conectar()->query("DELETE FROM Persona where IDPersona =".$this->personaid."");
-            return ($respuesta);
-        }
+      {
+         $respuesta = Conexion::conectar()->query("DELETE FROM Persona where IDPersona =".$this->personaid."");
+         return ($respuesta);
+      }
 
      //editar persona
      static function update()
-        {
-            $respuesta = Conexion::conectar()->query("UPDATE Persona set  Nombre =".$this->Nombre.", Apellido =".$this->Apellido.", Telefono =".$this->Telefono.", Documento =".$this->Documento.",
-            FechaNacimiento =".$this->FechaNacimiento.", Domicilio =".$this->Domicilio.", Email =".$this->Email."
-            where IDPersona =".$this->personaid."");
-            return ($respuesta);
-        }
-        
+      {
+         $respuesta = Conexion::conectar()->query("UPDATE Persona set  Nombre =".$this->Nombre.", Apellido =".$this->Apellido.", Telefono =".$this->Telefono.", Documento =".$this->Documento.",
+         FechaNacimiento =".$this->FechaNacimiento.", Domicilio =".$this->Domicilio.", Email =".$this->Email."
+         where IDPersona =".$this->personaid."");
+         return ($respuesta);
+      }
+       
         //Listado de personas
         static function mostrarPersonas()
         {
