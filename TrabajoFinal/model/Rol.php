@@ -14,6 +14,12 @@ Class Rol{
     }
     //Get/Set
 
+    public function getIDRol(){
+        return $this->IDRol;
+    }
+    public function setIDRol($id){
+        $this->IDRol = $id;
+    }
     public function getDescripcion(){
         return $this->Descripcion;
     }
@@ -41,7 +47,13 @@ Class Rol{
     }
 
     //ListarRol
-
+    static function findByID($id){
+        return (Conexion::conectar()->query("SELECT * FROM Rol WHERE IDRol = ".$id));    
+    }    
+    
+    static function listarEmpresa($where){
+      return (Conexion::conectar()->query("SELECT * FROM Rol ".$where));
+    }
     static function listaRol(){
         $rta = Conexion::conectar()->query("SELECT *FROM Rol");
         return ($rta);
