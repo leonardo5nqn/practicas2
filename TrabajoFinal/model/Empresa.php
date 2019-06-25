@@ -15,6 +15,13 @@ function __construct()
 {
 }
 //Get/Set atributos
+public function getIDEmpresa(){
+    return $this->IDEmpresa;
+}
+public function setIDEmpresa($Id){
+    $this->IDEmpresa = $Id;
+}
+
 public function getRazonSocial(){
     return $this->razonSocial;
 }
@@ -43,29 +50,32 @@ public function setTelefono($tel){
 
 //Alta
 
-static function insert(){
+function insert(){
     $rta = Conexion::conectar()->query("INSERT INTO Empresa (IDEmpresa, razonSocia, Cuit, Direccion, Telefono ) 
     values (".$this->IDEmpresa.",".$this->razonSocial.",".$this->Cuit.",".$this->Direccion.",".$this->Telefono."");
     return ($rta);
 }
 //Baja
-static function delet(){
+function delet(){
     $rta = Conexion::conectar()->query("DELETE FROM Empresa where IDEmpresa =".$this->IDEmpresa."");
     return ($rta);
 }
 
 //Modificación
-static function update(){
-    $rta = Conexion::conectar()->query("UPDATE Empresa set razonSocial =".$this->razonSocial.", Cuit =".$this->Cuit.", Direccion =".$this->Direccion.", Telefono =".$this->Telefono."");
+function update(){
+    $rta = Conexion::conectar()->query("UPDATE Empresa set razonSocial =".$this->razonSocial.", Cuit =".$this->Cuit.", Direccion =".$this->Direccion.", Telefono =".$this->Telefono.",
+     where IDEmpresa =".$this->IDEmpresa."");
     return ($rta);
 
     
 }
+static function findByID($id){
+    return (Conexion::conectar()->query("SELECT * FROM Empresa WHERE IDEmpresa = ".$id));    
+}    
 
-
-
-
-
+static function listarEmpresa($where){
+  return (Conexion::conectar()->query("SELECT * FROM Empresa ".$where));
+}
 
 }
 
