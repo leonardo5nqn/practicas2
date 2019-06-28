@@ -9,14 +9,18 @@ class Empleado {
     private $PersonaID;
 
     //Constructor
-    function __construct()
+    function __construct($IDEmpleado, $fechaIngreso, $PersonaID)
     {
+        $this->setIDEmpleado($IDEmpleado);
+        $this->setIngreso($fechaIngreso);
+        $this->setIDPersona($PersonaID);
     }
     //Get/Set
 
     public function getIDEmpleado(){
         return $this->IDEmpleado;
     }
+    
     public function setIDEmpleado($id){
         $this->IDEmpleado = $id;
     }
@@ -25,6 +29,12 @@ class Empleado {
     }
     public function setIngreso($ingreso){
         $this->fechaIngreso = $ingreso;
+    }
+    public function getIDPersona(){
+        return $this->PersonaID;
+    }
+    public function setIDPersona($id){
+        $this->PersonaID = $id;
     }
 
     //Alta
