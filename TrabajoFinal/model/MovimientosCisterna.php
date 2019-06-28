@@ -15,14 +15,14 @@ class MovimientoCisterna
     //constructor
     public function __construct($_movimientoid, $_playeroid, $_fechahora,$_litros,$_tipoCargaid,$_cisternaid,$_porcentaje,$_pvcid )
    {
-      $this->movimientoid = $_movimientoid;
-      $this->playeroid = $_playeroid;
-      $this->fechahora = $_fechahora;
-      $this->litros = $_litros;
-      $this->tipoCargaid = $_tipoCargaid;
-      $this->cisternaid = $_cisternaid;
+      $this->setMovimientoid($_movimientoid);
+      $this->setPlayeroid($_playeroid);
+      $this->setFechahora($_fechahora);
+      $this->setLitros($_litros);
+      $this->setTipoCargaid($_tipoCargaid);
+      $this->setCisternaid($_cisternaid);
       $this->porcentaje = $_porcentaje;
-      $this->pvcid = $_pvcid;
+      $this->setPvcid($_pvcid);
    }
     
     //metodos get y set movimientoid
@@ -30,7 +30,7 @@ class MovimientoCisterna
     {
       return $this->movimientoid;
     }
-    private function setPlayeroid($id)
+    private function setMovimientoid($id)
     {
       $this->movimientoid = $id;
     }
