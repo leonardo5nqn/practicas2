@@ -11,40 +11,46 @@ private $Direccion;
 private $Telefono;
 
 //Constructor vacio
-function __construct()
+function __construct($IDEmpresa, $razonSocial, $Cuit, $Direccion, $Telefono)
 {
+    $this->setIDEmpresa($IDEmpresa);
+    $this->setRazonsocial($razonSocial);
+    $this->setCuit($Cuit);
+    $this->setDireccion($Direccion);
+    $this->setTelefono($Telefono);
+
 }
 //Get/Set atributos
 public function getIDEmpresa(){
     return $this->IDEmpresa;
 }
-public function setIDEmpresa($Id){
+private function setIDEmpresa($Id){
     $this->IDEmpresa = $Id;
 }
 
 public function getRazonSocial(){
     return $this->razonSocial;
 }
-public function setRazonsocial($rSocial){
+private function setRazonsocial($rSocial){
     $this->razonSocial = $rSocial;
 }
 public function getCuit(){
     return $this->Cuit;
 }
-public function setCuit($setcuit){
+private function setCuit($setcuit){
     $this->Cuit=$setcuit;
 }
 public function getDireccion(){
     return $this->Direccion;
 }
-public function setDireccion($dire){
+private function setDireccion($dire){
     $this->Direccion=$dire;
 }
 
 public function getTelefono(){
     return $this->Telefono;
 }
-public function setTelefono($tel){
+private function setTelefono($tel){
     $this->Telefono=$tel;
 } 
 
