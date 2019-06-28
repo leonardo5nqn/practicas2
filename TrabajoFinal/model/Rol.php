@@ -8,23 +8,24 @@ Class Rol{
     private $Descripcion;
 
     //constructor
-    function __construct()
+    function __construct($IDRol, $Descripcion)
     {
-        
+        $this->setIDRol($IDRol);
+        $this->setDescripcion($Descripcion);
     }
     //Get/Set
 
     public function getIDRol(){
         return $this->IDRol;
     }
-    public function setIDRol($id){
+    private function setIDRol($id){
         $this->IDRol = $id;
     }
     public function getDescripcion(){
         return $this->Descripcion;
     }
 
-    public function setDescripcion($descp){
+    private function setDescripcion($descp){
         $this->Descripcion = $descp;
     }
 
@@ -53,11 +54,14 @@ Class Rol{
     
     static function listarEmpresa($where){
       return (Conexion::conectar()->query("SELECT * FROM Rol ".$where));
+      
     }
     static function listaRol(){
         $rta = Conexion::conectar()->query("SELECT *FROM Rol");
-        return ($rta);
+        return ($rta);        
     }
+
+    
 
     
 }
