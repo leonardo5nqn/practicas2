@@ -29,7 +29,7 @@
         {
             return $this->usuario;
         }
-        public function setUsuario($us)
+        private function setUsuario($us)
         {
             $this->usuario = $us;
         }
@@ -47,6 +47,10 @@
         public function getIDUsuario()
         {
             return $this->idUsuario;
+        }
+        public function setIDUsuario($id)
+        {
+            $this->idUsuario = $id;
         }
         
         //metodos get y set idPersona
