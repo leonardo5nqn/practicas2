@@ -15,11 +15,11 @@
         //constructor
         public function __construct($_usuario, $_password, $_idUsuario,$_idPersona,$_idRol,$_huella)
      {
-      $this->usuario = $_usuario;
-      $this->password = $_password;
-      $this->idUsuario = $_idUsuario;
-      $this->idPersona = $_idPersona;
-      $this->idRol = $_idRol;
+      $this->setUsuario($_usuario);
+      $this->setPassword($_password);
+      $this->setIDUsuario($_idUsuario);
+      $this->setidPersona($_idPersona);
+      $this->setidRol($_idRol);
       $this->huella = $_huella;
       
      }
