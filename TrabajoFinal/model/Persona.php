@@ -32,6 +32,10 @@ class Persona
      {
         return $this->personaid;
      }
+     private function setpersonaid($PersonaId)
+     {
+      $this->personaid = $PersonaId;
+     }
 
      //metodos get y set nombre
      public function getNombre()
