@@ -11,15 +11,20 @@ class Vehiculo
 {
     //CREO LAS VARIABLES
     private $idVehiculo;
-    private $Patente;
-    private $Marca;
-    private $Modelo;
-    private $Color;    
-    private $TipoVehiculo;
+    private $_patentete;
+    private $_marcaca;
+    private $_modeloo;
+    private $_coloror;    
+    private $_tipoVehiculoculo;
 
     //CREO EL CONSTRUCTOR DEL OBJETO VEHICULO
-    function __construct(){
-
+    function __construct($_idVehiculo, $_patente, $_marca, $_modelo, $_color, $_tipoVehiculo){
+        $this->idVehiculo=$_idVehiculo;
+        $this->Patente=$_patente;
+        $this->Marca=$_marca;
+        $this->Modelo=$_modelo;
+        $this->Color=$_color;
+        $this->TipoVehiculo=$_tipoVehiculo;
     }
     //---------------------------
     //CREO LOS GETTER Y SETTERS
@@ -28,43 +33,43 @@ class Vehiculo
     public function getIdVehiculo()(
         return $this->idVehiculo;
     )
-    public function setIdVehiculo($idVehi){
-        $this ->idVehiculo =$idVehi;
+    public function setIdVehiculo($_idVehiculo){
+        $this ->idVehiculo =$_idVehiculo;
     }
     //GET y SET Patente
     public function getNumPatente(){
         return $this->Patente;
     }
-    public function setNumPatente($paten){
-        $this->Patente=$patente;
+    public function setNumPatente($_patente){
+        $this->Patente=$_patente;
     }
     //GET Y SET Marca
     public function getMarca (){
         return $this->Marca;
     }
-    public function setMarca ($Mar){
-        $this->Marca=$Mar;
+    public function setMarca ($_marca){
+        $this->Marca=$_marca;
     }
     //GET Y SET Modelo
     public function getModelo(){
         return $this->Modelo;
     }
-    public function setModelo ($Model){
-        $this->Modelo=$Model;
+    public function setModelo ($_modelo){
+        $this->Modelo=$_modelo;
     }
     //GET Y SET Color
     public function getColor(){
         return $this->Color;
     }
-    public function setColor($Col){
-        $this->Color=$Col;
+    public function setColor($_color){
+        $this->Color=$_color;
     }
     //GET Y SET TipoVehiculo
     public function getTipoVehiculo (){
         return $this->TipoVehiculo;
     }
-    public function setTipoVehiculo ($TipoVehi){
-        $this->TipoVehiculo=$TipoVehi;
+    public function setTipoVehiculo ($_tipoVehiculo){
+        $this->TipoVehiculo=$_tipoVehiculo;
     }
 
     //--------------------------------------------------------------------------------
@@ -74,7 +79,7 @@ class Vehiculo
     //-------------------
     //CREO EL INSERT
     //--------------------
-    static function insertVehiculo()
+    function insertVehiculo()
     {
         $resultado = Conexion::conectar()->query("INSERT INTO Vehiculo (Patente, Marca, Modelo, Color, TipoVehiculo)
         values (".$this->Patente", ".$this->Marca", ".$this->Modelo", ".$this->Color", ".$this->TipoVehiculo")");
@@ -85,7 +90,7 @@ class Vehiculo
     //----------------------------
     //ELIMINO UN VEHICULO POR ID_VEHICULO
     //----------------------------
-    static function deleteVehiculo () {
+    function deleteVehiculo () {
 
         $resultado=Conexion::conectar()->query("DELETE from Vehiculo where IDVehiculo = ".$this->idVehiculo"");
         
@@ -95,7 +100,7 @@ class Vehiculo
     //-----------------------------
     //MODIFICO UN VEHICULO
     //-----------------------------
-    static function updateVehiulo(){
+    function updateVehiulo(){
 
         $resultado=Conexion::conectar()->query("UPDATE Vehiculo set IDVehiculo = ".$this->idVehiculo", Patente = ".$this->Patente", Marca = ".$this->Marca", Modelo = ".$this->Modelo", Color = ".$this->Color", TipoVehiculo = ".$this->TipoVehiculo"
         where IDVehiculo = ".$this->idVehiculo"");
@@ -107,7 +112,7 @@ class Vehiculo
     //OBTENGO TODOS LOS VEHICULOS
     //Lo utilizo para listar en la grilla
     //-------------------------------------
-    static function getAllVehiculos(){
+    function getAllVehiculos(){
         $resultado=Conexion::conectar()->query("SELECT * from Vehiculo");
         
         return ($resultado);
@@ -116,12 +121,18 @@ class Vehiculo
     //--------------------------------------
     //ONTENGO UN VEHICULO POR ID (FIND by ID)
     //--------------------------------------
-
+    function findByIdVehiculo ($id){
+        $resultado=Conexion::conectar()->query("SELECT * FROM Vehiculo WHERE IDVehiculo = ".$id);
+        return ($resultado);
+    }
 
     //-------------------------------------
-    //FIND ALL + WHERE
+    //FIND ALL + WHERE (envio una condicion por parametro)
     //----------------------------------------
-
+    function findAllWhereVehiculo ($where){
+        $resultado= Conexion::conectar()->query("SELECT * FROM Vehiculo ".$where);
+        return ($resultado);
+    }
 
 }
 ?>

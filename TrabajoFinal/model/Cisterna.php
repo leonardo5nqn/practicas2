@@ -84,7 +84,7 @@
         //OBTENGO TODAS LAS CISTERNAS
         //------------------------------------
         function findAllCistera(){
-            $resultado=Conexion::Conectar()->query("SELECT * FROM Cisterna" );
+            $resultado=Conexion::conectar()->query("SELECT * FROM Cisterna" );
             return ($resultado);
         }
 
