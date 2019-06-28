@@ -30,6 +30,10 @@ class MovimientoCisterna
     {
       return $this->movimientoid;
     }
+    private function setPlayeroid($id)
+    {
+      $this->movimientoid = $id;
+    }
 
     //metodos get y set playeroid
     public function getPlayeroid()
