@@ -15,9 +15,27 @@ class Persona
     private $Email;
 
     //constructor
-    function __construct()
-    {
-    }
+    public function __construct($_personaid, $_Nombre, $_apellido,$_Telefono,$_documento,$_FechaNacimiento,$_Domicilio,$_Email )
+   {
+      $this->setpersonaid($_personaid);
+      $this->setNombre($_Nombre);
+      $this->setApellido($_apellido);
+      $this->setTelefono($_Telefono);
+      $this->setDoc($_documento);
+      $this->setFNacimiento($_FechaNacimiento);
+      $this->setDomicilio($_Domicilio);
+      $this->setEmail($_Email);
+   }
+
+     //metodos get y set nombre
+     public function getpersonaid()
+     {
+        return $this->personaid;
+     }
+     private function setpersonaid($PersonaId)
+     {
+      $this->personaid = $PersonaId;
+     }
 
      //metodos get y set nombre
      public function getNombre()
@@ -61,12 +79,12 @@ class Persona
         $this->Documento = $doc;
      }
      //metodos get y set fecha de nacimiento
-     public function getFdeNacimiento()
+     public function getFNacimiento()
      {
         return $this->FechaNacimiento;
      }
   
-     public function setFdeNacimiento($fdn)
+     public function setFNacimiento($fdn)
      {
         $this->FechaNacimiento = $fdn;
      }
@@ -92,33 +110,38 @@ class Persona
      }
 
      //ingresar persona
-     static function insert()
+     function insert()
       {
          $respuesta = Conexion::conectar()->query("INSERT INTO Persona (IDPersona, Nombre, Apellido, Telefono, Documento, FechaNacimiento, Domicilio, Email)
          values (".$this->personaid.",".$this->Nombre.",".$this->Apellido.",".$this->Telefono.",".$this->Documento.",".$this->FechaNacimiento.",".$this->Domicilio.",".$this->Email.")");
          return ($respuesta);    
       }  
      //eliminar persona
-     static function delete()
+     function delete()
       {
          $respuesta = Conexion::conectar()->query("DELETE FROM Persona where IDPersona =".$this->personaid."");
          return ($respuesta);
       }
 
      //editar persona
-     static function update()
+      function update()
       {
          $respuesta = Conexion::conectar()->query("UPDATE Persona set  Nombre =".$this->Nombre.", Apellido =".$this->Apellido.", Telefono =".$this->Telefono.", Documento =".$this->Documento.",
          FechaNacimiento =".$this->FechaNacimiento.", Domicilio =".$this->Domicilio.", Email =".$this->Email."
          where IDPersona =".$this->personaid."");
          return ($respuesta);
       }
+      static function findByID($id)
+      {
+         return (Conexion::conectar()->query("SELECT * FROM Persona WHERE IDPersona = ".$id));    
+      } 
+
+      static function listarPersona($where)
+      {
+         return (Conexion::conectar()->query("SELECT * FROM Persona ".$where));
+      } 
        
-        //Listado de personas
-        static function mostrarPersonas()
-        {
-           Conexion::conectar()->query("SELECT * from Persona");
-        }
+      
 
 
 }
