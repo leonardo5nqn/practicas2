@@ -16,10 +16,10 @@
         //---------------------------
         //DEFINO EL CONSTRUCTOR
         //----------------------------
-        function __construct($Id_Solicitante,$Id_Persona,$Id_Empresa){
-            $this->IdSolicitante=$Id_Solicitante;
-            $this->IdPersona=$Id_Persona;
-            $this->IdEmpresa=$Id_Empresa;
+        function __construct($_idSolcitante,$_idPersona,$_idEmpresa){
+            $this->IdSolicitante=$_idSolcitante;
+            $this->IdPersona=$_idPersona;
+            $this->IdEmpresa=$_idEmpresa;
         }
 
         //---------------------------
@@ -30,24 +30,24 @@
         public function getIdSolicitante(){
             return $this->IdSolicitante;
         }
-        public function setIdSolicitante($Id_Solicitante){
-            $this->IdSolicitante=$Id_Solicitante;
+        public function setIdSolicitante($_idSolcitante){
+            $this->IdSolicitante=$_idSolcitante;
         }
 
         //GET Y SET IdPersona}
         public function getIdPersona(){
             return $this->getIdPersona;
         }
-        public function setIdPersona($Id_Persona){
-            $this->IdPersona=$Id_Persona;
+        public function setIdPersona($_idPersona){
+            $this->IdPersona=$_idPersona;
         }
 
         //GET Y SET IdEmpresa
         public function getIdEmpresa(){
             return $this->getIdEmpresa;
         }
-        public function setIdEmpresa($Id_Empresa){
-            $this->IdEmpresa=$Id_Empresa;
+        public function setIdEmpresa($_idEmpresa){
+            $this->IdEmpresa=$_idEmpresa;
         }
 
         //--------------------------------------------------------------------------------
@@ -57,36 +57,49 @@
         //-------------------------
         //FUNCION Agrego Un solicitante 
         //------------------------
-        public function SolicitanteInsert (){
-            
+        function insertSolicicitante (){
+            $resultado = Conexion::conectar()->query("INSERT INTO Solicitante(IDSolicitante,PersonaID,EmpresaID) VALUES ("$this->IdSolicitante.",".$this->IdPersona.",".$this->IdEmpresa.")");
+            return($resultado);
         }
 
         //----------------------------
         //ELIMINO UN Solcitante POR ID
         //----------------------------
-        public function SolicitanteDelete(){
-
+        function deleteSolicitante(){
+            $resultado=Conexion::conectar()->query("DELETE FROM Solicitante WHERE IDSolicitante=".$this->IDSolicitante."");
+            return($resultado); 
         }
 
         //------------------------------------
         //modifico un Solicitante
         //------------------------------------
-        public function SolicitanteUpdate(){
-
+        function updateSolicitante(){
+            $resultado = Conexion::conectar()->query("UPDATE Solcitante SET IDSolicitante =".$this->IdSolcitante.",PersonaID=".$this->IDPersona.",EmpresaID=".$this->IDEmpresa."");
+            return($resultado);
         }
 
         //----------------------------------
         //OBTENGO/Listo TODAS Los Solicitantes
         //------------------------------------
+        function findAllSolicitante(){
+            $resultado = Conexion::conectar()->query("SELECT * FROM Solicitante");
+            return ($resultado);
+        }
 
         //--------------------------------------
         //ONTENGO UN VEHICULO POR ID (FIND by ID)
         //--------------------------------------
-
+        function findByIdSolicitante($id){
+            $resultado = Conexion::conectar()->query("SELECT * FROM Solicitante WHERE IDSolicitante = ".$id);
+            return ($resultado);            
+        }
 
         //-------------------------------------
         //FIND ALL + WHERE
         //----------------------------------------
-
+        function findAllWhereSolicitante ($where){
+            $resultado = Conexion::conectar()->query("SELECT * FROM Solicitante ".$where);
+            return ($resultado);
+        }
     }
 ?>
