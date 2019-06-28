@@ -19,8 +19,10 @@
         //---------------------------
         //DEFINO EL CONSTRUCTOR
         //----------------------------
-        function __construct(){
-
+        function __construct($_idCisterna, $_totalLitros, $_nombreCisterna){
+            $this->IdCisterna = $_idCisterna;
+            $this->TotalLitros = $_totalLitros;
+            $this->NombreCisterna = $_nombreCisterna;
         }
 
         //---------------------------
@@ -31,41 +33,41 @@
         public function getIdCisterna(){
             return $this->IdCisterna;
         }
-        public function setIdCisterna($IdCister){
-            $this->IdCisterna=$IdCister;
+        public function setIdCisterna($_idCisterna){
+            $this->IdCisterna=$_idCisterna;
         }
 
         //GET Y SET TotalLitros
         public function getTotalLitros (){
             return $this->TotalLitros;
         }
-        public function setTotalLitros ($TotalLit){
-            $this->TotalLitros=$TotalLit;
+        public function setTotalLitros ($_totalLitros){
+            $this->TotalLitros=$_totalLitros;
         }
 
         //GET Y SET NombreCisterna
         public function getNombreCisterna(){
             return $this->NombreCisterna;
         }
-        public function setNombreCisterna($nomCister){
-            $this->NombreCisterna=$nomCister;
+        public function setNombreCisterna($_nombreCisterna){
+            $this->NombreCisterna=$_nombreCisterna;
         }
 
         //--------------------------------------------------------------------------------
-        //CREO LAS FUNCIONES DE ACCESO STATIC --------------------------------------------
+        //CREO LAS FUNCIONES --------------------------------------------------
         //--------------------------------------------------------------------------------
 
         //-------------------------
         //FUNCION INSERT - No agregue el ID Cisterna porque se autoincrementa
         //------------------------
-        static function insertCisterna(){
-            $resultado=Conexion::conectar()->query("INSERT INTO Cisterna(IDCisterna,TotalLitros,NombreCisterna) VALUES(".$this->TotalLitros.",".$this->NombreCisterna.")");
+        function insertCisterna(){
+            $resultado=Conexion::conectar()->query("INSERT INTO Cisterna(IDCisterna,TotalLitros,NombreCisterna) VALUES("$this->IdCisterna.",".$this->TotalLitros.",".$this->NombreCisterna.")");
             return ($resultado);
         }
         //----------------------------
         //ELIMINO UNA CISTERNA POR ID_VEHICULO
         //----------------------------
-        static function deleteCisterna(){
+        function deleteCisterna(){
             $resultado= Conexion::conectar()->query("DELETE FROM Cisterna WHERE IDCisterna=".$this->IdCisterna."");
             return ($resultado);
         }   
@@ -73,7 +75,7 @@
         //------------------------------------
         //modifico una cisterna
         //------------------------------------
-        static function updateCisterna(){
+        function updateCisterna(){
             $resultado=Conexion::conectar()->query("UPDATE Cisterna SET IDCisterna=".$this->IdCisterna.",TotalLitros=".$this->TotalLitros.",NombreCisterna".$this->NombreCisterna."");
             return($resultado);
         }
@@ -81,20 +83,26 @@
         //----------------------------------
         //OBTENGO TODAS LAS CISTERNAS
         //------------------------------------
-        static function findAllCistera(){
-            $resultado=Conexion::Conectar()->query("SELECT * FROM Cisterna");
+        function findAllCistera(){
+            $resultado=Conexion::Conectar()->query("SELECT * FROM Cisterna" );
             return ($resultado);
         }
 
         //--------------------------------------
         //ONTENGO UN VEHICULO POR ID (FIND by ID)
         //--------------------------------------
-
+        function findByIDCisterna($id){
+            $resultado=Conexion::conectar()->query("SELECT * FROM Cisterna WHERE IDCisterna = ".$id);
+            return($resultado);
+        }
 
         //-------------------------------------
         //FIND ALL + WHERE
         //----------------------------------------
-
+        function findAllWhereCisterna($where){
+            $resultado=Conexion::conectar()->query("SELECT * FROM Cisterna ".$where);
+            return ($resultado);
+        }
 
     }
 ?>
