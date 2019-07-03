@@ -17,20 +17,24 @@ class Persona
     //constructor
     public function __construct($_personaid, $_Nombre, $_apellido,$_Telefono,$_documento,$_FechaNacimiento,$_Domicilio,$_Email )
    {
-      $this->personaid = $_personaid;
-      $this->Nombre = $_Nombre;
-      $this->Apellido = $_apellido;
-      $this->Telefono = $_Telefono;
-      $this->Documento = $_documento;
-      $this->FechaNacimiento = $_FechaNacimiento;
-      $this->Domicilio = $_Domicilio;
-      $this->Email = $_Email;
+      $this->setpersonaid($_personaid);
+      $this->setNombre($_Nombre);
+      $this->setApellido($_apellido);
+      $this->setTelefono($_Telefono);
+      $this->setDoc($_documento);
+      $this->setFNacimiento($_FechaNacimiento);
+      $this->setDomicilio($_Domicilio);
+      $this->setEmail($_Email);
    }
 
      //metodos get y set nombre
      public function getpersonaid()
      {
         return $this->personaid;
+     }
+     private function setpersonaid($PersonaId)
+     {
+      $this->personaid = $PersonaId;
      }
 
      //metodos get y set nombre
