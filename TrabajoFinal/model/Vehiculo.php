@@ -33,42 +33,42 @@ class Vehiculo
     public function getIdVehiculo()(
         return $this->idVehiculo;
     )
-    public function setIdVehiculo($_idVehiculo){
+    private function setIdVehiculo($_idVehiculo){
         $this ->idVehiculo =$_idVehiculo;
     }
     //GET y SET Patente
     public function getNumPatente(){
         return $this->Patente;
     }
-    public function setNumPatente($_patente){
+    private function setNumPatente($_patente){
         $this->Patente=$_patente;
     }
     //GET Y SET Marca
     public function getMarca (){
         return $this->Marca;
     }
-    public function setMarca ($_marca){
+    private function setMarca ($_marca){
         $this->Marca=$_marca;
     }
     //GET Y SET Modelo
     public function getModelo(){
         return $this->Modelo;
     }
-    public function setModelo ($_modelo){
+    private function setModelo ($_modelo){
         $this->Modelo=$_modelo;
     }
     //GET Y SET Color
     public function getColor(){
         return $this->Color;
     }
-    public function setColor($_color){
+    private function setColor($_color){
         $this->Color=$_color;
     }
     //GET Y SET TipoVehiculo
     public function getTipoVehiculo (){
         return $this->TipoVehiculo;
     }
-    public function setTipoVehiculo ($_tipoVehiculo){
+    private function setTipoVehiculo ($_tipoVehiculo){
         $this->TipoVehiculo=$_tipoVehiculo;
     }
 

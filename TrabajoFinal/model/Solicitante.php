@@ -30,7 +30,7 @@
         public function getIdSolicitante(){
             return $this->IdSolicitante;
         }
-        public function setIdSolicitante($_idSolcitante){
+        private function setIdSolicitante($_idSolcitante){
             $this->IdSolicitante=$_idSolcitante;
         }
 
@@ -38,7 +38,7 @@
         public function getIdPersona(){
             return $this->getIdPersona;
         }
-        public function setIdPersona($_idPersona){
+        private function setIdPersona($_idPersona){
             $this->IdPersona=$_idPersona;
         }
 
@@ -46,7 +46,7 @@
         public function getIdEmpresa(){
             return $this->getIdEmpresa;
         }
-        public function setIdEmpresa($_idEmpresa){
+        private function setIdEmpresa($_idEmpresa){
             $this->IdEmpresa=$_idEmpresa;
         }
 

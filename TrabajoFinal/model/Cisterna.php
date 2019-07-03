@@ -33,7 +33,7 @@
         public function getIdCisterna(){
             return $this->IdCisterna;
         }
-        public function setIdCisterna($_idCisterna){
+        private function setIdCisterna($_idCisterna){
             $this->IdCisterna=$_idCisterna;
         }
 
@@ -41,7 +41,7 @@
         public function getTotalLitros (){
             return $this->TotalLitros;
         }
-        public function setTotalLitros ($_totalLitros){
+        private function setTotalLitros ($_totalLitros){
             $this->TotalLitros=$_totalLitros;
         }
 
@@ -49,19 +49,22 @@
         public function getNombreCisterna(){
             return $this->NombreCisterna;
         }
-        public function setNombreCisterna($_nombreCisterna){
+        private function setNombreCisterna($_nombreCisterna){
             $this->NombreCisterna=$_nombreCisterna;
         }
 
         //--------------------------------------------------------------------------------
         //CREO LAS FUNCIONES --------------------------------------------------
-        //--------------------------------------------------------------------------------
+        //------------------------  --------------------------------------------------------
+
+        //TAreas
+        // retornar objetos en php
+        //mejoras las clase, cister, solicitante, vehiculo.
 
         //-------------------------
         //FUNCION INSERT - No agregue el ID Cisterna porque se autoincrementa
         //------------------------
         function insertCisterna(){
-            $resultado=Conexion::conectar()->query("INSERT INTO Cisterna(IDCisterna,TotalLitros,NombreCisterna) VALUES("$this->IdCisterna.",".$this->TotalLitros.",".$this->NombreCisterna.")");
             return ($resultado);
         }
         //----------------------------
