@@ -103,31 +103,39 @@ class MovimientoCisterna
      function insert()
       {
          $respuesta = Conexion::conectar()->query("INSERT INTO MovimientoCisterna (IDMovimiento, IDPlayero, FechaHora , Litros, IDTipoCarga, IDCisterna, Porcentaje, IDPvc)
-         values (".$this->movimientoid.",".$this->playeroid.",".$this->fechahora.",".$this->litros.",".$this->tipocargaid.",".$this->cisternaid.",".$this->porcentaje.",".$this->pvcid.")");
+         values (".$this->getMovimientoid().",".$this->getPlayeroid().",".$this->getFechaHora().",".$this->getLitros().",".$this->getTipoCargaid().",".$this->getCisternaid().",".$this->porcentaje.",".$this->getPvcid().")");
          return ($respuesta);    
       }  
      //eliminar MovimientosCisterna
      function delete()
       {
-         $respuesta = Conexion::conectar()->query("DELETE FROM MovimientoCisterna where IDMovimiento =".$this->movimientoid."");
+         $respuesta = Conexion::conectar()->query("DELETE FROM MovimientoCisterna where IDMovimiento =".$this->getMovimientoid()."");
          return ($respuesta);
       }  
      //editar MovimientosCisterna 
     function update()
       {
-         $respuesta = Conexion::conectar()->query("UPDATE MovimientoCisterna set  IDPlayero =".$this->playeroid.", FechaHora =".$this->fechahora.", Litros =".$this->litros.", IDTipoCarga =".$this->tipocargaid.",
-         IDCisterna =".$this->cisternaid.", Porcentaje =".$this->porcentaje.", IDPvc =".$this->pvcid."
-         where IDMovimiento =".$this->movimientoid."");
+         $respuesta = Conexion::conectar()->query("UPDATE MovimientoCisterna set  IDPlayero =".$this->getPlayeroid().", FechaHora =".$this->getFechaHora().", Litros =".$this->getLitros().", IDTipoCarga =".$this->getTipoCargaid().",
+         IDCisterna =".$this->getCisternaid().", Porcentaje =".$this->porcentaje.", IDPvc =".$this->getPvcid()."
+         where IDMovimiento =".$this->getMovimientoid()."");
          return ($respuesta);
       }
       static function findByID($id)
       {
-        return (Conexion::conectar()->query("SELECT * FROM MovimientoCisterna WHERE IDMovimiento = ".$id));    
+        $respuesta = Conexion::conectar()->query("SELECT * FROM MovimientoCisterna WHERE IDMovimiento = ".$id);
+        while ($fila = $respuesta -> fetch_object()){
+        $result[]= $fila; 
+      }
+      return $result[];     
       } 
 
       static function listarUsuario($where)
       {
-        return (Conexion::conectar()->query("SELECT * FROM MovimientoCisterna ".$where));
+        $respuesta = Conexion::conectar()->query("SELECT * FROM MovimientoCisterna ".$where);
+        while ($fila = $respuesta -> fetch_object()){
+        $result[]= $fila; 
+      }
+      return $result[]; 
       }
 
 }
