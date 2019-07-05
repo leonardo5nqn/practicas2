@@ -1,6 +1,7 @@
 <?php
     //LLAMO A LA CLASE CONEXION
     require_once ("../utils/conexion.php");
+    require_once ("../model/Persona.php");
 
     class Usuario extends Persona
     {
@@ -77,31 +78,39 @@
         //Crear nuevo usuario
         function insert()
         {
-            $respuesta = Conexion::conectar()->query("INSERT INTO Usuario (PersonaID, RolID, NombreUsuario, Contrasena, Huella)
-            values (".$this->idUsuario.",".$this->idRol.",".$this->usuario.",".$this->password." ,".$this->huella." )");
+            $respuesta = Conexion::conectar()->query("INSERT INTO Usuario (IDUsuario, PersonaID, RolID, NombreUsuario, Contrasena, Huella)
+            values (".$this->getidPersona().",".$this->getIDUsuario().",".$this->getidRol().",".$this->getIDUsuario().",".$this->getPassword()." ,".$this->huella." )");
             return ($respuesta);
         }
         //eliminar usuario
         function delete()
         {
-            $respuesta = Conexion::conectar()->query("DELETE FROM Usuario where IDUsuario =".$this->idUsuario."");
+            $respuesta = Conexion::conectar()->query("DELETE FROM Usuario where IDUsuario =".$this->getIDUsuario()."");
             return ($respuesta);
         }
         //editar usuario
         function update()
         {
-            $respuesta = Conexion::conectar()->query("UPDATE Usuario set  NombreUsuario =".$this->usuario.", Contrasena =".$this->password." 
-            where IDUsuario =".$this->idUsuario."");
+            $respuesta = Conexion::conectar()->query("UPDATE Usuario set  NombreUsuario =".$this->getUsuario().", Contrasena =".$this->getPassword()." 
+            where IDUsuario =".$this->getIDUsuario()."");
             return ($respuesta);
         }
 
         static function findByID($id){
-            return (Conexion::conectar()->query("SELECT * FROM Usuario WHERE IDUsuario = ".$id));    
+            $respuesta = Conexion::conectar()->query("SELECT * FROM Usuario WHERE IDUsuario = ".$id);
+            while ($fila = $respuesta -> fetch_object()){
+                $result[]= $fila; 
+            }
+            return $result[];    
         } 
 
         static function listarUsuario($where)
         {
-            return (Conexion::conectar()->query("SELECT * FROM Usuario ".$where));
+            $respuesta = Conexion::conectar()->query("SELECT * FROM Usuario ".$where);
+            while ($fila = $respuesta -> fetch_object()){
+                $result[]= $fila; 
+            }
+            return $result[];  
         }
 
            /* static function validoUsuario($usuario,$password){
