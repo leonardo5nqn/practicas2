@@ -113,32 +113,40 @@ class Persona
      function insert()
       {
          $respuesta = Conexion::conectar()->query("INSERT INTO Persona (IDPersona, Nombre, Apellido, Telefono, Documento, FechaNacimiento, Domicilio, Email)
-         values (".$this->personaid.",".$this->Nombre.",".$this->Apellido.",".$this->Telefono.",".$this->Documento.",".$this->FechaNacimiento.",".$this->Domicilio.",".$this->Email.")");
+         values (".$this->getpersonaid().",".$this->getNombre().",".$this->getApellido().",".$this->getTelefono().",".$this->getDoc().",".$this->getFNacimiento().",".$this->getDomicilio().",".$this->getEmail().")");
          return ($respuesta);    
       }  
      //eliminar persona
      function delete()
       {
-         $respuesta = Conexion::conectar()->query("DELETE FROM Persona where IDPersona =".$this->personaid."");
+         $respuesta = Conexion::conectar()->query("DELETE FROM Persona where IDPersona =".$this->getpersonaid()."");
          return ($respuesta);
       }
 
      //editar persona
       function update()
       {
-         $respuesta = Conexion::conectar()->query("UPDATE Persona set  Nombre =".$this->Nombre.", Apellido =".$this->Apellido.", Telefono =".$this->Telefono.", Documento =".$this->Documento.",
-         FechaNacimiento =".$this->FechaNacimiento.", Domicilio =".$this->Domicilio.", Email =".$this->Email."
-         where IDPersona =".$this->personaid."");
+         $respuesta = Conexion::conectar()->query("UPDATE Persona set  Nombre =".$this->getNombre().", Apellido =".$this->getApellido().", Telefono =".$this->getTelefono().", Documento =".$this->getDoc().",
+         FechaNacimiento =".$this->getFNacimiento().", Domicilio =".$this->getDomicilio().", Email =".$this->getEmail()."
+         where IDPersona =".$this->getpersonaid()."");
          return ($respuesta);
       }
       static function findByID($id)
       {
-         return (Conexion::conectar()->query("SELECT * FROM Persona WHERE IDPersona = ".$id));    
+         $respuesta = Conexion::conectar()->query("SELECT * FROM Persona WHERE IDPersona = ".$id);  
+         while ($fila = $respuesta -> fetch_object()){
+            $result[]= $fila; 
+        }
+        return $result[];  
       } 
 
       static function listarPersona($where)
       {
-         return (Conexion::conectar()->query("SELECT * FROM Persona ".$where));
+         $respuesta = Conexion::conectar()->query("SELECT * FROM Persona ".$where);
+         while ($fila = $respuesta -> fetch_object()){
+            $result[]= $fila; 
+        }
+        return $result[];
       } 
        
       
