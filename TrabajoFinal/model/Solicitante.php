@@ -58,7 +58,7 @@
         //FUNCION Agrego Un solicitante 
         //------------------------
         function insertSolicicitante (){
-            $resultado = Conexion::conectar()->query("INSERT INTO Solicitante(IDSolicitante,PersonaID,EmpresaID) VALUES ("$this->IdSolicitante.",".$this->IdPersona.",".$this->IdEmpresa.")");
+            $resultado = Conexion::conectar()->query("INSERT INTO Solicitante(IDSolicitante,PersonaID,EmpresaID) VALUES ("$this->getIdSolicitante.",".$this->getIdPersona.",".$this->getIdEmpresa.")");
             return($resultado);
         }
 
@@ -66,7 +66,7 @@
         //ELIMINO UN Solcitante POR ID
         //----------------------------
         function deleteSolicitante(){
-            $resultado=Conexion::conectar()->query("DELETE FROM Solicitante WHERE IDSolicitante=".$this->IDSolicitante."");
+            $resultado=Conexion::conectar()->query("DELETE FROM Solicitante WHERE IDSolicitante=".$this->getIdSolicitante."");
             return($resultado); 
         }
 
@@ -74,7 +74,7 @@
         //modifico un Solicitante
         //------------------------------------
         function updateSolicitante(){
-            $resultado = Conexion::conectar()->query("UPDATE Solcitante SET IDSolicitante =".$this->IdSolcitante.",PersonaID=".$this->IDPersona.",EmpresaID=".$this->IDEmpresa."");
+            $resultado = Conexion::conectar()->query("UPDATE Solcitante SET IDSolicitante =".$this->getIdSolicitante.",PersonaID=".$this->getIdPersona.",EmpresaID=".$this->getIdEmpresa."");
             return($resultado);
         }
 

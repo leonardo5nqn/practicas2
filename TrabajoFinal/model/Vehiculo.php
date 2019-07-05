@@ -82,7 +82,7 @@ class Vehiculo
     function insertVehiculo()
     {
         $resultado = Conexion::conectar()->query("INSERT INTO Vehiculo (Patente, Marca, Modelo, Color, TipoVehiculo)
-        values (".$this->Patente", ".$this->Marca", ".$this->Modelo", ".$this->Color", ".$this->TipoVehiculo")");
+        values (".$this->getNumPatente", ".$this->getMarca", ".$this->getMarca", ".$this->getColor", ".$this->getTipoVehiculo")");
          
         return ($resultado);
     }
@@ -92,7 +92,7 @@ class Vehiculo
     //----------------------------
     function deleteVehiculo () {
 
-        $resultado=Conexion::conectar()->query("DELETE from Vehiculo where IDVehiculo = ".$this->idVehiculo"");
+        $resultado=Conexion::conectar()->query("DELETE from Vehiculo where IDVehiculo = ".$this->getIdVehiculo"");
         
         return=$resultado;
     }
@@ -102,8 +102,8 @@ class Vehiculo
     //-----------------------------
     function updateVehiulo(){
 
-        $resultado=Conexion::conectar()->query("UPDATE Vehiculo set IDVehiculo = ".$this->idVehiculo", Patente = ".$this->Patente", Marca = ".$this->Marca", Modelo = ".$this->Modelo", Color = ".$this->Color", TipoVehiculo = ".$this->TipoVehiculo"
-        where IDVehiculo = ".$this->idVehiculo"");
+        $resultado=Conexion::conectar()->query("UPDATE Vehiculo set Patente = ".$this->getNumPatente", Marca = ".$this->getMarca", Modelo = ".$this->getModelo", Color = ".$this->getColor", TipoVehiculo = ".$this->getTipoVehiculo"
+        where IDVehiculo = ".$this->getIdVehiculo"");
         
         return($resultado);
     }
