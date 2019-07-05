@@ -30,7 +30,7 @@
         public function getIdSolicitante(){
             return $this->IdSolicitante;
         }
-        public function setIdSolicitante($_idSolcitante){
+        private function setIdSolicitante($_idSolcitante){
             $this->IdSolicitante=$_idSolcitante;
         }
 
@@ -38,7 +38,7 @@
         public function getIdPersona(){
             return $this->getIdPersona;
         }
-        public function setIdPersona($_idPersona){
+        private function setIdPersona($_idPersona){
             $this->IdPersona=$_idPersona;
         }
 
@@ -46,7 +46,7 @@
         public function getIdEmpresa(){
             return $this->getIdEmpresa;
         }
-        public function setIdEmpresa($_idEmpresa){
+        private function setIdEmpresa($_idEmpresa){
             $this->IdEmpresa=$_idEmpresa;
         }
 
@@ -58,7 +58,7 @@
         //FUNCION Agrego Un solicitante 
         //------------------------
         function insertSolicicitante (){
-            $resultado = Conexion::conectar()->query("INSERT INTO Solicitante(IDSolicitante,PersonaID,EmpresaID) VALUES ("$this->IdSolicitante.",".$this->IdPersona.",".$this->IdEmpresa.")");
+            $resultado = Conexion::conectar()->query("INSERT INTO Solicitante(IDSolicitante,PersonaID,EmpresaID) VALUES ("$this->getIdSolicitante.",".$this->getIdPersona.",".$this->getIdEmpresa.")");
             return($resultado);
         }
 
@@ -66,7 +66,7 @@
         //ELIMINO UN Solcitante POR ID
         //----------------------------
         function deleteSolicitante(){
-            $resultado=Conexion::conectar()->query("DELETE FROM Solicitante WHERE IDSolicitante=".$this->IDSolicitante."");
+            $resultado=Conexion::conectar()->query("DELETE FROM Solicitante WHERE IDSolicitante=".$this->getIdSolicitante."");
             return($resultado); 
         }
 
@@ -74,7 +74,7 @@
         //modifico un Solicitante
         //------------------------------------
         function updateSolicitante(){
-            $resultado = Conexion::conectar()->query("UPDATE Solcitante SET IDSolicitante =".$this->IdSolcitante.",PersonaID=".$this->IDPersona.",EmpresaID=".$this->IDEmpresa."");
+            $resultado = Conexion::conectar()->query("UPDATE Solcitante SET IDSolicitante =".$this->getIdSolicitante.",PersonaID=".$this->getIdPersona.",EmpresaID=".$this->getIdEmpresa."");
             return($resultado);
         }
 

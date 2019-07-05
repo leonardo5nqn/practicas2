@@ -33,7 +33,7 @@
         public function getIdCisterna(){
             return $this->IdCisterna;
         }
-        public function setIdCisterna($_idCisterna){
+        private function setIdCisterna($_idCisterna){
             $this->IdCisterna=$_idCisterna;
         }
 
@@ -41,7 +41,7 @@
         public function getTotalLitros (){
             return $this->TotalLitros;
         }
-        public function setTotalLitros ($_totalLitros){
+        private function setTotalLitros ($_totalLitros){
             $this->TotalLitros=$_totalLitros;
         }
 
@@ -49,26 +49,30 @@
         public function getNombreCisterna(){
             return $this->NombreCisterna;
         }
-        public function setNombreCisterna($_nombreCisterna){
+        private function setNombreCisterna($_nombreCisterna){
             $this->NombreCisterna=$_nombreCisterna;
         }
 
         //--------------------------------------------------------------------------------
         //CREO LAS FUNCIONES --------------------------------------------------
-        //--------------------------------------------------------------------------------
+        //------------------------  --------------------------------------------------------
+
+        //TAreas
+        // retornar objetos en php
+        //mejoras las clase, cister, solicitante, vehiculo.
 
         //-------------------------
         //FUNCION INSERT - No agregue el ID Cisterna porque se autoincrementa
         //------------------------
         function insertCisterna(){
-            $resultado=Conexion::conectar()->query("INSERT INTO Cisterna(IDCisterna,TotalLitros,NombreCisterna) VALUES("$this->IdCisterna.",".$this->TotalLitros.",".$this->NombreCisterna.")");
+            $resultado = Conexion::conectar()->query("INSERT INTO Cisterna(IDCisterna,TotalLitros,NombreCisterna) VALUES ("$this->getIdCisterna.",".$this->getTotalLitros.",".$this->getNombreCisterna.")");
             return ($resultado);
         }
         //----------------------------
         //ELIMINO UNA CISTERNA POR ID_VEHICULO
         //----------------------------
         function deleteCisterna(){
-            $resultado= Conexion::conectar()->query("DELETE FROM Cisterna WHERE IDCisterna=".$this->IdCisterna."");
+            $resultado= Conexion::conectar()->query("DELETE FROM Cisterna WHERE IDCisterna=".$this->getIdCisterna."");
             return ($resultado);
         }   
 
@@ -76,7 +80,7 @@
         //modifico una cisterna
         //------------------------------------
         function updateCisterna(){
-            $resultado=Conexion::conectar()->query("UPDATE Cisterna SET IDCisterna=".$this->IdCisterna.",TotalLitros=".$this->TotalLitros.",NombreCisterna".$this->NombreCisterna."");
+            $resultado=Conexion::conectar()->query("UPDATE Cisterna SET IDCisterna=".$this->getIdCisterna.",TotalLitros=".$this->getTotalLitros.",NombreCisterna".$this->getNombreCisterna."");
             return($resultado);
         }
 
@@ -85,6 +89,7 @@
         //------------------------------------
         function findAllCistera(){
             $resultado=Conexion::conectar()->query("SELECT * FROM Cisterna" );
+            
             return ($resultado);
         }
 

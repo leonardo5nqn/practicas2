@@ -33,42 +33,42 @@ class Vehiculo
     public function getIdVehiculo()(
         return $this->idVehiculo;
     )
-    public function setIdVehiculo($_idVehiculo){
+    private function setIdVehiculo($_idVehiculo){
         $this ->idVehiculo =$_idVehiculo;
     }
     //GET y SET Patente
     public function getNumPatente(){
         return $this->Patente;
     }
-    public function setNumPatente($_patente){
+    private function setNumPatente($_patente){
         $this->Patente=$_patente;
     }
     //GET Y SET Marca
     public function getMarca (){
         return $this->Marca;
     }
-    public function setMarca ($_marca){
+    private function setMarca ($_marca){
         $this->Marca=$_marca;
     }
     //GET Y SET Modelo
     public function getModelo(){
         return $this->Modelo;
     }
-    public function setModelo ($_modelo){
+    private function setModelo ($_modelo){
         $this->Modelo=$_modelo;
     }
     //GET Y SET Color
     public function getColor(){
         return $this->Color;
     }
-    public function setColor($_color){
+    private function setColor($_color){
         $this->Color=$_color;
     }
     //GET Y SET TipoVehiculo
     public function getTipoVehiculo (){
         return $this->TipoVehiculo;
     }
-    public function setTipoVehiculo ($_tipoVehiculo){
+    private function setTipoVehiculo ($_tipoVehiculo){
         $this->TipoVehiculo=$_tipoVehiculo;
     }
 
@@ -82,7 +82,7 @@ class Vehiculo
     function insertVehiculo()
     {
         $resultado = Conexion::conectar()->query("INSERT INTO Vehiculo (Patente, Marca, Modelo, Color, TipoVehiculo)
-        values (".$this->Patente", ".$this->Marca", ".$this->Modelo", ".$this->Color", ".$this->TipoVehiculo")");
+        values (".$this->getNumPatente", ".$this->getMarca", ".$this->getMarca", ".$this->getColor", ".$this->getTipoVehiculo")");
          
         return ($resultado);
     }
@@ -92,7 +92,7 @@ class Vehiculo
     //----------------------------
     function deleteVehiculo () {
 
-        $resultado=Conexion::conectar()->query("DELETE from Vehiculo where IDVehiculo = ".$this->idVehiculo"");
+        $resultado=Conexion::conectar()->query("DELETE from Vehiculo where IDVehiculo = ".$this->getIdVehiculo"");
         
         return=$resultado;
     }
@@ -102,8 +102,8 @@ class Vehiculo
     //-----------------------------
     function updateVehiulo(){
 
-        $resultado=Conexion::conectar()->query("UPDATE Vehiculo set IDVehiculo = ".$this->idVehiculo", Patente = ".$this->Patente", Marca = ".$this->Marca", Modelo = ".$this->Modelo", Color = ".$this->Color", TipoVehiculo = ".$this->TipoVehiculo"
-        where IDVehiculo = ".$this->idVehiculo"");
+        $resultado=Conexion::conectar()->query("UPDATE Vehiculo set Patente = ".$this->getNumPatente", Marca = ".$this->getMarca", Modelo = ".$this->getModelo", Color = ".$this->getColor", TipoVehiculo = ".$this->getTipoVehiculo"
+        where IDVehiculo = ".$this->getIdVehiculo"");
         
         return($resultado);
     }
