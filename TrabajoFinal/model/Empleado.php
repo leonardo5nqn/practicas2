@@ -9,14 +9,16 @@ class Empleado {
     private $PersonaID;
 
     //Constructor
-    function __construct($IDEmpleado, $fechaIngreso, $PersonaID)
+    function __construct($_IDEmpleado, $_fechaIngreso, $_personaID)
     {
-        $this->setIDEmpleado($IDEmpleado);
-        $this->setIngreso($fechaIngreso);
-        $this->setIDPersona($PersonaID);
+        $this->setIDEmpleado($_IDEmpleado);
+        $this->setIngreso($_fechaIngreso);
+        $this->setIDPersona($_PersonaID);
     }
-    //Get/Set
 
+    //-----------------
+    //Get/Set
+    //------------------------
     public function getIDEmpleado(){
         return $this->IDEmpleado;
     }
@@ -46,10 +48,10 @@ class Empleado {
 
     //Baja
 
-    static function delet(){
+    static function delete(){
         $rta = Conexion::conectar()->query("DELETE FROM Empleado where IDEmpleado = ".$this->IDEmpleado."");
         return ($rta);
-    }
+    }   
 
     //Modificar
     static function update(){
@@ -64,7 +66,8 @@ class Empleado {
     }    
     
     static function listarEmpresa($where){
-      return (Conexion::conectar()->query("SELECT * FROM Empleado ".$where));
+        return (Conexion::conectar()->query("SELECT * FROM Empleado ".$where));
+        
     }
 
 
