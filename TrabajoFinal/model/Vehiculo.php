@@ -13,7 +13,7 @@ class Vehiculo
     private $idVehiculo;
     private $_patentete;
     private $_marcaca;
-    private $_modeloo;
+    private $_modelo;
     private $_coloror;    
     private $_tipoVehiculoculo;
 
