@@ -79,7 +79,7 @@
         function insert()
         {
             $respuesta = Conexion::conectar()->query("INSERT INTO Usuario (IDUsuario, PersonaID, RolID, NombreUsuario, Contrasena, Huella)
-            values (".$this->getidPersona().",".$this->getIDUsuario().",".$this->getidRol().",".$this->getIDUsuario().",".$this->getPassword()." ,".$this->huella." )");
+            values (".$this->getIDUsuario().",".$this->getidPersona().",".$this->getidRol().",".$this->getUsuario().",".$this->getPassword()." ,".$this->huella." )");
             return ($respuesta);
         }
         //eliminar usuario
