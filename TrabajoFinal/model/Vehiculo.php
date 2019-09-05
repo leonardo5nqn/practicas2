@@ -82,7 +82,7 @@ class Vehiculo
     function insertVehiculo()
     {
         $resultado = Conexion::conectar()->query("INSERT INTO Vehiculo (Patente, Marca, Modelo, Color, TipoVehiculo)
-        values (".$this->getNumPatente", ".$this->getMarca", ".$this->getMarca", ".$this->getColor", ".$this->getTipoVehiculo")");
+        values (".$this->getNumPatente", ".$this->getMarca", ".$this->getModelo", ".$this->getColor", ".$this->getTipoVehiculo")");
          
         return ($resultado);
     }
