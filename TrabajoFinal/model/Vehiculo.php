@@ -11,11 +11,11 @@ class Vehiculo
 {
     //CREO LAS VARIABLES
     private $idVehiculo;
-    private $_patentete;
-    private $_marcaca;
-    private $_modelo;
-    private $_coloror;    
-    private $_tipoVehiculoculo;
+    private $patentete;
+    private $marcaca;
+    private $modelo;
+    private $coloror;    
+    private $tipoVehiculoculo;
 
     //CREO EL CONSTRUCTOR DEL OBJETO VEHICULO
     function __construct($_idVehiculo, $_patente, $_marca, $_modelo, $_color, $_tipoVehiculo){
