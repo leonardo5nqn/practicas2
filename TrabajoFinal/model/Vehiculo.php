@@ -12,10 +12,10 @@ class Vehiculo
     //CREO LAS VARIABLES
     private $idVehiculo;
     private $patentete;
-    private $marcaca;
+    private $marca;
     private $modelo;
-    private $coloror;    
-    private $tipoVehiculoculo;
+    private $color;    
+    private $tipoVehiculo;
 
     //CREO EL CONSTRUCTOR DEL OBJETO VEHICULO
     function __construct($_idVehiculo, $_patente, $_marca, $_modelo, $_color, $_tipoVehiculo){
@@ -79,7 +79,7 @@ class Vehiculo
     //-------------------
     //CREO EL INSERT
     //--------------------
-    function insertVehiculo()
+    public function insertVehiculo()
     {
         $resultado = Conexion::conectar()->query("INSERT INTO Vehiculo (Patente, Marca, Modelo, Color, TipoVehiculo)
         values (".$this->getNumPatente", ".$this->getMarca", ".$this->getModelo", ".$this->getColor", ".$this->getTipoVehiculo")");
@@ -90,7 +90,7 @@ class Vehiculo
     //----------------------------
     //ELIMINO UN VEHICULO POR ID_VEHICULO
     //----------------------------
-    function deleteVehiculo () {
+    public function deleteVehiculo () {
 
         $resultado=Conexion::conectar()->query("DELETE from Vehiculo where IDVehiculo = ".$this->getIdVehiculo"");
         
@@ -100,7 +100,7 @@ class Vehiculo
     //-----------------------------
     //MODIFICO UN VEHICULO
     //-----------------------------
-    function updateVehiulo(){
+    public function updateVehiulo(){
 
         $resultado=Conexion::conectar()->query("UPDATE Vehiculo set Patente = ".$this->getNumPatente", Marca = ".$this->getMarca", Modelo = ".$this->getModelo", Color = ".$this->getColor", TipoVehiculo = ".$this->getTipoVehiculo"
         where IDVehiculo = ".$this->getIdVehiculo"");
@@ -112,7 +112,7 @@ class Vehiculo
     //OBTENGO TODOS LOS VEHICULOS
     //Lo utilizo para listar en la grilla
     //-------------------------------------
-    function getAllVehiculos(){
+    public function getAllVehiculos(){
         $resultado=Conexion::conectar()->query("SELECT * from Vehiculo");
         
         return ($resultado);
@@ -121,7 +121,7 @@ class Vehiculo
     //--------------------------------------
     //ONTENGO UN VEHICULO POR ID (FIND by ID)
     //--------------------------------------
-    function findByIdVehiculo ($id){
+    public function findByIdVehiculo ($id){
         $resultado=Conexion::conectar()->query("SELECT * FROM Vehiculo WHERE IDVehiculo = ".$id);
         return ($resultado);
     }
@@ -129,7 +129,7 @@ class Vehiculo
     //-------------------------------------
     //FIND ALL + WHERE (envio una condicion por parametro)
     //----------------------------------------
-    function findAllWhereVehiculo ($where){
+    public function findAllWhereVehiculo ($where){
         $resultado= Conexion::conectar()->query("SELECT * FROM Vehiculo ".$where);
         return ($resultado);
     }

@@ -12,21 +12,21 @@
 
         function __construct()
         {
-         self::$instance = new mysqli(host,usuario,pass,nameBD);   
+            self::$instance = new mysqli(host,usuario,pass,nameBD);   
         }
 
        public static function conectar () {
              if(self::$instance == null){
                  self::$instance = new Conexion();
-             }
-             return self::$instance;
+            }
+            return self::$instance;
         }
         
         public static function cerrarConexion(){
             self::$instance->session_write_close();
             self::$instance = null;
         }
-    
-    
+        
+        
     }
 ?>  
