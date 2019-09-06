@@ -11,7 +11,7 @@ class Vehiculo
 {
     //CREO LAS VARIABLES
     private $idVehiculo;
-    private $patentete;
+    private $patente;
     private $marca;
     private $modelo;
     private $color;    
