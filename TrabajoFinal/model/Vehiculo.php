@@ -11,12 +11,12 @@ class Vehiculo
 {
     //CREO LAS VARIABLES
     private $idVehiculo;
-    private $patentete;
-    private $marcaca;
+    private $patente;
+    private $marca;
     private $modelo;
-    private $coloror;    
-    private $tipoVehiculoculo;
-
+    private $color;    
+    private $tipoVehiculo;
+     
     //CREO EL CONSTRUCTOR DEL OBJETO VEHICULO
     function __construct($_idVehiculo, $_patente, $_marca, $_modelo, $_color, $_tipoVehiculo){
         $this->idVehiculo=$_idVehiculo;
@@ -30,12 +30,13 @@ class Vehiculo
     //CREO LOS GETTER Y SETTERS
     //--------------------------
     //GET y SET IdVehiculo
-    public function getIdVehiculo()(
+    public function getIdVehiculo() {
         return $this->idVehiculo;
-    )
-    private function setIdVehiculo($_idVehiculo){
-        $this ->idVehiculo =$_idVehiculo;
     }
+    private function setIdVehiculo($_idVehiculo){
+        $this ->idVehiculo=$_idVehiculo;
+    }
+    
     //GET y SET Patente
     public function getNumPatente(){
         return $this->Patente;
@@ -79,10 +80,10 @@ class Vehiculo
     //-------------------
     //CREO EL INSERT
     //--------------------
-    function insertVehiculo()
+    public function insertVehiculo()
     {
         $resultado = Conexion::conectar()->query("INSERT INTO Vehiculo (Patente, Marca, Modelo, Color, TipoVehiculo)
-        values (".$this->getNumPatente", ".$this->getMarca", ".$this->getModelo", ".$this->getColor", ".$this->getTipoVehiculo")");
+        values (".$this->getNumPatente.", ".$this->getMarca.", ".$this->getModelo.",".$this->getColor.",".$this->getTipoVehiculo.")");
          
         return ($resultado);
     }
@@ -90,20 +91,20 @@ class Vehiculo
     //----------------------------
     //ELIMINO UN VEHICULO POR ID_VEHICULO
     //----------------------------
-    function deleteVehiculo () {
+    public function deleteVehiculo () {
 
-        $resultado=Conexion::conectar()->query("DELETE from Vehiculo where IDVehiculo = ".$this->getIdVehiculo"");
+        $resultado=Conexion::conectar()->query("DELETE from Vehiculo where IDVehiculo = ".$this->getIdVehiculo."");
         
-        return=$resultado;
+        return($resultado);
     }
 
     //-----------------------------
     //MODIFICO UN VEHICULO
     //-----------------------------
-    function updateVehiulo(){
+    public function updateVehiulo(){
 
-        $resultado=Conexion::conectar()->query("UPDATE Vehiculo set Patente = ".$this->getNumPatente", Marca = ".$this->getMarca", Modelo = ".$this->getModelo", Color = ".$this->getColor", TipoVehiculo = ".$this->getTipoVehiculo"
-        where IDVehiculo = ".$this->getIdVehiculo"");
+        $resultado=Conexion::conectar()->query("UPDATE Vehiculo set Patente = ".$this->getNumPatente.", Marca = ".$this->getMarca.", Modelo = ".$this->getModelo.", Color = ".$this->getColor.", TipoVehiculo = ".$this->getTipoVehiculo."
+        where IDVehiculo = ".$this->getIdVehiculo."");
         
         return($resultado);
     }
@@ -112,7 +113,7 @@ class Vehiculo
     //OBTENGO TODOS LOS VEHICULOS
     //Lo utilizo para listar en la grilla
     //-------------------------------------
-    function getAllVehiculos(){
+    public function getAllVehiculos(){
         $resultado=Conexion::conectar()->query("SELECT * from Vehiculo");
         
         return ($resultado);
@@ -121,7 +122,7 @@ class Vehiculo
     //--------------------------------------
     //ONTENGO UN VEHICULO POR ID (FIND by ID)
     //--------------------------------------
-    function findByIdVehiculo ($id){
+    public function findByIdVehiculo ($id){
         $resultado=Conexion::conectar()->query("SELECT * FROM Vehiculo WHERE IDVehiculo = ".$id);
         return ($resultado);
     }
@@ -129,10 +130,17 @@ class Vehiculo
     //-------------------------------------
     //FIND ALL + WHERE (envio una condicion por parametro)
     //----------------------------------------
-    function findAllWhereVehiculo ($where){
+    public function findAllWhereVehiculo ($where){
         $resultado= Conexion::conectar()->query("SELECT * FROM Vehiculo ".$where);
         return ($resultado);
     }
 
+
+
 }
+$instaciaPrueba = new Vehiculo ();
+
+$instaciaPrueba -> insertVehiculo('aaa111','Reno','A3','Blanco','02');
+
+print($instaciaPrueba);   
 ?>

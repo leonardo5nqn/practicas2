@@ -22,15 +22,15 @@
              if(self::$instance === null){
                  exit('asd');
                  self::$instance = new Conexion();
-             }
-             return self::$instance;
+            }
+            return self::$instance;
         }
         
         public static function cerrarConexion(){
             self::$instance->session_write_close();
             self::$instance = null;
         }
-    
-    
+        
+        
     }
 ?>  
