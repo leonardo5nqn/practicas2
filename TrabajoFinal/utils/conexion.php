@@ -3,20 +3,24 @@
     class Conexion
     {
         private static $instance = null;
+        exit('asd');
         
         //AGREGO LA CONEXION A LA BASE DE DATOS
-        const host="db4free.net";
-        const usuario="admcisterna";
-        const pass="cisterna2019nqn";
-        const nameBD="cisterna";
+        private $host ="db4free.net";
+        private $usuario="admcisterna";
+        private $pass="cisterna2019nqn";
+        private $nameBD="cisterna";
 
         function __construct()
         {
-         self::$instance = new mysqli(host,usuario,pass,nameBD);   
+            self::$instance = new mysqli($this->host,$this->usuario,$this->pass,$this->nameBD);
         }
 
-       public static function conectar () {
-             if(self::$instance == null){
+       public static function conectar() {
+        var_dump(self::$instance);
+        exit();
+             if(self::$instance === null){
+                 exit('asd');
                  self::$instance = new Conexion();
              }
              return self::$instance;
