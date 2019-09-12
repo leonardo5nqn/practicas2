@@ -1,15 +1,19 @@
 <?php
-   require_once ("../utils/conexion.php");
+   require ("../utils/conexion.php");
 
 class TipoCarga{
 
     private $tipoCargaID;
     private $descripcion;
 
-    function  __construct($id, $descripcion){
-       $this->setID($id);
-       $this->setDescripcion($descripcion);
-    }
+    public function  __construct($descripcion){
+      $this->setDescripcion($descripcion);
+   }
+
+   private function  __construct($id, $descripcion){
+      $this->setID($id);
+      $this->setDescripcion($descripcion);
+   }
 
      private function setID($id){
         $this->tipoCargaID = $id;
