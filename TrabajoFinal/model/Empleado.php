@@ -1,6 +1,7 @@
 <?php
 //LLAMO A LA CLASE CONEXION
 require_once ("../utils/conexion.php");
+require_once ("Persona.php");
 
 class Empleado {
 
@@ -9,7 +10,12 @@ class Empleado {
     private $PersonaID;
 
     //Constructor
-    function __construct($_IDEmpleado, $_fechaIngreso, $_personaID)
+    public function __construct($_fechaIngreso, $_personaID)
+    {
+        $this->setIngreso($_fechaIngreso);
+        $this->setIDPersona($_personaID->getIDEmpleado());
+    }
+    private function __construct($_IDEmpleado, $_fechaIngreso, $_personaID)
     {
         $this->setIDEmpleado($_IDEmpleado);
         $this->setIngreso($_fechaIngreso);
@@ -36,45 +42,79 @@ class Empleado {
         return $this->PersonaID;
     }
     public function setIDPersona($id){
-        $this->PersonaID = $id;
+        $this->PersonaID = Persona::findByID($id);
     }
 
     //Alta
 
     static function insert(){
-        $rta = Conexion::conectar()->query("INSERT INTO Empleado (IDEmpleado, PersonaID, fechaIngreso) values (".$this->IDEmpleado.",".$this->PersonaID.",".$this->fechaIngreso."");
-        return ($rta); 
+        $rta = Conexion::conectar()->query("INSERT INTO Empleado (IDEmpleado, PersonaID, fechaIngreso) values (".$this->getIDEmpleado().",".$this->PersonaID()->getIDEmpleado().",".$this->getIngreso()."");
+        $rs= mysql_query($rta); 
+
+            if ($rs == false ){
+                echo "error";
+            }     
+            else {
+                echo "se inserto";
+            }
     }
 
     //Baja
 
     static function delete(){
-        $rta = Conexion::conectar()->query("DELETE FROM Empleado where IDEmpleado = ".$this->IDEmpleado."");
-        return ($rta);
+        $rta = Conexion::conectar()->query("DELETE FROM Empleado where IDEmpleado = ".$this->getIDEmpleado()."");
+        $rs= mysql_query($rta); 
+
+            if ($rs == false ){
+                echo "error";
+            }     
+            else {
+                echo "se elimino";
+            }
     }   
 
     //Modificar
     static function update(){
-        $rta = Conexion::conectar()->query("UPDATE Empleado set PersonaID =".$this->PersonaID.", fechaIngreso = ".$this->fechaIngreso.", 
-        where IDEmpleado =".$this->IDEmpleado."");
-        return ($rta);
+        $rta = Conexion::conectar()->query("UPDATE Empleado set PersonaID =".$this->PersonaID()->getIDEmpleado().", fechaIngreso = ".$this->getIngreso().", 
+        where IDEmpleado =".$this->getIDEmpleado()"");
+        $rs= mysql_query($rta); 
+
+            if ($rs == false ){
+                echo "error";
+            }     
+            else {
+                echo "se modifico";
+            }
 
     }
 
     static function findByID($id){
-        return (Conexion::conectar()->query("SELECT * FROM Empleado WHERE IDEmpleado = ".$id));    
+        $respuesta = Conexion::conectar()->query("SELECT * FROM Empleado WHERE IDEmpleado = ".$id); 
+        if ($respuesta->rowCount() > 0) { 
+            $empleado = array();
+            while ($row = $respuesta->fetch()) { 
+               array_push($empleado, new Empleado($row['IDEmpleado'],Solicitante::findByID($row['PersonaID']), $row['fechaIngreso']));
+            }
+         return ($empleado);
+         }    
+         else { 
+            return ("No hay registros."); 
+         }
+          }    
     }    
     
     static function listarEmpresa($where){
-        return (Conexion::conectar()->query("SELECT * FROM Empleado ".$where));
-        
+        $respuesta = Conexion::conectar()->query("SELECT * FROM Empleado ".$where);
+        if ($respuesta->rowCount() > 0) { 
+            $empleado = array();
+            while ($row = $respuesta->fetch()) { 
+               array_push($empleado, new Empleado($row['IDEmpleado'],Solicitante::findByID($row['PersonaID']), $row['fechaIngreso']));
+            }
+         return ($empleado);
+         }    
+         else { 
+            return ("No hay registros."); 
+         }   
     }
-
-
-
-
-
 }
-
-
 ?>
