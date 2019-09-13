@@ -8,7 +8,11 @@ Class Rol{
     private $Descripcion;
 
     //constructor
-    function __construct($IDRol, $Descripcion)
+    public function __construct($Descripcion)
+    {
+        $this->setDescripcion($Descripcion);
+    }
+    private function __construct($IDRol, $Descripcion)
     {
         $this->setIDRol($IDRol);
         $this->setDescripcion($Descripcion);
@@ -31,39 +35,77 @@ Class Rol{
 
     //Alta
 
-    static function insert(){
-        $rta = Conexion::conectar()->query("INSERT INTO Rol (IDRol, Descripcion) values (".$this->IDRol.", ".$this->Descripcion."");
-        return ($rta);
+    public static function insert(){
+        $rta = Conexion::conectar()->query("INSERT INTO Rol (IDRol, Descripcion) values (".$this->getIDRol().", ".$this->getDescripcion()."");
+        $rs= mysql_query( $rta); 
+
+        if ($rs == false ){
+            echo "error";
+        }     
+        else {
+            echo "se inserto";
+        }
     }
     //Modificacion
-    static function update(){
-        $rta = Conexion::conectar()->query("UPDATE Rol set IDRol =".$this->IDRol.", Descripcion=".$this->Descripcion."");
-        return ($rta);
+    public static function update(){
+        $rta = Conexion::conectar()->query("UPDATE Rol set IDRol =".$this->IDRol.", Descripcion=".$this->getDescripcion()."");
+        $rs= mysql_query( $rta); 
+
+        if ($rs == false ){
+            echo "error";
+        }     
+        else {
+            echo "se modifico";
+        }
     }
 
     //Baja
-    static function delete(){
-        $rta = Conexion::conectar()->query("DELETE FROM Rol where IDRol =".$this->IDRol."");
-        return ($rta);
+    public static function delete(){
+        $rta = Conexion::conectar()->query("DELETE FROM Rol where IDRol =".$this->getIDRol()."");
+        $rs= mysql_query( $rta); 
+
+        if ($rs == false ){
+            echo "error";
+        }     
+        else {
+            echo "se elimino";
+        }
     }
 
     //ListarRol
     static function findByID($id){
-        return (Conexion::conectar()->query("SELECT * FROM Rol WHERE IDRol = ".$id));    
+        $respuesta = (Conexion::conectar()->query("SELECT * FROM Rol WHERE IDRol = ".$id)); 
+        if ($respuesta->rowCount() > 0) { 
+            $rol = array();
+            while ($row = $respuesta->fetch()) { 
+               array_push($rol, new Rol($row['IDRol'],$row['Descripcion']));
+            }
+         return ($rol);
+         }    
+         else { 
+            return ("No hay registros."); 
+         }
+          }   
     }    
     
     static function listarEmpresa($where){
-      return (Conexion::conectar()->query("SELECT * FROM Rol ".$where));
+        $respuesta = (Conexion::conectar()->query("SELECT * FROM Rol ".$where));
+      if ($respuesta->rowCount() > 0) { 
+        $rol = array();
+        while ($row = $respuesta->fetch()) { 
+           array_push($rol, new Rol($row['IDRol'],$row['Descripcion']));
+        }
+     return ($rol);
+     }    
+     else { 
+        return ("No hay registros."); 
+     }
+      }   
       
     }
     static function listaRol(){
         $rta = Conexion::conectar()->query("SELECT *FROM Rol");
         return ($rta);        
-    }
-
-    
-
-    
+    } 
 }
-
 ?>
