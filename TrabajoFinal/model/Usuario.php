@@ -1,7 +1,8 @@
 <?php
     //LLAMO A LA CLASE CONEXION
     require_once ("../utils/conexion.php");
-    require_once ("../model/Persona.php");
+    require_once ("Persona.php");
+    require_once ("model/Rol.php");
 
     class Usuario extends Persona
     {
@@ -14,7 +15,17 @@
        
 
         //constructor
-        public function __construct($_usuario, $_password, $_idUsuario,$_idPersona,$_idRol,$_huella)
+    public function __construct($_usuario, $_password,$_idPersona,$_idRol,$_huella)
+     {
+      $this->setUsuario($_usuario);
+      $this->setPassword($_password);
+      $this->setIDUsuario($_idUsuario);
+      $this->setidPersona($_idPersona->getIDUsuario());
+      $this->setidRol($_idRol->getIDUsuario());
+      $this->huella = $_huella;
+      
+     }
+    private function __construct($_usuario, $_password, $_idUsuario,$_idPersona,$_idRol,$_huella)
      {
       $this->setUsuario($_usuario);
       $this->setPassword($_password);
@@ -62,7 +73,7 @@
      
         public function setidPersona($idpersona)
         {
-            $this->idPersona = $idpersona;
+            $this->idPersona = Persona::findByID($idpersona);
         }
         //metodos get y set idRol
         public function getidRol()
@@ -72,66 +83,91 @@
      
         public function setidRol($idrol)
         {
-            $this->idRol = $idrol;
+            $this->idRol = Rol::findByID($idrol);
         }
         
         //Crear nuevo usuario
-        function insert()
+        public static function insert()
         {
             $respuesta = Conexion::conectar()->query("INSERT INTO Usuario (IDUsuario, PersonaID, RolID, NombreUsuario, Contrasena, Huella)
-            values (".$this->getIDUsuario().",".$this->getidPersona().",".$this->getidRol().",".$this->getUsuario().",".$this->getPassword()." ,".$this->huella." )");
-            return ($respuesta);
+            values (".$this->getIDUsuario().",".$this->getidPersona()->getIDUsuario().",".$this->getidRol()->getIDUsuario().",".$this->getUsuario().",".$this->getPassword()." ,".$this->huella." )");
+            $rs= mysql_query( $respuesta); 
+
+            if ($rs == false ){
+                echo "error";
+            }     
+            else {
+                echo "se inserto";
+            }
         }
         //eliminar usuario
-        function delete()
+        public static function delete()
         {
             $respuesta = Conexion::conectar()->query("DELETE FROM Usuario where IDUsuario =".$this->getIDUsuario()."");
-            return ($respuesta);
+            $rs= mysql_query( $respuesta); 
+
+        if ($rs == false ){
+            echo "error";
+        }     
+        else {
+            echo "se elimino";
+        }
         }
         //editar usuario
-        function update()
+        public static function update()
         {
             $respuesta = Conexion::conectar()->query("UPDATE Usuario set  NombreUsuario =".$this->getUsuario().", Contrasena =".$this->getPassword()." 
             where IDUsuario =".$this->getIDUsuario()."");
-            return ($respuesta);
+            $rs= mysql_query( $respuesta); 
+
+        if ($rs == false ){
+            echo "error";
+        }     
+        else {
+            echo "se modifico";
+        }
         }
 
         static function findByID($id){
             $respuesta = Conexion::conectar()->query("SELECT * FROM Usuario WHERE IDUsuario = ".$id);
-            while ($fila = $respuesta -> fetch_object()){
-                $result[]= $fila; 
-            }
-            return $result[];    
+            if ($respuesta->rowCount() > 0) { 
+                $usuario = array();
+                while ($row = $respuesta->fetch()) { 
+                   array_push($usuario, new Usuario($row['IDUsuario'],$row['NombreUsuario'], $row['Contrasena'], $row['Huella']));
+                }
+             return ($usuario);
+             }    
+             else { 
+                return ("No hay registros."); 
+             }
+              }   
         } 
 
         static function listarUsuario($where)
         {
             $respuesta = Conexion::conectar()->query("SELECT * FROM Usuario ".$where);
-            while ($fila = $respuesta -> fetch_object()){
-                $result[]= $fila; 
-            }
-            return $result[];  
+            if ($respuesta->rowCount() > 0) { 
+                $usuario = array();
+                while ($row = $respuesta->fetch()) { 
+                   array_push($usuario, new Usuario($row['IDUsuario'],$row['NombreUsuario'], $row['Contrasena'], $row['Huella']));
+                }
+             return ($usuario);
+             }    
+             else { 
+                return ("No hay registros."); 
+             }
+              }     
         }
-
+        
            /* static function validoUsuario($usuario,$password){
-            
             //
             $sql="SELECT * FROM Usuario WHERE ((NombreUsuario='$usuario')AND(Contrasena='$password'))";
             $respuesta = Conexion::conectar() -> query ($sql);
-            
             print_r($respuesta);
-
             if($respuesta != null){
                 return (new Usuario($respuesta->nombre,$respuesta->password));
                 //averiguar como pasar la respuesta a variables.
             }
             else return null;
-           
         }*/
-       
-      
-
-        
-
-    
     }?>
