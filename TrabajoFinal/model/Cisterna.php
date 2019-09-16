@@ -113,4 +113,10 @@
         }
 
     }
+    $instaciaPrueba = new Cistena ();
+
+    $instaciaPrueba -> insertCisterna('aaa111','Reno','A3','Blanco','02');
+
+    print($instaciaPrueba);
+    
 ?>
