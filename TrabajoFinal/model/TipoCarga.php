@@ -32,40 +32,40 @@ class TipoCarga{
      }
 
      public function insert(){
-         $query = Conexion::conectar()->query("INSERT INTO TipoCarga DescripcionCarga VALUES(".$this->descripcion.")");
-         if( $query === TRUE) {
-             return ("Registro insertado correctamente");
-         } else {
+         $query = Conexion::conectar()->query("INSERT INTO TipoCarga DescripcionCarga VALUES('".$this->descripcion."')");
+         if($query->error) {
              return ("Error: ".$query->error);
+         } else {
+             return ("Registro insertado correctamente");
          }
       }
 
      public function delete(){
          $query = Conexion::conectar()->query("DELETE FROM TipoCarga WHERE IDTipoCarga = ".$this->tipoCargaID);
-         if( $query === TRUE){
-            return ("Registro eliminado correctamente");
-         } else {
+         if($query->error){
             return ("Error: ".$query->error);
-        }
+         } else {
+            return ("Registro eliminado correctamente");
+         }
       }
 
      public function update(){
-         $query = Conexion::conectar()->query("UPDATE TipoCarga SET DescripcionCarga = ".$this->Nombre." where IDTipoCarga = ".$this->tipoCargaID);
-         if( $query === TRUE){
-             return ("Registro actualizado correctamente");
-         } else {
+         $query = Conexion::conectar()->query("UPDATE TipoCarga SET DescripcionCarga = '".$this->Nombre."' where IDTipoCarga = ".$this->tipoCargaID);
+         if($query->error){
              return ("Error: ".$query->error);
+         } else {
+             return ("Registro actualizado correctamente");
          }
       }
         
      static function findByID($id){
          $response = Conexion::conectar()->query("SELECT * FROM TipoCarga WHERE IDTipoCarga = ".$id);
-         if ($response->rowCount() > 0) { 
+         if ($response->num_rows > 0) { 
             $cargas = array();
-            while ($row = $response->fetch()) { 
+            while ($row = $response->fetch_assoc()) { 
                array_push($cargas, new TipoCarga($row['IDTipoCarga'], $row['DescripcionCarga']));
             }
-         return ($cargas);
+         return ($cargas[0]);
          }    
          else { 
             return ("No existen registros."); 
@@ -75,9 +75,9 @@ class TipoCarga{
 
     static function listarTipoCarga($where){
           $response = Conexion::conectar()->query("SELECT * FROM TipoCarga ".$where);
-          if ($response->rowCount() > 0) { 
+          if ($response->num_rows > 0) { 
              $cargas = array();
-             while ($row = $response->fetch()) { 
+             while ($row = $response->fetch_assoc()) { 
                 array_push($cargas, new TipoCarga($row['IDTipoCarga'], $row['DescripcionCarga']));
              }
           return ($cargas);
