@@ -19,10 +19,11 @@
         //---------------------------
         //DEFINO EL CONSTRUCTOR
         //----------------------------
-        private function __construct($_idCisterna, $_totalLitros, $_nombreCisterna){
-            $this->setIdCisterna = $_idCisterna;
-            $this->setTotalLitros = $_totalLitros;
-            $this->setNombreCisterna = $_nombreCisterna;
+
+        public function __construct($idCisterna,$_totalLitros, $_nombreCisterna){
+            $this->setIdCisterna($idCisterna);
+            $this->setTotalLitros($_totalLitros);
+            $this->setNombreCisterna($_nombreCisterna);
         }
 
         //---------------------------
@@ -49,7 +50,7 @@
         public function getNombreCisterna(){
             return $this->NombreCisterna;
         }
-        private function setNombreCisterna($_nombreCisterna){
+        public function setNombreCisterna($_nombreCisterna){
             $this->NombreCisterna=$_nombreCisterna;
         }
 
@@ -64,59 +65,111 @@
         //-------------------------
         //FUNCION INSERT - No agregue el ID Cisterna porque se autoincrementa en la base datos.
         //------------------------
-        function insertCisterna(){
-            $resultado = Conexion::conectar()->query("INSERT INTO Cisterna(IDCisterna,TotalLitros,NombreCisterna) 
-            VALUES ("$this->getIdCisterna().",".$this->getTotalLitros().",".$this->getNombreCisterna().")");
-            return ($resultado);
+        function insert(){
+            $conexion = Conexion::conectar();
+            $resultado = $conexion->query("INSERT INTO Cisterna(TotalLitros,NombreCisterna) 
+            VALUES ('".$this->getTotalLitros()."','".$this->getNombreCisterna()."')");
+
+            $resultid = mysqli_insert_id($conexion);
+            
+            $this->setIdCisterna($resultid);
+
+            return true;
         }
         //----------------------------
         //ELIMINO UNA CISTERNA POR ID_VEHICULO
         //----------------------------
-        function deleteCisterna(){
+        function delete(){
             $resultado= Conexion::conectar()->query("DELETE FROM Cisterna WHERE IDCisterna=".$this->getIdCisterna()."");
-            return ($resultado);
+            return true;
         }   
 
         //------------------------------------
         //modifico una cisterna
         //------------------------------------
-        function updateCisterna(){
-            $resultado=Conexion::conectar()->query("UPDATE Cisterna SET IDCisterna=".$this->getIdCisterna().",TotalLitros=".$this->getTotalLitros().",NombreCisterna".$this->getNombreCisterna."");
-            return($resultado);
+        function update(){
+            $resultado=Conexion::conectar()->query("UPDATE Cisterna SET TotalLitros='".$this->getTotalLitros()."',NombreCisterna = '".$this->getNombreCisterna()."' WHERE IDCisterna = ".$this->getIdCisterna());
+            return true;
         }
 
         //----------------------------------
         //OBTENGO TODAS LAS CISTERNAS
         //------------------------------------
-        function findAllCistera(){
+        public static function findAll(){
             $resultado=Conexion::conectar()->query("SELECT * FROM Cisterna" );
             
-            return ($resultado);
+            if ($resultado->num_rows > 0) { 
+                $cisternas = array();
+                while ($row = $resultado->fetch_assoc()) { 
+                   array_push($cisternas, new Cisterna($row['IDCisterna'], $row['TotalLitros'], $row['NombreCisterna']));
+                }
+             return ($cisternas);
+             }    
+             else { 
+                return ("No existen registros."); 
+             }
         }
 
         //--------------------------------------
         //ONTENGO UN VEHICULO POR ID (FIND by ID)
         //--------------------------------------
-        function findByIDCisterna($id){
+        public static function findByID($id){
             $resultado=Conexion::conectar()->query("SELECT * FROM Cisterna WHERE IDCisterna = ".$id);
-            return($resultado);
-            //retorno el objeto de ID
+            
+            if ($resultado->num_rows > 0) {
+                $cisternas = array();
+                while ($row = $resultado->fetch_assoc()) { 
+                   array_push($cisternas, new Cisterna($row['IDCisterna'], $row['TotalLitros'], $row['NombreCisterna']));
+                }
+                return ($cisternas[0]);
+             }    
+             else { 
+                return ("No existen registros."); 
+             }
         }
 
         //-------------------------------------
         //FIND ALL + WHERE
         //----------------------------------------
-        function findAllWhereCisterna($where){
-            $resultado=Conexion::conectar()->query("SELECT * FROM Cisterna ".$where);
-            return ($resultado);
-            //retorno el objeto de busqueda
+        public static function findAllWhere($where){
+            $resultado=Conexion::conectar()->query("SELECT * FROM Cisterna WHERE ".$where);
+            if ($resultado->num_rows > 0) { 
+                $cisternas = array();
+                while ($row = $resultado->fetch_assoc()) { 
+                   array_push($cisternas, new Cisterna($row['IDCisterna'], $row['TotalLitros'], $row['NombreCisterna']));
+                }
+             return ($cisternas);
+             }    
+             else { 
+                return ("No existen registros."); 
+             }
         }
 
     }
-    $instaciaPrueba = new Cistena ();
 
-    $instaciaPrueba -> insertCisterna('aaa111','Reno','A3','Blanco','02');
+    //ESTO INSERTA UNA CISTERNA 
+    //$instaciaPrueba = new Cisterna (NULL,"15","Nombre 56");
 
-    print($instaciaPrueba);
+   // $instaciaPrueba -> insert();
+
+    //ESTO BOORA UNA CISTERNAS
+    //$re = Cisterna::findAll()[0]->delete();
+
+    //ESTO TRAE MUCHAS CISTERNAS
+    //$re = Cisterna::findAll();
+
+    //ESTO TRAE UNA CISTERNA POR ID
+    $re = Cisterna::findByID(2);
+    var_dump($re);
+    //ESTO TRAE ARRAY CON WHERE STRING
+    //$re = Cisterna::findAllWhere(" NombreCisterna = 'Nombre 1' OR 1 = 1 ");
+
+    $re->setNombreCisterna("Nombre 60");
+
+    $re->update();
+
+    $re2 = Cisterna::findByID(2);
+
+    var_dump($re2);exit();
     
 ?>
