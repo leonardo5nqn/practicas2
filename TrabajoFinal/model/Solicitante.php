@@ -1,105 +1,109 @@
 <?php
-    //--------------------------------------------------
-    //LLAMO AL ARCHIVO DE CONEXION A LA BASE DE DATOS
-    //--------------------------------------------------
-    require_once("../utils/conexion.php");
+      require("../utils/conexion.php");
+    require("./Empresa.php");
+    require("./Persona.php");
 
-    //-------------------------------------------------
-    //DECLARO LA CLASE PARA EL OBJETO Cisterna
-    //--------------------------------------------------
     class Solicitante {
-        //DECLARO LAS VARIABLES CON VISIBILIDAD PRIVADA, SOLO PARA USO DE LA CLASE
-        private $IdSolicitante;
-        private $IdPersona;
-        private $IdEmpresa;
 
-        //---------------------------
-        //DEFINO EL CONSTRUCTOR
-        //----------------------------
-        public function __construct($_idSolcitante,$_idPersona,$_idEmpresa){
-            $this->setIdSolicitante=$_idSolcitante;
-            $this->setIdPersona=$_idPersona;
-            $this->setIdEmpresa=$_idEmpresa;
+        private $idSolicitante;
+        private $persona;
+        private $empresa;
+        
+        public function __construct($_solcitante,  $_persona, $_empresa){
+            $this->setIdSolicitante($_idSolcitante);
+            $this->setIdPersona($_persona);
+            $this->setEmpresa($_empresa);
         }
-
-        //---------------------------
-        //CREO LOS GETTER Y SETTERS
-        //--------------------------
-
-        //GET Y SET IdCisterna
+        
         public function getIdSolicitante(){
-            return $this->IdSolicitante;
+            return $this->idSolicitante;
         }
         private function setIdSolicitante($_idSolcitante){
-            $this->IdSolicitante=$_idSolcitante;
+            $this->idSolicitante=$_idSolcitante;
         }
 
-        //GET Y SET IdPersona}
-        public function getIdPersona(){
-            return $this->getIdPersona;
+        public function getPersona(){
+            return $this->persona;
         }
-        private function setIdPersona($_idPersona){
-            $this->IdPersona=$_idPersona;
+        private function setPersona($_persona){
+            $this->persona=$_persona;
         }
-
-        //GET Y SET IdEmpresa
-        public function getIdEmpresa(){
-            return $this->getIdEmpresa;
-        }
-        private function setIdEmpresa($_idEmpresa){
-            $this->IdEmpresa=$_idEmpresa;
-        }
-
-        //--------------------------------------------------------------------------------
-        //CREO LAS FUNCIONES con ACCESO STATIC --------------------------------------------
-        //--------------------------------------------------------------------------------
         
-        //-------------------------
-        //FUNCION Agrego Un solicitante 
-        //------------------------
-        public function insertSolicicitante (){
-            $resultado = Conexion::conectar()->query("INSERT INTO Solicitante(IDSolicitante,PersonaID,EmpresaID) VALUES ("$this->getIdSolicitante().",".$this->getIdPersona().",".$this->getIdEmpresa().")");
-            return($resultado);
+        public function getEmpresa(){
+            return $this->empresa;
+        }
+        private function setEmpresa($_empresa){
+            $this->empresa=$_empresa;
         }
 
-        //----------------------------
-        //ELIMINO UN Solcitante POR ID
-        //----------------------------
-        public function deleteSolicitante(){
-            $resultado=Conexion::conectar()->query("DELETE FROM Solicitante WHERE IDSolicitante=".$this->getIdSolicitante()."");
-            return($resultado); 
+        public function insert (){
+         $conexion = Conexion::conectar();
+         $resultado = $conexion->query("Solicitante(IDSolicitante, PersonaID, EmpresaID) VALUES ('".$this->getIdSolicitante()."','"$this->getPersona()->getpersonaid()."','".$this->getEmpresa()->getIDEmpresa()."')");
+         $resultid = mysqli_insert_id($conexion);
+         $this->setIdSolicitante($resultid);
+         if($conexion->error){
+            return ("Error: ".$conexion->error);
+             } else {
+             return ("Registro insertado correctamente");
+           }
         }
 
-        //------------------------------------
-        //modifico un Solicitante
-        //------------------------------------
-        public function updateSolicitante(){
-            $resultado = Conexion::conectar()->query("UPDATE Solcitante SET IDSolicitante =".$this->getIdSolicitante().",PersonaID=".$this->getIdPersona().",EmpresaID=".$this->getIdEmpresa()."");
-            return($resultado);
+        public function delete(){
+         $conexion = Conexion::conectar();
+         $resultado = $conexion->query("DELETE FROM Solicitante WHERE IDSolicitante = ".$this->getIdSolicitante());
+         if($conexion->error){
+            return ("Error: ".$conexion->error);
+             } else {
+             return ("Registro eliminado correctamente");
+           }
         }
 
-        //----------------------------------
-        //OBTENGO/Listo TODAS Los Solicitantes
-        //------------------------------------
-        public function findAllSolicitante(){
-            $resultado = Conexion::conectar()->query("SELECT * FROM Solicitante");
-            return ($resultado);
+        public function update(){
+         $conexion = Conexion::conectar();
+         $resultado = $conexion->query("UPDATE Solcitante SET IDSolicitante =".$this->getIdSolicitante().",PersonaID=".$this->getPersona()->getpersonaid().",EmpresaID=".$this->getEmpresa()->getIDEmpresa());
+            if($conexion->error){
+               return ("Error: ".$conexion->error);
+                } else {
+                return ("Registro actualizado correctamente");
+              }
         }
 
-        //--------------------------------------
-        //ONTENGO UN VEHICULO POR ID (FIND by ID)
-        //--------------------------------------
-        public function findByIdSolicitante($id){
-            $resultado = Conexion::conectar()->query("SELECT * FROM Solicitante WHERE IDSolicitante = ".$id);
-            return ($resultado);            
+        public function findAll(){
+         $resultado=Conexion::conectar()->query("SELECT * FROM Solicitante");
+            if ($resultado->num_rows > 0) { 
+               $solicitante = array();
+               while ($row = $resultado->fetch_assoc()) { 
+                  array_push($cisternas, new Solicitante($row['IDSolicitante'], Persona::findById($row['PersonaID']), Empresa::findById($row['EmpresaID'])));
+               }
+            return ($solicitante);
+            }    
+            else { 
+               return ("No existen registros."); 
+            }
         }
 
-        //-------------------------------------
-        //FIND ALL + WHERE
-        //----------------------------------------
-        public function findAllWhereSolicitante ($where){
-            $resultado = Conexion::conectar()->query("SELECT * FROM Solicitante ".$where);
-            return ($resultado);
+        public function findById($id){   
+            $resultado=Conexion::conectar()->query("SELECT * FROM Solicitante WHERE IDSolicitante = ".$id);
+            if ($resultado->num_rows > 0) { 
+               $solicitante = array();
+               while ($row = $resultado->fetch_assoc()) { 
+                  array_push($cisternas, new Solicitante($row['IDSolicitante'], Persona::findById($row['PersonaID']), Empresa::findById($row['EmpresaID'])));
+               }
+            return ($solicitante[0]);
+            }    
+            else { 
+               return ("No existen registros."); 
+            }     
         }
-    }
+
+        public function findAllWhere($where){
+         $resultado=Conexion::conectar()->query("SELECT * FROM Solicitante WHERE ".$where);
+         if ($resultado->num_rows > 0) { 
+            $solicitante = array();
+            while ($row = $resultado->fetch_assoc()) { 
+               array_push($cisternas, new Solicitante($row['IDSolicitante'], Persona::findById($row['PersonaID']), Empresa::findById($row['EmpresaID'])));
+            }
+         return ($solicitante);
+         }    
+         else { 
 ?>
