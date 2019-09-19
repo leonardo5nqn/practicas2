@@ -105,5 +105,8 @@
             }
          return ($solicitante);
          }    
-         else { 
+         else {  return ("No existen registros."); 
+        }
+       }
+    }
 ?>
