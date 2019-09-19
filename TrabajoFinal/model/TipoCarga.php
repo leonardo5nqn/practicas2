@@ -1,5 +1,5 @@
 <?php
-   require ("../utils/conexion.php");
+     require ("../utils/conexion.php");
 
 class TipoCarga{
 
@@ -15,7 +15,7 @@ class TipoCarga{
       $this->setDescripcion($descripcion);
    }
 
-     private function setID($id){
+   private function setID($id){
         $this->tipoCargaID = $id;
      }
      
@@ -32,37 +32,56 @@ class TipoCarga{
      }
 
      public function insert(){
-         $query = Conexion::conectar()->query("INSERT INTO TipoCarga DescripcionCarga VALUES('".$this->descripcion."')");
-         if($query->error) {
-             return ("Error: ".$query->error);
-         } else {
+         $conexion = Conexion::conectar();
+         $resultado = $conexion->query("TipoCarga(DescripcionCarga) VALUES ('".$this->descripcion."')");
+         $resultid = mysqli_insert_id($conexion);
+         $this->setID($resultid);
+         if($conexion->error){
+            return ("Error: ".$conexion->error);
+             } else {
              return ("Registro insertado correctamente");
-         }
+           }
       }
 
      public function delete(){
-         $query = Conexion::conectar()->query("DELETE FROM TipoCarga WHERE IDTipoCarga = ".$this->tipoCargaID);
-         if($query->error){
-            return ("Error: ".$query->error);
-         } else {
+        $conexion = Conexion::conectar();
+        $resultado = $conexion->query("DELETE FROM TipoCarga WHERE IDTipoCarga = ".$this->getID());
+        if($conexion->error){
+           return ("Error: ".$conexion->error);
+            } else {
             return ("Registro eliminado correctamente");
-         }
+          }
       }
 
      public function update(){
-         $query = Conexion::conectar()->query("UPDATE TipoCarga SET DescripcionCarga = '".$this->Nombre."' where IDTipoCarga = ".$this->tipoCargaID);
-         if($query->error){
-             return ("Error: ".$query->error);
+      $conexion = Conexion::conectar();
+      $resultado = $conexion->query("UPDATE TipoCarga SET DescripcionCarga = '".$this->Nombre."' WHERE IDTipoCarga = ".$this->tipoCargaID);
+         if($conexion->error){
+            return ("Error: ".$conexion->error);
          } else {
-             return ("Registro actualizado correctamente");
+            return ("Registro actualizado correctamente");
+         }
+      }
+
+      static function findAll(){
+         $resultado=Conexion::conectar()->query("SELECT * FROM TipoCarga");
+         if ($resultado->num_rows > 0) { 
+            $cargas = array();
+            while ($row = $resultado->fetch_assoc()) { 
+               array_push($cargas, new TipoCarga($row['IDTipoCarga'], $row['DescripcionCarga']));
+            }
+         return ($cargas);
+         }    
+         else { 
+            return ("No existen registros."); 
          }
       }
         
      static function findByID($id){
-         $response = Conexion::conectar()->query("SELECT * FROM TipoCarga WHERE IDTipoCarga = ".$id);
-         if ($response->num_rows > 0) { 
+         $resultado=Conexion::conectar()->query("SELECT * FROM TipoCarga WHERE IDTipoCarga = ".$id);
+         if ($resultado->num_rows > 0) { 
             $cargas = array();
-            while ($row = $response->fetch_assoc()) { 
+            while ($row = $resultado->fetch_assoc()) { 
                array_push($cargas, new TipoCarga($row['IDTipoCarga'], $row['DescripcionCarga']));
             }
          return ($cargas[0]);
@@ -72,18 +91,16 @@ class TipoCarga{
          }
       }
      
-
-    static function listarTipoCarga($where){
-          $response = Conexion::conectar()->query("SELECT * FROM TipoCarga ".$where);
-          if ($response->num_rows > 0) { 
+    static function findAllWhere($where){
+          $resultado=Conexion::conectar()->query("SELECT * FROM TipoCarga WHERE ".$where);
+          if ($resultado->num_rows > 0) { 
              $cargas = array();
-             while ($row = $response->fetch_assoc()) { 
+             while ($row = $resultado->fetch_assoc()) { 
                 array_push($cargas, new TipoCarga($row['IDTipoCarga'], $row['DescripcionCarga']));
              }
           return ($cargas);
           }    
-          else { 
-             return ("No existen registros."); 
+          else { return ("No existen registros."); 
           }
         }
 }
