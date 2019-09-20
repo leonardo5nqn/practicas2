@@ -1,6 +1,6 @@
 <?php
 //LLAMO A LA CLASE CONEXION
-require_once ("../utils/conexion.php");
+require_once("../utils/conexion.php");
 
 class Persona
 {
@@ -15,17 +15,7 @@ class Persona
     private $Email;
 
     //constructor
-    public function __construct($_Nombre, $_apellido, $_Telefono, $_documento, $_FechaNacimiento, $_Domicilio, $_Email )
-   {
-      $this->setNombre($_Nombre);
-      $this->setApellido($_apellido);
-      $this->setTelefono($_Telefono);
-      $this->setDoc($_documento);
-      $this->setFNacimiento($_FechaNacimiento);
-      $this->setDomicilio($_Domicilio);
-      $this->setEmail($_Email);
-   }
-    private function __construct($_personaid, $_Nombre, $_apellido,$_Telefono,$_documento,$_FechaNacimiento,$_Domicilio,$_Email )
+    public function __construct($_personaid, $_Nombre, $_apellido,$_Telefono,$_documento,$_FechaNacimiento,$_Domicilio,$_Email )
    {
       $this->setpersonaid($_personaid);
       $this->setNombre($_Nombre);
@@ -122,10 +112,13 @@ class Persona
      //ingresar persona
      function insert()
       {
-         $respuesta = Conexion::conectar()->query("INSERT INTO Persona (IDPersona, Nombre, Apellido, Telefono, Documento, FechaNacimiento, Domicilio, Email)
-         values (".$this->getpersonaid().",".$this->getNombre().",".$this->getApellido().",".$this->getTelefono().",".$this->getDoc().",".$this->getFNacimiento().",".$this->getDomicilio().",".$this->getEmail().")");
-         
-        $rs= mysql_query( $respuesta); 
+         $conexion = Conexion::conectar();
+         $resultado = $conexion->query("INSERT INTO Persona (Nombre, Apellido, Telefono, Documento, FechaNacimiento, Domicilio, Email)
+         values ('".$this->getNombre()."','".$this->getApellido()."','".$this->getTelefono()."','".$this->getDoc()."','".$this->getFNacimiento()."','".$this->getDomicilio()."','".$this->getEmail()."')");
+          $resultid = mysqli_insert_id($conexion);
+            
+          $this->setpersonaid($resultid);
+        $rs= mysql_query( $resultado); 
 
         if ($rs == false ){
             echo "error";
@@ -137,8 +130,8 @@ class Persona
      //eliminar persona
      function delete()
       {
-         $respuesta = Conexion::conectar()->query("DELETE FROM Persona where IDPersona =".$this->getpersonaid()."");
-        $rs= mysql_query( $respuesta); 
+         $resultado = Conexion::conectar()->query("DELETE FROM Persona where IDPersona =".$this->getpersonaid()."");
+        $rs= mysql_query( $resultado); 
 
         if ($rs == false ){
             echo "error";
@@ -151,11 +144,11 @@ class Persona
      //editar persona
       function update()
       {
-         $respuesta = Conexion::conectar()->query("UPDATE Persona set  Nombre =".$this->getNombre().", Apellido =".$this->getApellido().", Telefono =".$this->getTelefono().", Documento =".$this->getDoc().",
-         FechaNacimiento =".$this->getFNacimiento().", Domicilio =".$this->getDomicilio().", Email =".$this->getEmail()."
+         $resultado = Conexion::conectar()->query("UPDATE Persona set  Nombre ='".$this->getNombre()."', Apellido ='".$this->getApellido()."', Telefono ='".$this->getTelefono()."', Documento ='".$this->getDoc()."',
+         FechaNacimiento ='".$this->getFNacimiento()."', Domicilio ='".$this->getDomicilio()."', Email ='".$this->getEmail()."'
          where IDPersona =".$this->getpersonaid()."");
          
-        $rs= mysql_query( $respuesta); 
+        $rs= mysql_query( $resultado); 
 
         if ($rs == false ){
             echo "error";
@@ -164,12 +157,44 @@ class Persona
             echo "se modifico";
         }
       }
-      static function findByID($id)
+       //OBTENGO TODAS LAS PERSONAS
+      public static function findAll(){
+         $resultado=Conexion::conectar()->query("SELECT * FROM Persona" );
+         
+         if ($resultado->num_rows > 0) { 
+             $persona = array();
+             while ($row = $resultado->fetch_assoc()) { 
+                array_push($persona, new Persona($row['IDPersona'],$row['Nombre'], $row['Apellido'], $row['Telefono'], $row['Documento'], $row['FechaNacimiento'], $row['Domicilio'], $row['Email']));
+             }
+          return ($persona);
+          }    
+          else { 
+             return ("No existen registros."); 
+          }
+     }
+     //OBTENGO UNA PERSONA POR ID
+      public static function findByID($id)
       {
-         $respuesta = Conexion::conectar()->query("SELECT * FROM Persona WHERE IDPersona = ".$id);  
-         if ($respuesta->rowCount() > 0) { 
+         $resultado = Conexion::conectar()->query("SELECT * FROM Persona WHERE IDPersona = ".$id);  
+         if ($resultado->num_rows > 0) { 
             $persona = array();
-            while ($row = $respuesta->fetch()) { 
+            while ($row = $resultado->fetch_assoc()) { 
+               array_push($persona, new Persona($row['IDPersona'],$row['Nombre'], $row['Apellido'], $row['Telefono'], $row['Documento'], $row['FechaNacimiento'], $row['Domicilio'], $row['Email']));
+            }
+         return ($persona[0]);
+         }    
+         else { 
+            return ("No hay registros."); 
+         }
+          }
+       
+      //FIND ALL + WHERE
+      public static function findAllWhere($where)
+      {
+         $respuesta = Conexion::conectar()->query("SELECT * FROM Persona WHERE ".$where);
+         if ($resultado->num_rows > 0) { 
+            $persona = array();
+            while ($row = $resultado->fetch_assoc()) { 
                array_push($persona, new Persona($row['IDPersona'],$row['Nombre'], $row['Apellido'], $row['Telefono'], $row['Documento'], $row['FechaNacimiento'], $row['Domicilio'], $row['Email']));
             }
          return ($persona);
@@ -178,22 +203,30 @@ class Persona
             return ("No hay registros."); 
          }
           }
-      } 
-
-      static function listarPersona($where)
-      {
-         $respuesta = Conexion::conectar()->query("SELECT * FROM Persona ".$where);
-         if ($respuesta->rowCount() > 0) { 
-            $persona = array();
-            while ($row = $respuesta->fetch()) { 
-               array_push($persona, new Persona($row['IDPersona'],$row['Nombre'], $row['Apellido'], $row['Telefono'], $row['Documento'], $row['FechaNacimiento'], $row['Domicilio'], $row['Email']));
-            }
-         return ($persona);
-         }    
-         else { 
-            return ("No hay registros."); 
-         }
-          }
-      } 
 }
+//private function __construct($_personaid, $_Nombre, $_apellido,$_Telefono,$_documento,$_FechaNacimiento,$_Domicilio,$_Email )
+    //ESTO INSERTA UNA PERSONA 
+    $instaciaPrueba = new Persona (NULL,"Nombre 1","Apellido 1", "123","40960987","1-1-1998","Rio negro 1","uno");
+
+    $instaciaPrueba -> insert();
+
+    //ESTO BORRA UNA PERSONA
+    //$re = Persona::findAll()[0]->delete();
+
+    //ESTO TRAE MUCHAS PERSONAS
+    //$re = Persona::findAll();
+
+    //ESTO TRAE UNA PERSONA POR ID
+    //$re = Persona::findByID(1);
+    //var_dump($re);
+    //ESTO TRAE ARRAY CON WHERE STRING
+    //$re = Persona::findAllWhere(" Nombre = 'Nombre 1' OR 1 = 1 ");
+
+    //$re->setNombre("Nombre 1");
+
+    //$re->update();
+
+    //$re2 = Persona::findByID(1);
+
+    //var_dump($re2);exit(); 
 ?>
