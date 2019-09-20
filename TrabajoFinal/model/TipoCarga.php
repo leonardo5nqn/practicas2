@@ -33,7 +33,7 @@ class TipoCarga{
 
      public function insert(){
          $conexion = Conexion::conectar();
-         $resultado = $conexion->query("TipoCarga(DescripcionCarga) VALUES ('".$this->descripcion."')");
+         $resultado = $conexion->query("INSERT INTO TipoCarga(DescripcionCarga) VALUES ('".$this->descripcion."')");
          $resultid = mysqli_insert_id($conexion);
          $this->setID($resultid);
          if($conexion->error){
