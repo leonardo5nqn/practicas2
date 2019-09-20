@@ -131,5 +131,14 @@ static function listarEmpresa($where){
 
 }
 
+//-------------------------------------------------------------
+//--- Pruebas Empresas
+//$IDEmpresa, $_razonSocial, $_Cuit, $_Direccion, $_Telefono
+//________________________________________----------------------
+//$instaPrueEmpresa = new Empresa ("1","Arcor","20436374382","Leguizamon 234","2994637936");
+//$instaPrueEmpresa->insert();
+
+//Traigo todas las empresas
+//$reso = Empresa::findAll();
 
 ?>
