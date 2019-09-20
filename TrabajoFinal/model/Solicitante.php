@@ -9,7 +9,7 @@
         private $persona;
         private $empresa;
         
-        public function __construct($_solcitante,  $_persona, $_empresa){
+        public function __construct($_idSolcitante,  $_persona, $_empresa){
             $this->setIdSolicitante($_idSolcitante);
             $this->setIdPersona($_persona);
             $this->setEmpresa($_empresa);
@@ -38,7 +38,7 @@
 
         public function insert (){
          $conexion = Conexion::conectar();
-         $resultado = $conexion->query("Solicitante(IDSolicitante, PersonaID, EmpresaID) VALUES ('".$this->getIdSolicitante()."','"$this->getPersona()->getpersonaid()."','".$this->getEmpresa()->getIDEmpresa()."')");
+         $resultado = $conexion->query("INSERT INTO Solicitante(IDSolicitante, PersonaID, EmpresaID) VALUES ('".$this->getIdSolicitante()."','"$this->getPersona()->getpersonaid()."','".$this->getEmpresa()->getIDEmpresa()."')");
          $resultid = mysqli_insert_id($conexion);
          $this->setIdSolicitante($resultid);
          if($conexion->error){
