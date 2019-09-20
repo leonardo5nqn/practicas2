@@ -2,40 +2,38 @@
     //LLAMO A LA CLASE CONEXION
     require_once ("../utils/conexion.php");
     require_once ("Persona.php");
-    require_once ("model/Rol.php");
+    require_once ("Rol.php");
 
-    class Usuario extends Persona
+    class Usuario
     {
+        private  $idUsuario;
         private  $usuario;
         private  $password;
-        private  $idUsuario;
         private  $idPersona;
         private  $idRol;
         private  $huella;
        
 
         //constructor
-    public function __construct($_usuario, $_password,$_idPersona,$_idRol,$_huella)
+    private function __construct( $_idUsuario,$_usuario, $_password,$_idPersona,$_idRol,$_huella)
      {
+      $this->setIDUsuario($_idUsuario);
       $this->setUsuario($_usuario);
       $this->setPassword($_password);
-      $this->setIDUsuario($_idUsuario);
-      $this->setidPersona($_idPersona->getIDUsuario());
-      $this->setidRol($_idRol->getIDUsuario());
-      $this->huella = $_huella;
-      
-     }
-    private function __construct($_usuario, $_password, $_idUsuario,$_idPersona,$_idRol,$_huella)
-     {
-      $this->setUsuario($_usuario);
-      $this->setPassword($_password);
-      $this->setIDUsuario($_idUsuario);
       $this->setidPersona($_idPersona);
       $this->setidRol($_idRol);
       $this->huella = $_huella;
       
      }
-
+        //metodos get y set idUsuario
+        public function getIDUsuario()
+        {
+            return $this->idUsuario;
+        }
+        public function setIDUsuario($id)
+        {
+            $this->idUsuario = $id;
+        }
         //metodos get y set Usuario
         public function getUsuario()
         {
@@ -55,15 +53,6 @@
         {
             $this->password = $pass;
         }
-        //metodos get y set idUsuario
-        public function getIDUsuario()
-        {
-            return $this->idUsuario;
-        }
-        public function setIDUsuario($id)
-        {
-            $this->idUsuario = $id;
-        }
         
         //metodos get y set idPersona
         public function getidPersona()
@@ -71,9 +60,10 @@
             return $this->idPersona;
         }
      
-        public function setidPersona($idpersona)
+        public function setidPersona($_idpersona)
         {
-            $this->idPersona = Persona::findByID($idpersona);
+            $this->idPersona=$_idpersona;
+            
         }
         //metodos get y set idRol
         public function getidRol()
@@ -81,17 +71,30 @@
             return $this->idRol;
         }
      
-        public function setidRol($idrol)
+        public function setidRol($_idrol)
         {
-            $this->idRol = Rol::findByID($idrol);
+            $this->idRol=$_idrol;
         }
+         //metodos get y set huella
+         public function getHuella()
+         {
+            return $this->huella;
+         }
+      
+         public function setHuella($_huella)
+         {
+            $this->huella = $_huella;
+         }
         
         //Crear nuevo usuario
-        public static function insert()
+        function insert()
         {
-            $respuesta = Conexion::conectar()->query("INSERT INTO Usuario (IDUsuario, PersonaID, RolID, NombreUsuario, Contrasena, Huella)
-            values (".$this->getIDUsuario().",".$this->getidPersona()->getIDUsuario().",".$this->getidRol()->getIDUsuario().",".$this->getUsuario().",".$this->getPassword()." ,".$this->huella." )");
-            $rs= mysql_query( $respuesta); 
+            $conexion = Conexion::conectar()
+            $resultado = $conexion->query("INSERT INTO Usuario NombreUsuario, Contrasena, PersonaID, RolID, Huella)
+            values ('".$this->getUsuario()."','".$this->getPassword()."',".$this->getidPersona()->getpersonaid().",".$this->getidRol()->getIDRol().",'".$this->getHuella()."')");
+            $resultid = mysqli_insert_id($conexion);
+            $this->setIdSolicitante($resultid);
+            $rs= mysql_query( $resultado); 
 
             if ($rs == false ){
                 echo "error";
@@ -101,10 +104,10 @@
             }
         }
         //eliminar usuario
-        public static function delete()
+        function delete()
         {
-            $respuesta = Conexion::conectar()->query("DELETE FROM Usuario where IDUsuario =".$this->getIDUsuario()."");
-            $rs= mysql_query( $respuesta); 
+            $resultado = Conexion::conectar()->query("DELETE FROM Usuario where IDUsuario =".$this->getIDUsuario()."");
+            $rs= mysql_query( $resultado); 
 
         if ($rs == false ){
             echo "error";
@@ -114,11 +117,11 @@
         }
         }
         //editar usuario
-        public static function update()
+        function update()
         {
-            $respuesta = Conexion::conectar()->query("UPDATE Usuario set  NombreUsuario =".$this->getUsuario().", Contrasena =".$this->getPassword()." 
+            $resultado = Conexion::conectar()->query("UPDATE Usuario set  NombreUsuario ='".$this->getUsuario()."', Contrasena ='".$this->getPassword()."', PersonaID=".$this->getidPersona()->getpersonaid().",EmpresaID=".$this->getidRol()->getIDRol().", Huella ='".$this->getHuella()."'
             where IDUsuario =".$this->getIDUsuario()."");
-            $rs= mysql_query( $respuesta); 
+            $rs= mysql_query( $resultado); 
 
         if ($rs == false ){
             echo "error";
@@ -127,15 +130,31 @@
             echo "se modifico";
         }
         }
-
-        static function findByID($id){
-            $respuesta = Conexion::conectar()->query("SELECT * FROM Usuario WHERE IDUsuario = ".$id);
-            if ($respuesta->rowCount() > 0) { 
+        //rowcount Cuentas las filas.
+        //fetch recorre un arreglo.
+        //array_push llena un array.
+        public static function findAll(){
+            $resultado=Conexion::conectar()->query("SELECT * FROM Usuario" );
+            
+            if ($resultado->num_rows > 0) { 
                 $usuario = array();
-                while ($row = $respuesta->fetch()) { 
-                   array_push($usuario, new Usuario($row['IDUsuario'],$row['NombreUsuario'], $row['Contrasena'], $row['Huella']));
+                while ($row = $resultado->fetch_assoc()) { 
+                   array_push($usuario, new Usuario($row['IDUsuario'],$row['NombreUsuario'], $row['Contrasena'], Persona::findById($row['PersonaID']), Rol::findById($row['IDRol']), $row['Huella']));
                 }
              return ($usuario);
+             }    
+             else { 
+                return ("No existen registros."); 
+             }
+        }
+        public static function findByID($id){
+            $respuesta = Conexion::conectar()->query("SELECT * FROM Usuario WHERE IDUsuario = ".$id);
+            if ($respuesta->num_rows > 0) { 
+                $usuario = array();
+                while ($row = $respuesta->fetch_assoc()) { 
+                   array_push($usuario, new Usuario($row['IDUsuario'],$row['NombreUsuario'], $row['Contrasena'], Persona::findById($row['PersonaID']), Rol::findById($row['IDRol']), $row['Huella']));
+                }
+             return ($usuario[0]);
              }    
              else { 
                 return ("No hay registros."); 
@@ -143,13 +162,13 @@
               }   
         } 
 
-        static function listarUsuario($where)
+        public static function findAllWhere($where)
         {
-            $respuesta = Conexion::conectar()->query("SELECT * FROM Usuario ".$where);
-            if ($respuesta->rowCount() > 0) { 
+            $respuesta = Conexion::conectar()->query("SELECT * FROM Usuario WHERE ".$where);
+            if ($respuesta->num_rows > 0) { 
                 $usuario = array();
-                while ($row = $respuesta->fetch()) { 
-                   array_push($usuario, new Usuario($row['IDUsuario'],$row['NombreUsuario'], $row['Contrasena'], $row['Huella']));
+                while ($row = $respuesta->fetch_assoc()) { 
+                   array_push($usuario, new Usuario($row['IDUsuario'],$row['NombreUsuario'], $row['Contrasena'], Persona::findById($row['PersonaID']), Rol::findById($row['IDRol']), $row['Huella']));
                 }
              return ($usuario);
              }    
