@@ -205,11 +205,11 @@ var_dump($reso);
 //$reso=MovimientosCisterna("IDPlayero = '1'");
 
 //modifico un movimiento
-$reso->setPlayeroid("1");
-$reso->update();
+//$reso->setPlayeroid("1");
+//$reso->update();
 
-$reso2= MovimientosCisterna::findByID(1);
-var_dump($reso2);
-exit();
+//$reso2= MovimientosCisterna::findByID(1);
+//var_dump($reso2);
+//exit();
 
 ?>
