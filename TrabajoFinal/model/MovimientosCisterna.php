@@ -13,15 +13,15 @@ class MovimientoCisterna
     private $pvcid;
 
     //constructor
-    public function __construct($_movimientoid, $_playeroid, $_fechahora,$_litros,$_tipoCargaid,$_cisternaid,$_porcentaje,$_pvcid )
+    public function __construct($movimientoid, $_playeroid, $_fechahora,$_litros,$_tipoCargaid,$_cisternaid,$_porcentaje,$_pvcid )
    {
-      $this->setMovimientoid($_movimientoid);
+      $this->setMovimientoid($movimientoid);
       $this->setPlayeroid($_playeroid);
       $this->setFechahora($_fechahora);
       $this->setLitros($_litros);
       $this->setTipoCargaid($_tipoCargaid);
       $this->setCisternaid($_cisternaid);
-      $this->porcentaje = $_porcentaje;
+      $this->setPorcentaje ($_porcentaje);
       $this->setPvcid($_pvcid);
    }
     
@@ -30,9 +30,9 @@ class MovimientoCisterna
     {
       return $this->movimientoid;
     }
-    private function setMovimientoid($id)
+    private function setMovimientoid($_id)
     {
-      $this->movimientoid = $id;
+      $this->movimientoid = $_id;
     }
 
     //metodos get y set playeroid
@@ -41,9 +41,9 @@ class MovimientoCisterna
       return $this->playeroid;
     }
 
-   public function setPlayeroid($Playeroid)
+   private function setPlayeroid($_Playeroid)
     {
-      $this->playeroid = $Playeroid;
+      $this->playeroid = $_Playeroid;
     }
     
     //metodos get y set fechahora
@@ -52,19 +52,19 @@ class MovimientoCisterna
         return $this->fechahora;
       }
   
-     public function setFechahora($fh)
+     private function setFechahora($_fh)
       {
-        $this->fechahora = $fh;
+        $this->fechahora = $_fh;
       }
      //metodos get y set litros
      public function getLitros()
       {
-        return $this->listros;
+        return $this->litros;
       }
   
-     public function setLitros($l)
+     private function setLitros($_litros)
      {
-        $this->litros = $l;
+        $this->litros = $_litros;
      }
      //metodos get y set tipoCargaid
      public function getTipoCargaid()
@@ -72,9 +72,9 @@ class MovimientoCisterna
         return $this->tipoCargaid;
       }
   
-     public function setTipoCargaid($TipoCargaid)
+     private function setTipoCargaid($_TipoCargaid)
      {
-        $this->tipoCargaid = $TipoCargaid;
+        $this->tipoCargaid = $_TipoCargaid;
      }
      //metodos get y set cisternaid
      public function getCisternaid()
@@ -82,61 +82,105 @@ class MovimientoCisterna
         return $this->cisternaid;
       }
   
-     public function setCisternaid($Cisternaid)
+     private function setCisternaid($_Cisternaid)
      {
-        $this->cisternaid = $Cisternaid;
+        $this->cisternaid = $_Cisternaid;
      }
+
+     //get y set de porcentaje
+     public function getPorcentaje(){
+       return $this->porcentaje:
+     }
+     private function setPorcentaje($_porcen){
+       $this->porcentaje=$_porcen;
+     }
+
      //metodos get y set pvcid
      public function getPvcid()
       {
         return $this->pvcid;
       }
   
-     public function setPvcid($Pvcid)
+     private function setPvcid($_Pvcid)
      {
-        $this->pvcid = $Pvcid;
+        $this->pvcid = $_Pvcid;
      }
-     
      
 
      //ingresar MovimientosCisterna
      function insert()
       {
-         $respuesta = Conexion::conectar()->query("INSERT INTO MovimientoCisterna (IDMovimiento, IDPlayero, FechaHora , Litros, IDTipoCarga, IDCisterna, Porcentaje, IDPvc)
-         values (".$this->getMovimientoid().",".$this->getPlayeroid().",".$this->getFechaHora().",".$this->getLitros().",".$this->getTipoCargaid().",".$this->getCisternaid().",".$this->porcentaje.",".$this->getPvcid().")");
-         return ($respuesta);    
+        $resultado = Conexion::conectar()->query("INSERT INTO MovimientoCisterna (IDMovimiento, IDPlayero, FechaHora , Litros, IDTipoCarga, IDCisterna, Porcentaje, IDPvc)
+        values ('".$this->getMovimientoid()."','".$this->getPlayeroid()."','".$this->getFechaHora()."','".$this->getLitros()."','".$this->getTipoCargaid()."','".$this->getCisternaid()."','".$this->porcentaje."','".$this->getPvcid()."')");
+        
+        $resulID=mysqli_insert_id(Conexion::conectar());
+        $this->setMovimientoid($resulID);
+        return true;    
       }  
      //eliminar MovimientosCisterna
      function delete()
       {
-         $respuesta = Conexion::conectar()->query("DELETE FROM MovimientoCisterna where IDMovimiento =".$this->getMovimientoid()."");
-         return ($respuesta);
+          $resultado = Conexion::conectar()->query("DELETE FROM MovimientoCisterna where IDMovimiento =".$this->getMovimientoid()."");
+          return true;
       }  
      //editar MovimientosCisterna 
     function update()
       {
-         $respuesta = Conexion::conectar()->query("UPDATE MovimientoCisterna set  IDPlayero =".$this->getPlayeroid().", FechaHora =".$this->getFechaHora().", Litros =".$this->getLitros().", IDTipoCarga =".$this->getTipoCargaid().",
-         IDCisterna =".$this->getCisternaid().", Porcentaje =".$this->porcentaje.", IDPvc =".$this->getPvcid()."
-         where IDMovimiento =".$this->getMovimientoid()."");
-         return ($respuesta);
+         $resultado = Conexion::conectar()->query("UPDATE MovimientoCisterna set  IDPlayero ='".$this->getPlayeroid()."', FechaHora ='".$this->getFechaHora()."', Litros ='".$this->getLitros()."', IDTipoCarga ='".$this->getTipoCargaid()."',
+         IDCisterna ='".$this->getCisternaid()."', Porcentaje ='".$this->getPorcentage()."', IDPvc ='".$this->getPvcid()."'
+         where IDMovimiento =".$this->getMovimientoid());
+         return true;
       }
-      static function findByID($id)
+      
+      public static function findAll(){
+        $resultado=Conexion::conectar()->query("SELECT * FROM MovimientosCisterna");
+        
+        
+        if ($resultado->num_rows > 0){
+          $movimientoCisternas=array();
+          while ($row=$resultado->fetch_assoc()){
+            array_push($movimientoCisternas, new MovimientosCisterna($row['IDMovimiento'],$row['IDPlayero'],$row['FechaHora'],$row['Litros'],$row['IDTIpoCarga'],$row['IDCisterna'],$row['Porcentaje'],$row['IDPvc']));
+          }
+          return ($movimientoCisternas);
+        }
+        else {
+          return ("No existen registros");
+        }
+        
+      }
+
+      public static function findByID($id)
       {
-        $respuesta = Conexion::conectar()->query("SELECT * FROM MovimientoCisterna WHERE IDMovimiento = ".$id);
-        while ($fila = $respuesta -> fetch_object()){
-        $result[]= $fila; 
-      }
-      return $result[];     
+        $resultado = Conexion::conectar()->query("SELECT * FROM MovimientoCisterna WHERE IDMovimiento = ".$id);
+        if ($resultado->num_rows > 0){
+          $movimientoCisternas=array();
+          while ($row=$resultado->fetch_assoc()){
+            array_push($movimientoCisternas, new MovimientosCisterna($row['IDMovimiento'],$row['IDPlayero'],$row['FechaHora'],$row['Litros'],$row['IDTIpoCarga'],$row['IDCisterna'],$row['Porcentaje'],$row['IDPvc']));
+          }
+          return ($movimientoCisternas);
+        }
+        else {
+          return ("No existen registros");
+        }
       } 
 
       static function listarUsuario($where)
       {
-        $respuesta = Conexion::conectar()->query("SELECT * FROM MovimientoCisterna ".$where);
-        while ($fila = $respuesta -> fetch_object()){
-        $result[]= $fila; 
-      }
-      return $result[]; 
+        $resultado = Conexion::conectar()->query("SELECT * FROM MovimientoCisterna ".$where);
+       
+          if ($resultado->num_rows > 0){
+            $movimientoCisternas=array();
+            while ($row=$resultado->fetch_assoc()){
+              array_push($movimientoCisternas, new MovimientosCisterna($row['IDMovimiento'],$row['IDPlayero'],$row['FechaHora'],$row['Litros'],$row['IDTIpoCarga'],$row['IDCisterna'],$row['Porcentaje'],$row['IDPvc']));
+            }
+            return ($movimientoCisternas);
+          }
+          else {
+            return ("No existen registros");
+          }
       }
 
 }
+
+
 ?>
