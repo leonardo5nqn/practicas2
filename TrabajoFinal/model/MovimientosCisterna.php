@@ -183,4 +183,33 @@ class MovimientoCisterna
 }
 
 
+//PRUEBAS
+//--------------------------------------------------------------------------------------------------
+//$movimientoid, $_playeroid,  $_fechahora,  $_litros,  $_tipoCargaid,  $_cisternaid,  $_porcentaje,  $_pvcid
+//--------------------------------------------------------------------------------------------------
+//insert
+//$instaMovCis = new MovimientosCisterna (null,"1","20190202","20","1","1","20","3");
+//$instaMovCis->insert();
+
+//delete
+//$reso=MovimientosCisterna::findAll()[0]->delete();
+
+//Obtengo todos los movimientos
+//$reso=MovimientosCisterna::findAll();
+
+//traigo un movimiento por ID
+//$reso = MovimientosCisterna::findByID(1);
+var_dump($reso);
+
+//Busco por Where
+//$reso=MovimientosCisterna("IDPlayero = '1'");
+
+//modifico un movimiento
+$reso->setPlayeroid("1");
+$reso->update();
+
+$reso2= MovimientosCisterna::findByID(1);
+var_dump($reso2);
+exit();
+
 ?>
