@@ -2,7 +2,7 @@
 //--------------------------------------------------
 //LLAMO AL ARCHIVO DE CONEXION A LA BASE DE DATOS
 //--------------------------------------------------    
-require ("conexion.php");
+require_once("../utils/conexion.php");
 
 //-------------------------------------------------
 //DECLARO LA CLASE PARA EL OBJETO Cisterna
@@ -18,14 +18,8 @@ class Vehiculo
     private $tipoVehiculo;
 
     //CREO EL CONSTRUCTOR DEL OBJETO VEHICULO
-    public function __construct($_patente, $_marca, $_modelo, $_color, $_tipoVehiculo){
-        $this->setNumPatente($_patente);
-        $this->setMarca($_marca);
-        $this->setModelo($_modelo);
-        $this->setColor($_color);
-        $this->setTipoVehiculo($_tipoVehiculo);
-    }
-    private function __construct($_idVehiculo, $_patente, $_marca, $_modelo, $_color, $_tipoVehiculo){
+    
+    public function __construct($_idVehiculo, $_patente, $_marca, $_modelo, $_color, $_tipoVehiculo){
         $this->setIdVehiculo($_idVehiculo);
         $this->setNumPatente($_patente);
         $this->setMarca($_marca);
@@ -86,11 +80,14 @@ class Vehiculo
     //-------------------
     //CREO EL INSERT
     //--------------------
-    public static function insertVehiculo()
+    function insert()
     {
-       
-     $resultado = Conexion::conectar()->query("INSERT INTO Vehiculo (Patente, Marca, Modelo, Color, TipoVehiculo)
-     values(".$this->getNumPatente().", ".$this->getMarca().", ".$this->getModelo().", ".$this->getColor().", ".$this->getTipoVehiculo().")");
+    $conexion = Conexion::conectar();
+    $resultado = $conexion->query("INSERT INTO Vehiculo (Patente, Marca, Modelo, Color, TipoVehiculo)
+     values('".$this->getNumPatente()."',' ".$this->getMarca()."', '".$this->getModelo()."', '".$this->getColor()."', '".$this->getTipoVehiculo()."')");
+     $resultid = mysqli_insert_id($conexion);
+            
+     $this->setpersonaid($resultid);
 
      $rs= mysql_query( $resultado); 
 
@@ -106,9 +103,9 @@ class Vehiculo
     //----------------------------
     //ELIMINO UN VEHICULO POR ID_VEHICULO
     //----------------------------
-    public static function deleteVehiculo () {
+    function delete () {
 
-        $resultado=Conexion::conectar()->query("DELETE from Vehiculo where IDVehiculo = ".$this->getIdVehiculo());
+        $resultado= Conexion::conectar()->query("DELETE FROM Vehiculo WHERE IDVehiculo=".$this->getIdVehiculo()."");
         
         $rs= mysql_query( $resultado); 
 
@@ -123,9 +120,9 @@ class Vehiculo
     //-----------------------------
     //MODIFICO UN VEHICULO
     //-----------------------------
-    public static function updateVehiulo(){
+    function update(){
 
-        $resultado=Conexion::conectar()->query("UPDATE Vehiculo set Patente = ".$this->getNumPatente().", Marca = ".$this->getMarca().", Modelo = ".$this->getModelo().", Color = ".$this->getColor().", TipoVehiculo = ".$this->getTipoVehiculo()."
+        $resultado=Conexion::conectar()->query("UPDATE Vehiculo set Patente = '".$this->getNumPatente()."', Marca = '".$this->getMarca()."', Modelo = '".$this->getModelo()."', Color = '".$this->getColor()."', TipoVehiculo = '".$this->getTipoVehiculo()."'
         where IDVehiculo = ".$this->getIdVehiculo());
         
         $rs= mysql_query( $resultado); 
@@ -140,24 +137,32 @@ class Vehiculo
 
     //-------------------------------------
     //OBTENGO TODOS LOS VEHICULOS
-    //Lo utilizo para listar en la grilla
-    //-------------------------------------
-    public static function getAllVehiculos(){
+        //-------------------------------------
+    public static function findAll(){
         $resultado=Conexion::conectar()->query("SELECT * from Vehiculo");
-        return ($resultado);
+        if ($resultado->num_rows > 0) { 
+            $persona = array();
+            while ($row = $resultado->fetch_assoc()) { 
+               array_push($vehiculo, new Vehiculo($row['IDVehiculo'],$row['Patente'], $row['Marca'], $row['Modelo'], $row['Color'], $row['TipoVehiculo']));
+            }
+         return ($vehiculo);
+         }    
+         else { 
+            return ("No existen registros."); 
+         }
     }
 
     //--------------------------------------
-    //ONTENGO UN VEHICULO POR ID (FIND by ID)
+    //OBTENGO UN VEHICULO POR ID (FIND by ID)
     //--------------------------------------
-    public static function findByIdVehiculo ($id){
+    public static function findByID($id){
         $resultado=Conexion::conectar()->query("SELECT * FROM Vehiculo WHERE IDVehiculo = ".$id);
-        if ($resultado->rowCount() > 0) { 
+        if ($resultado->num_rows > 0) { 
             $vehiculo = array();
-            while ($row = $resultado->fetch()) { 
+            while ($row = $resultado->fetch_assoc()) { 
                array_push($vehiculo, new Vehiculo($row['IDVehiculo'], $row['Patente'], $row['Marca'], $row['Modelo'], $row['Color'], $row['TipoVehiculo']));
             }
-         return ($vehiculo);
+         return ($vehiculo[0]);
          }    
          else { 
             return ("No hay registros"); 
@@ -167,11 +172,11 @@ class Vehiculo
     //-------------------------------------
     //FIND ALL + WHERE (envio una condicion por parametro)
     //----------------------------------------
-    public static function findAllWhereVehiculo ($where){
-        $resultado= Conexion::conectar()->query("SELECT * FROM Vehiculo ".$where);
-        if ($resultado->rowCount() > 0) { 
+    public static function findAllWhere($where){
+        $resultado= Conexion::conectar()->query("SELECT * FROM Vehiculo WHERE ".$where);
+        if ($resultado->num_rows > 0) { 
             $vehiculo = array();
-            while ($row = $resultado->fetch()) { 
+            while ($row = $resultado->fetch_assoc()) { 
                array_push($vehiculo, new Vehiculo($row['IDVehiculo'], $row['Patente'], $row['Marca'], $row['Modelo'], $row['Color'], $row['TipoVehiculo']));
             }
          return ($vehiculo);
@@ -180,12 +185,32 @@ class Vehiculo
             return ("No hay registros"); 
          }
     }
-
 }
+    // public function __construct($_idVehiculo, $_patente, $_marca, $_modelo, $_color, $_tipoVehiculo){
+    //ESTO INSERTA UN VEHICULO
+   // $instaciaPrueba = new Vehiculo (NULL,"123","1", "1","blanco","1");
 
-/*$instaciaPrueba = new Vehiculo ();
+    //$instaciaPrueba -> insert();
 
-$instaciaPrueba -> insertVehiculo('aaa111','Reno','A3','Blanco','02');
+    //ESTO BORRA UN VEHICULO
+    //$re = Vehiculo::findAll()[0]->delete();
 
-print($instaciaPrueba);   */
+    //ESTO TRAE MUCHAS PERSONAS
+    //$re = Vehiculo::findAll();
+
+    //ESTO TRAE UNA PERSONA POR ID
+    //$re = Vehiculo::findByID(1);
+    //var_dump($re);
+    //ESTO TRAE ARRAY CON WHERE STRING
+    //$re = Vehiculo::findAllWhere(" Patente = '123' OR 1 = 1 ");
+
+    //$re->setPatente("123");
+
+    //$re->update();
+
+    //$re2 = Vehiculo::findByID(1);
+
+    //var_dump($re2);exit(); 
+
+
 ?>
