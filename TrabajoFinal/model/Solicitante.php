@@ -1,5 +1,5 @@
 <?php
-      require("../utils/conexion.php");
+    require("../utils/conexion.php");
     require("./Empresa.php");
     require("./Persona.php");
 
@@ -11,7 +11,7 @@
         
         public function __construct($_idSolcitante,  $_persona, $_empresa){
             $this->setIdSolicitante($_idSolcitante);
-            $this->setIdPersona($_persona);
+            $this->setPersona($_persona);
             $this->setEmpresa($_empresa);
         }
         
@@ -38,7 +38,7 @@
 
         public function insert (){
          $conexion = Conexion::conectar();
-         $resultado = $conexion->query("INSERT INTO Solicitante(IDSolicitante, PersonaID, EmpresaID) VALUES ('".$this->getIdSolicitante()."','"$this->getPersona()->getpersonaid()."','".$this->getEmpresa()->getIDEmpresa()."')");
+         $resultado = $conexion->query("INSERT INTO Solicitante(IDSolicitante, PersonaID, EmpresaID) VALUES ('".$this->getIdSolicitante()."','".$this->getPersona()->getpersonaid()."','".$this->getEmpresa()->getIDEmpresa()."')");
          $resultid = mysqli_insert_id($conexion);
          $this->setIdSolicitante($resultid);
          if($conexion->error){
@@ -109,4 +109,37 @@
         }
        }
     }
+
+
+
+    //ESTO INSERTA UNA CISTERNA 
+    $instaciaPrueba = new Solicitante(NULL, Persona::findById(1), Empresa::findById(1));
+   
+    var_dump($instaciaPrueba);
+ /*    exit(); */
+   
+    $instaciaPrueba->insert();
+
+    //ESTO BOORA UNA CISTERNAS
+    //$re = Cisterna::findAll()[0]->delete();
+
+    //ESTO TRAE MUCHAS CISTERNAS
+    //$re = Cisterna::findAll();
+
+    //ESTO TRAE UNA CISTERNA POR ID
+    $re = Solicitante::findAll();
+    var_dump($re);
+    //ESTO TRAE ARRAY CON WHERE STRING
+    //$re = Cisterna::findAllWhere(" NombreCisterna = 'Nombre 1' OR 1 = 1 ");
+/* 
+    $re->setNombreCisterna("Nombre 60");
+
+    $re->update();
+
+    $re2 = Cisterna::findByID(2);
+
+    var_dump($re2); */exit();
+
+
+
 ?>
