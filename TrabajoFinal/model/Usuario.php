@@ -15,14 +15,14 @@
        
 
         //constructor
-    private function __construct( $_idUsuario,$_usuario, $_password,$_idPersona,$_idRol,$_huella)
+    public function __construct( $_idUsuario,$_usuario, $_password,$_idPersona,$_idRol,$_huella)
      {
       $this->setIDUsuario($_idUsuario);
       $this->setUsuario($_usuario);
       $this->setPassword($_password);
       $this->setidPersona($_idPersona);
       $this->setidRol($_idRol);
-      $this->huella = $_huella;
+      $this->setHuella($_huella);
       
      }
         //metodos get y set idUsuario
@@ -30,7 +30,7 @@
         {
             return $this->idUsuario;
         }
-        public function setIDUsuario($id)
+        private function setIDUsuario($id)
         {
             $this->idUsuario = $id;
         }
@@ -39,7 +39,7 @@
         {
             return $this->usuario;
         }
-        private function setUsuario($us)
+        public function setUsuario($us)
         {
             $this->usuario = $us;
         }
@@ -91,44 +91,37 @@
         {
             $conexion = Conexion::conectar()
             $resultado = $conexion->query("INSERT INTO Usuario NombreUsuario, Contrasena, PersonaID, RolID, Huella)
-            values ('".$this->getUsuario()."','".$this->getPassword()."',".$this->getidPersona()->getpersonaid().",".$this->getidRol()->getIDRol().",'".$this->getHuella()."')");
+            values ('".$this->getUsuario()."','".$this->getPassword()."','".$this->getidPersona()->getpersonaid()."','".$this->getidRol()->getIDRol()."','".$this->getHuella()."')");
             $resultid = mysqli_insert_id($conexion);
             $this->setIdSolicitante($resultid);
-            $rs= mysql_query( $resultado); 
-
-            if ($rs == false ){
-                echo "error";
-            }     
-            else {
-                echo "se inserto";
-            }
+            if($conexion->error){
+                return ("Error: ".$conexion->error);
+                 } else {
+                 return ("Registro insertado correctamente");
+               }
         }
         //eliminar usuario
         function delete()
         {
-            $resultado = Conexion::conectar()->query("DELETE FROM Usuario where IDUsuario =".$this->getIDUsuario()."");
-            $rs= mysql_query( $resultado); 
-
-        if ($rs == false ){
-            echo "error";
-        }     
-        else {
-            echo "se elimino";
-        }
+            $conexion = Conexion::conectar();
+            $resultado = $conexion->query("DELETE FROM Usuario where IDUsuario =".$this->getIDUsuario()."");
+            if($conexion->error){
+                return ("Error: ".$conexion->error);
+                 } else {
+                 return ("Registro eliminado correctamente");
+               }
         }
         //editar usuario
         function update()
         {
-            $resultado = Conexion::conectar()->query("UPDATE Usuario set  NombreUsuario ='".$this->getUsuario()."', Contrasena ='".$this->getPassword()."', PersonaID=".$this->getidPersona()->getpersonaid().",EmpresaID=".$this->getidRol()->getIDRol().", Huella ='".$this->getHuella()."'
+            $conexion = Conexion::conectar();
+            $resultado = $conexion->query("UPDATE Usuario set  NombreUsuario ='".$this->getUsuario()."', Contrasena ='".$this->getPassword()."', PersonaID='".$this->getidPersona()->getpersonaid()."',EmpresaID='".$this->getidRol()->getIDRol()."', Huella ='".$this->getHuella()."'
             where IDUsuario =".$this->getIDUsuario()."");
-            $rs= mysql_query( $resultado); 
-
-        if ($rs == false ){
-            echo "error";
-        }     
-        else {
-            echo "se modifico";
-        }
+            if($conexion->error){
+                return ("Error: ".$conexion->error);
+                 } else {
+                 return ("Registro actualizado correctamente");
+               }
         }
         //rowcount Cuentas las filas.
         //fetch recorre un arreglo.
@@ -189,4 +182,31 @@
             }
             else return null;
         }*/
-    }?>
+    }
+    //( $_idUsuario,$_usuario, $_password,$_idPersona,$_idRol,$_huella)
+
+    //ESTO INSERTA UN Usuario 
+    //$instaciaPrueba = new Usuario (NULL,"asd","dsds","1","1","");
+
+   // $instaciaPrueba -> insert();
+
+    //ESTO BORRA UN USUARIO
+    //$re = Usuario::findAll()[0]->delete();
+
+    //ESTO TRAE MUCHOS USUARIOS
+    //$re = Usuario::findAll();
+
+    //ESTO TRAE UN USUARIO POR ID
+    //$re = Usuario::findByID(1);
+    //var_dump($re);
+    //ESTO TRAE ARRAY CON WHERE STRING
+    //$re = Usuario::findAllWhere(" IDUsuario = '1' OR 1 = 1 ");
+
+    //$re->setUsuario("a");
+
+    //$re->update();
+
+    //$re2 = Usuario::findByID(1);
+
+    //var_dump($re2);exit();
+    ?>
