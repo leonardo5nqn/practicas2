@@ -25,7 +25,7 @@ Class Rol{
         return $this->Descripcion;
     }
 
-    private function setDescripcion($descp){
+    public function setDescripcion($descp){
         $this->Descripcion = $descp;
     }
 
@@ -35,42 +35,37 @@ Class Rol{
         $conexion = Conexion::conectar();
         $resultado = $conexion->query("INSERT INTO Rol (Descripcion) values ('".$this->getDescripcion()."')");
         $resultid = mysqli_insert_id($conexion);
-            
         $this->setIdCisterna($resultid);
-
-        $rs= mysql_query( $resultado); 
-
-        if ($rs == false ){
-            echo "error";
-        }     
-        else {
-            echo "se inserto";
-        }
+        if($conexion->error){
+            return ("Error: ".$conexion->error);
+             } else {
+             return ("Registro insertado correctamente");
+           }
     }
     //Modificacion
     function update(){
-        $resultado = Conexion::conectar()->query("UPDATE Rol set  Descripcion='".$this->getDescripcion()."'");
-        $rs= mysql_query( $resultado); 
-
-        if ($rs == false ){
-            echo "error";
-        }     
-        else {
-            echo "se modifico";
-        }
+        $conexion = Conexion::conectar();
+        $resultado = $conexion->query("UPDATE Rol set  Descripcion='".$this->getDescripcion()."'");
+        if($conexion->error)
+        {
+            return ("Error: ".$conexion->error);
+            } else {
+             return ("Registro actualizado correctamente");
+            }
+            
     }
 
     //Baja
     function delete(){
-        $resultado = Conexion::conectar()->query("DELETE FROM Rol where IDRol =".$this->getIDRol()."");
-        $rs= mysql_query( $resultado); 
-
-        if ($rs == false ){
-            echo "error";
-        }     
-        else {
-            echo "se elimino";
-        }
+        $conexion = Conexion::conectar();
+        $resultado = $conexion->query("DELETE FROM Rol where IDRol =".$this->getIDRol()."");
+        return true;
+        if($conexion->error){
+            return ("Error: ".$conexion->error);
+             } else {
+             return ("Registro eliminado correctamente");
+           }
+        
     }
   //OBTENGO TODOS LOS ROLES
     public static function FindAll(){
