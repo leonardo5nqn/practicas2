@@ -41,35 +41,35 @@ class Vehiculo
     public function getNumPatente(){
         return $this->Patente;
     }
-    private function setNumPatente($_patente){
+    public function setNumPatente($_patente){
         $this->Patente=$_patente;
     }
     //GET Y SET Marca
     public function getMarca (){
         return $this->Marca;
     }
-    private function setMarca ($_marca){
+    public function setMarca ($_marca){
         $this->Marca=$_marca;
     }
     //GET Y SET Modelo
     public function getModelo(){
         return $this->Modelo;
     }
-    private function setModelo ($_modelo){
+    public function setModelo ($_modelo){
         $this->Modelo=$_modelo;
     }
     //GET Y SET Color
     public function getColor(){
         return $this->Color;
     }
-    private function setColor($_color){
+    public function setColor($_color){
         $this->Color=$_color;
     }
     //GET Y SET TipoVehiculo
     public function getTipoVehiculo (){
         return $this->TipoVehiculo;
     }
-    private function setTipoVehiculo ($_tipoVehiculo){
+    public function setTipoVehiculo ($_tipoVehiculo){
         $this->TipoVehiculo=$_tipoVehiculo;
     }
 
@@ -85,18 +85,13 @@ class Vehiculo
     $conexion = Conexion::conectar();
     $resultado = $conexion->query("INSERT INTO Vehiculo (Patente, Marca, Modelo, Color, TipoVehiculo)
      values('".$this->getNumPatente()."',' ".$this->getMarca()."', '".$this->getModelo()."', '".$this->getColor()."', '".$this->getTipoVehiculo()."')");
-     $resultid = mysqli_insert_id($conexion);
-            
+     $resultid = mysqli_insert_id($conexion);    
      $this->setpersonaid($resultid);
-
-     $rs= mysql_query( $resultado); 
-
-      if ($rs == false ){
-          echo "error";
-      }     
-      else {
-          echo "inserto";
-      }
+     if($conexion->error){
+        return ("Error: ".$conexion->error);
+         } else {
+         return ("Registro insertado correctamente");
+       }
 
     }
 
@@ -105,16 +100,13 @@ class Vehiculo
     //----------------------------
     function delete () {
 
-        $resultado= Conexion::conectar()->query("DELETE FROM Vehiculo WHERE IDVehiculo=".$this->getIdVehiculo()."");
-        
-        $rs= mysql_query( $resultado); 
-
-      if ($rs == false ){
-          echo "error";
-      }     
-      else {
-          echo "se elimino";
-      }
+        $conexion = Conexion::conectar();
+         $resultado = $conexion->query("DELETE FROM Vehiculo WHERE IDVehiculo=".$this->getIdVehiculo()."");
+        if($conexion->error){
+            return ("Error: ".$conexion->error);
+             } else {
+             return ("Registro eliminado correctamente");
+           }
     }
 
     //-----------------------------
@@ -122,17 +114,15 @@ class Vehiculo
     //-----------------------------
     function update(){
 
-        $resultado=Conexion::conectar()->query("UPDATE Vehiculo set Patente = '".$this->getNumPatente()."', Marca = '".$this->getMarca()."', Modelo = '".$this->getModelo()."', Color = '".$this->getColor()."', TipoVehiculo = '".$this->getTipoVehiculo()."'
+        $conexion = Conexion::conectar();
+        $resultado = $conexion->query("UPDATE Vehiculo set Patente = '".$this->getNumPatente()."', Marca = '".$this->getMarca()."', Modelo = '".$this->getModelo()."', Color = '".$this->getColor()."', TipoVehiculo = '".$this->getTipoVehiculo()."'
         where IDVehiculo = ".$this->getIdVehiculo());
+         if($conexion->error){
+            return ("Error: ".$conexion->error);
+             } else {
+             return ("Registro actualizado correctamente");
+           }
         
-        $rs= mysql_query( $resultado); 
-
-        if ($rs == false ){
-            echo "error";
-        }     
-        else {
-            echo "se modifico";
-        }
     }
 
     //-------------------------------------
