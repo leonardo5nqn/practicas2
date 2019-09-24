@@ -57,16 +57,19 @@ private function setTelefono($_tel){
 //Alta
 
 function insert(){
-    $resultado = Conexion::conectar()->query("INSERT INTO Empresa (IDEmpresa, razonSocial, Cuit, Direccion, Telefono ) 
-    values ('".$this->IDEmpresa."','".$this->razonSocial."','".$this->Cuit."','".$this->Direccion."','".$this->Telefono."')");
-    
+    $sql= "INSERT INTO Empresa (IDEmpresa, razonSocial, Cuit, Direccion, Telefono ) 
+    values (".$this->IDEmpresa.",'".$this->razonSocial."','".$this->Cuit."','".$this->Direccion."','".$this->Telefono."')";
+    $resultado = Conexion::conectar()->query($sql);
+    var_dump ($resultado);
+    print $sql;
     //verifico si Inserto por el ID
-    $resulID = mysqli_insert_id(Conexion::conectar());
-    $this->setIDEmpresa($resulID);
+    //$resulID = mysqli_insert_id(Conexion::conectar());
+    //$this->setIDEmpresa($resulID);
+    
     return true;
 }
 //Baja
-function delet(){
+function delete(){
     $resultado = Conexion::conectar()->query("DELETE FROM Empresa where IDEmpresa =".$this->getIDEmpresa()."");
     return true;
 }
@@ -135,10 +138,33 @@ static function listarEmpresa($where){
 //--- Pruebas Empresas
 //$IDEmpresa, $_razonSocial, $_Cuit, $_Direccion, $_Telefono
 //________________________________________----------------------
-$instaPrueEmpresa = new Empresa ("1","Arcor","20436374382","Leguizamon 234","2994637936");
-$instaPrueEmpresa->insert();
+//funciona (testeado 24/9)
+//$instaPrueEmpresa = new Empresa ('null','Ades','2043637','Leguizamon 234','2994637936');
+//$instaPrueEmpresa->insert();
+
+//Comillas ($a=pepe;)
+//comillas simples '' solo imprime el textos de $a (pantalla-> $a);
+//comillas Dobles "" imprime el contenido de la variable $a (pantalla-> pepe);
+
+//borrar una empresa
+//funciona Testeado 24/9
+//$reso = Empresa::findAll()[1]->delete();
+//var_dump($reso);
 
 //Traigo todas las empresas
+//funciona testeado 24/9
 //$reso = Empresa::findAll();
+//var_dump ($reso);
 
+//traigo todo por ID (Funciona: testeado 24/9)
+//$reso = Empresa::findByID(2);
+//var_dump($reso);
+
+//update (verificar el objeto a modificar)
+//$reso = Empresa::findByID(2);
+//var_dump($reso);
+//$objet=new Empresa ($reso);
+//$objet->setRazonsocial("Chino");
+//$objet->update();
+//var_dump($objet); exit;
 ?>
