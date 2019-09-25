@@ -129,7 +129,7 @@ class Persona
            }
         }
 
-      }  
+        
      //eliminar persona
      function delete()
       {
@@ -158,7 +158,7 @@ class Persona
              return ("Registro editado correctamente");
            }
         }
-      }
+      
        //OBTENGO TODAS LAS PERSONAS
       public static function findAll(){
          $resultado=Conexion::conectar()->query("SELECT * FROM Persona" );
@@ -213,7 +213,7 @@ class Persona
     //$instaciaPrueba -> insert();
 
     //ESTO BORRA UNA PERSONA
-    $re = Persona::findAll()[0]->delete();
+    //$re = Persona::findAll()[0]->delete();
 
     //ESTO TRAE MUCHAS PERSONAS
     //$re = Persona::findAll();
@@ -230,7 +230,7 @@ class Persona
 
     //$re2 = Persona::findByID(1);
 
-    var_dump($re);exit(); 
+    //var_dump($re);exit(); 
     // No se puede eliminar o actualizar una fila principal: falla una restricción de clave foránea (`cisterna`.`Empleado`, CONSTRAINT` Empleado_ibfk_1` REFERENCIAS DE LLAVE EXTRANJERA (`PersonaID`)` Persona` (`IDPersona`) AL BORRAR RESTRICCIÓN AL ACTUALIZAR RESTRICCIÓN)
     //se pudo hacer pero eliminando los datos que habia en cisterna, empleado, etc. Como solucionar ese problema?
     ?>
