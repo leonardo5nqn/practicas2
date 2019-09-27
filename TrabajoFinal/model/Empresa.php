@@ -139,8 +139,10 @@ static function listarEmpresa($where){
 //$IDEmpresa, $_razonSocial, $_Cuit, $_Direccion, $_Telefono
 //________________________________________----------------------
 //funciona (testeado 24/9)
-//$instaPrueEmpresa = new Empresa ('null','Ades','2043637','Leguizamon 234','2994637936');
+//$instaPrueEmpresa = new Empresa ('null','Avenida','2043637','Lainez 234','2994637936');
 //$instaPrueEmpresa->insert();
+//var_dump($instaPrueEmpresa);
+//echo ("Hola mundo");
 
 //Comillas ($a=pepe;)
 //comillas simples '' solo imprime el textos de $a (pantalla-> $a);
@@ -167,4 +169,6 @@ static function listarEmpresa($where){
 //$objet->setRazonsocial("Chino");
 //$objet->update();
 //var_dump($objet); exit;
+
+//echo ("Prueba de Conexion");
 ?>
