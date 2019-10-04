@@ -47,10 +47,10 @@ switch ($_POST["accion"]){
         echo "<table class="'table'"><thead><tr><th>Solicitante</th><th>Usuario</th><th>Descripción</th><th>Fecha y Hora</th></tr></thead><tbody>";
         foreach($pedido as $pedidos){
             echo "<tr>";
-            echo "<td>".$person['name']."</td>";
-            echo "<td>".$person['name']."</td>";
-            echo "<td>".$person['name']."</td>";
-            echo "<td>".$person['name']."</td>";
+            echo "<td>".$pedido['Solicitante']."</td>";  <----- ver que onda!!!!!
+            echo "<td>".$pedido['Usuario']['usuario']."</td>";
+            echo "<td>".$pedido['Descripcion']."</td>";
+            echo "<td>".$pedido['FechaHora']."</td>";
             echo "</tr>";
         }
         echo "</tbody>";
