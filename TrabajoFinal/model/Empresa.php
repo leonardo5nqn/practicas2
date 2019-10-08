@@ -60,7 +60,7 @@ function insert(){
     $sql= "INSERT INTO Empresa (IDEmpresa, razonSocial, Cuit, Direccion, Telefono ) 
     values (".$this->IDEmpresa.",'".$this->razonSocial."','".$this->Cuit."','".$this->Direccion."','".$this->Telefono."')";
     $resultado = Conexion::conectar()->query($sql);
-    var_dump ($resultado);
+    //var_dump ($resultado);
     print $sql;
     //verifico si Inserto por el ID
     //$resulID = mysqli_insert_id(Conexion::conectar());
