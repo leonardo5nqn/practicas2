@@ -34,7 +34,7 @@ if (isset($_POST['action'])) {
     switch ($_POST['action']){
         case ('nuevo'):
         if (!empty($_POST['persona']) && !empty($_POST['empresa'])) {
-            $solicitante = new Solicitante(null, Persona::findByID($_POST['persona']['personaid']), Empresa::findByID($_POST['empresa']['IDEmpresa']));
+            $solicitante = new Solicitante(null, Persona::findByID($_POST['Persona']['personaid']), Empresa::findByID($_POST['Empresa']['IDEmpresa']));
             $solicitanteController->insert($solicitante);
         } else {
             echo "Campos incompletos.";
@@ -49,7 +49,7 @@ if (isset($_POST['action'])) {
         break;
         case ('editar'):
         if (!empty($_POST['idSolicitante'])){
-            $solicitante = new Solicitante($_POST['idSolicitante'], Persona::findByID($_POST['persona']['personaid']), Empresa::findByID($_POST['empresa']['IDEmpresa']);
+            $solicitante = new Solicitante($_POST['idSolicitante'], Persona::findByID($_POST['Persona']['personaid']), Empresa::findByID($_POST['Empresa']['IDEmpresa']);
             $solicitanteController->update($solicitante);
         } else {
             echo "Campos incompletos.";
