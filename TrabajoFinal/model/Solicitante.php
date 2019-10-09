@@ -69,7 +69,7 @@
               }
         }
 
-        public function findAll(){
+        public static function findAll(){
          $resultado=Conexion::conectar()->query("SELECT * FROM Solicitante");
             if ($resultado->num_rows > 0) { 
                $solicitante = array();
@@ -83,7 +83,7 @@
             }
         }
 
-        public function findById($id){   
+        public static function findById($id){   
             $resultado=Conexion::conectar()->query("SELECT * FROM Solicitante WHERE IDSolicitante = ".$id);
             if ($resultado->num_rows > 0) { 
                $solicitante = array();
@@ -97,7 +97,7 @@
             }     
         }
 
-        public function findAllWhere($where){
+        public static function findAllWhere($where){
          $resultado=Conexion::conectar()->query("SELECT * FROM Solicitante WHERE ".$where);
          if ($resultado->num_rows > 0) { 
             $solicitante = array();
