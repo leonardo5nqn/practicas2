@@ -18,6 +18,7 @@
         public function getIdSolicitante(){
             return $this->idSolicitante;
         }
+        
         private function setIdSolicitante($_idSolcitante){
             $this->idSolicitante=$_idSolcitante;
         }

@@ -7,33 +7,45 @@
 </head>
 <body>
     
-   <form action="" method="POST" >
-    <div class="form-group">
-      <input type="text" class="form-control" placeholder="IDEmpresa" name="IDEmpresa" required />
+   <form action="/TrabajoFinal/controller/ControllerEmpresa.php" method="POST" >
+    <!-- <div>
+      <label>ID EMPRESA</label>
+      <input type="text" class="form-control"  name="txt_IDEmpresa" required />
+    </div> -->
+    <div>
+    <label>RAZON SOCIAL</label>
+      <input type="text" class="form-control"  name="txt_razonSocial" required />
     </div>
-    <div class="form-group">
-      <input type="text" class="form-control" placeholder="razonSocial" name="razonSocial" required />
+    <div>
+      <label>CUIT</label>
+      <input type="text" class="form-control"  name="txt_Cuit" required />
     </div>
-       <div class="form-group">
-      <input type="text" class="form-control" placeholder="Cuit" name="Cuit" required />
+       <div>
+       <label>DIRECCION</label>
+      <input type="text" class="form-control" name="txt_Direccion" required />
     </div>
-       <div class="form-group">
-      <input type="text" class="form-control" placeholder="Direccion" name="Direccion" required />
+       <div>
+       <label>TELEFONO </label>
+      <input type="text" class="form-control"  name="txt_Telefono" required />
     </div>
-       <div class="form-group">
-      <input type="text" class="form-control" placeholder="Telefono" name="Telefono" required />
-    </div>
+        <!-- Boton guardar -->
+        
        <input type="hidden" name="accion" value="nuevo" />
     <button type="submit" id="sendlogin" class="btn btn-outline-dark"> Agregar empresa </button>
   </form>
-      <form action="" method="POST" >
-       <input type="hidden" name="accion" value="editar" />
-    <button type="submit" class="btn btn-outline-dark"> Editar </button>
+
+      <!-- boton Listar -->
+  <form action="/TrabajoFinal/controller/ControllerEmpresa.php" method="POST" >
+      <!-- <input type="hidden" onclick="location.href='/TrabajoFinal/view/listarEmpresas.php'" value="listar" name="accion" /> -->
+      <input type="hidden" name="accion" value="listar" />
+      <button type="submit" class="btn btn-outline-dark"> Listar </button>
   </form> 
+
+      <!-- boton eliminar -->
       </form>
-      <form action="" method="POST" >
+      <!-- <form action="/TrabajoFinal/controller/ControllerEmpresa.php" method="POST" >
        <input type="hidden" name="accion" value="eliminar" />
-    <button type="submit" class="btn btn-outline-dark"> Eliminar </button>
+    <button type="submit" class="btn btn-outline-dark"> Eliminar </button> -->
   </form> 
 </body>
 </html>
