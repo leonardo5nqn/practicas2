@@ -91,7 +91,7 @@ class Pedido{
            }
      }
  
-     public function findAll(){
+     public static function findAll(){
       $resultado=Conexion::conectar()->query("SELECT * FROM Pedido");
          if ($resultado->num_rows > 0) { 
             $pedido = array();
@@ -105,7 +105,7 @@ class Pedido{
          }
      }
  
-     public function findById($id){   
+     public static  function findById($id){   
          $resultado=Conexion::conectar()->query("SELECT * FROM Pedido WHERE PedidoID = ".$id);
          if ($resultado->num_rows > 0) { 
             $pedido = array();
@@ -119,7 +119,7 @@ class Pedido{
          }     
      }
  
-     public function findAllWhere($where){
+     public static function findAllWhere($where){
       $resultado=Conexion::conectar()->query("SELECT * FROM Pedido WHERE ".$where);
       if ($resultado->num_rows > 0) { 
          $pedido = array();
