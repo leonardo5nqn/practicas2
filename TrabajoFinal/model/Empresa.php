@@ -1,6 +1,10 @@
 <?php
 //LLAMO A LA CLASE CONEXION
 require_once ("../utils/conexion.php");
+//-----------------------------------------------------------------------
+//Objetivo del Model: es la lógica de negocios. Es decir las clases y 
+//métodos que se comunican directamente con la base de datos.
+//------------------------------------------------------------------------
 
 class Empresa
 {
