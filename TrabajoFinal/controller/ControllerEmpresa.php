@@ -1,19 +1,24 @@
 <?php
-//--------------------------------------------
-//LLAMO A LA CLASE EMPRESA
-//--------------------------------------------
+//--------------------------------------------------------------
+//Me posiciono sobre el Modelo y llamos a la CLASE Empresa.php
+//--------------------------------------------------------------
 //require_once ("../view/vistaEmpresa.php");
 require_once ("../model/Empresa.php");
 
-//pruebas de Controler
+//-----------------------------------------------
+//IMPORTANTE DEBO SETEAR UN VALOR AL METODO POST DEL ACCION
+//-----------------------------------------------
+//PRUEBAS DEL CONTROLLER EMPRESA
+//----Descomentar la siguiente linea para verificar (insert,delete, lista estan verificados)
+
 //$_POST["accion"]="nuevo";
 //$_POST["accion"]="listar";
 //$_POST["accion"]="eliminar";
 
-//Asiganacion de las varias POST
-$_POST['txt_razonSocial'] = 'Ddimo' ;
-$_POST['txt_Cuit']='22224';
-$_POST['txt_Direccion']='belmote 263';
+//Asigano valores al metodo _POST
+$_POST['txt_razonSocial'] = 'Bonafide' ;
+$_POST['txt_Cuit']='63853';
+$_POST['txt_Direccion']='ruta 22';
 $_POST['txt_Telefono']= '536382';
 
 //Utilizo el motodo post para obtener datos de formulario. Y luego establecerlos en el servidor.
@@ -34,8 +39,9 @@ switch ($_POST["accion"])
             if ($obj_empresa->insert());
             {
                 //echo "Una Empresa Insertada";
-                echo "<script>javascript:alert('La empresa se ingreso corectamente!!!');window.location='ControllerEmpresa.php';</script>";
+                //echo "<script>javascript:alert('La empresa se ingreso corectamente!!!');window.location='';</script>";
                 var_dump($obj_empresa);
+                echo "Se ingreso una empresa";
                 //print_r($_POST["txt_razonSocial"],$_POST["txt_Cuit"],$_POST['txt_Direccion'],$_POST['txt_Telefono']);
             }
         }
@@ -48,6 +54,7 @@ switch ($_POST["accion"])
     break;
 
     case ('eliminar'):
+        //seteo la posicion del Objeto
         $_POST['txt_IDEMpresa'] = '0' ;
         $reso = Empresa::findAll()[$_POST['txt_IDEMpresa']]->delete();
         var_dump($reso);
