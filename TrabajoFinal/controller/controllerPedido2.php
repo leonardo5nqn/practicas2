@@ -15,17 +15,17 @@ class PedidoController
     
     public function insert($pedido){
         require_once('../model/Pedido.php');
-        var_dump("insert: ".$usuario->insert()." e ir al index de vista.");
+        var_dump("insert: ".$pedido->insert()." e ir al index de vista.");
         //header('Location: ../index.php');
     }
     public function update($pedido){
         require_once('../model/Pedido.php');
-        var_dump("update: ".$usuario->update()." e ir al index de vista.");
+        var_dump("update: ".$pedido->update()." e ir al index de vista.");
         //header('Location: ../index.php');
     }
     public function delete($pedido){
         require_once('../model/Pedido.php');
-        var_dump("delete: ".$usuario->delete()." e ir al index de vista.");
+        var_dump("delete: ".$pedido->delete()." e ir al index de vista.");
         //header('Location: ../index.php');
     }
 }
