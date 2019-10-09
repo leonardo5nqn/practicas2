@@ -32,7 +32,9 @@ class PedidoController
 
 if (isset($_POST['action'])) {
     $pedidoController = new PedidoController();
-    require_once('../model/Pedido.php'); 
+    require_once('../model/Pedido.php');
+    require_once('../model/Solicitante.php'); 
+    require_once('../model/Usuario.php'); 
     switch ($_POST['action']){
         case ('nuevo'):
         if (!empty($_POST['Solicitante']) && !empty($_POST['Usuario']) && !empty($_POST['Descripcion']) && !empty($_POST['FechaHora'])) {
