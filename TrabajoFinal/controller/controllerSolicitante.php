@@ -5,7 +5,7 @@ class SolicitanteController
     public function index(){
         require_once('../model/Solicitante.php');
         $solicitantes = Solicitante::findAll();
-        var_dump("Ruta a la vista + datos:".$solicitantes);
+        require_once('../view/viewSolicitanteIndex.php');
     }
     public function nuevo(){
         echo 'ir a la ruta de creacion de pedido';
