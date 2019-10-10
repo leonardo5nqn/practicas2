@@ -6,7 +6,7 @@ class PedidoController
     public function index(){
         require_once('../model/Pedido.php');
         $pedidos = Pedido::findAll();
-        var_dump("Ruta a la vista + datos:".$pedidos);
+        require_once('../view/viewPedidoIndex.php');
     }
     
     public function nuevo(){
