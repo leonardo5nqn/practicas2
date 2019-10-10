@@ -88,7 +88,7 @@
         //modifico una cisterna
         //------------------------------------
         function update(){
-            $resultado=Conexion::conectar()->query("UPDATE Cisterna SET TotalLitros='".$this->getTotalLitros()."',NombreCisterna = '".$this->getNombreCisterna()."' WHERE IDCisterna = ".$this->getIdCisterna());
+            $resultado=Conexion::conectar()->query("UPDATE Cisterna SET IDCisterna='".$this->getIdCisterna()."',TotalLitros='".$this->getTotalLitros()."',NombreCisterna = '".$this->getNombreCisterna()."' WHERE IDCisterna = ".$this->getIdCisterna());
             return true;
         }
 
