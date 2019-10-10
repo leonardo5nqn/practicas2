@@ -1,61 +1,74 @@
-<?php
-include "../model/Pedido.php";
-switch ($_POST["accion"]){
-    case ('nuevo'):
-    if (!empty($_POST['Solicitante']) && !empty($_POST['Usuario']) && !empty($_POST['Descripcion']) && !empty($_POST['FechaHora']))
-    {
-        $pedido = new Pedido(null, Solicitante::findByID($_POST['Solicitante']['idSolicitante']), Usuario::findByID($_POST['Usuario']['idUsuario']), $_POST['Descripcion'], $_POST['FechaHora']);
-        if ($pedido->insert() === 'Registro insertado correctamente')
-        {
-            echo "Pedido creado correctamente."; 
-        }else{
-            echo "Error creando el pedido."; 
-        }
+<?php 
+class PedidoController
+{	
+    public function __construct(){}
+    
+    public function index(){
+        require_once('../model/Pedido.php');
+        $pedidos = Pedido::findAll();
+        require_once('../view/viewPedidoIndex.php');
     }
-    else
-    {
-        echo "Campos incompletos.";
+    
+    public function nuevo(){
+        echo 'ir a la ruta de creacion de pedido';
     }
-    break;
-    case ('eliminar'):
-    break;
-    case ('editar'):
-    if (!empty($_POST['Pedido']))
-    {
-        if (Pedido::findById($_POST['Pedido']['pedidoID'])->update() === 'Registro actualizado correctamente')
-        {
-            echo "Se actualizó correctamente.";
-        }
-        else
-        {
-            echo "No se pudo actualizar el pedido.";
-        }
+    
+    public function insert($pedido){
+        require_once('../model/Pedido.php');
+        var_dump("insert: ".$pedido->insert()." e ir al index de vista.");
+        //header('Location: ../index.php');
     }
-    else
-    {
-        echo "No se pudo actualizar el pedido.";
+    public function update($pedido){
+        require_once('../model/Pedido.php');
+        var_dump("update: ".$pedido->update()." e ir al index de vista.");
+        //header('Location: ../index.php');
     }
-    break;
-    case ('listar'):
-    $pedidos = Pedido::findAll();
-    if ($pedidos === 'No existen registros.')
-    {
-        echo "No existen registros."
+    public function delete($pedido){
+        require_once('../model/Pedido.php');
+        var_dump("delete: ".$pedido->delete()." e ir al index de vista.");
+        //header('Location: ../index.php');
     }
-    else
-    {
-        echo "<table class="'table'"><thead><tr><th>Solicitante</th><th>Usuario</th><th>Descripción</th><th>Fecha y Hora</th></tr></thead><tbody>";
-        foreach($pedido as $pedidos){
-            echo "<tr>";
-            echo "<td>".$pedido['Solicitante']."</td>";  <----- ver que onda!!!!!
-            echo "<td>".$pedido['Usuario']['usuario']."</td>";
-            echo "<td>".$pedido['Descripcion']."</td>";
-            echo "<td>".$pedido['FechaHora']."</td>";
-            echo "</tr>";
-        }
-        echo "</tbody>";
-        echo "</table>";
-    }
-    break;
 }
-?> 
+
+if (isset($_POST['action'])) {
+    $pedidoController = new PedidoController();
+    require_once('../model/Pedido.php');
+    require_once('../model/Solicitante.php'); 
+    require_once('../model/Usuario.php'); 
+    switch ($_POST['action']){
+        case ('nuevo'):
+        if (!empty($_POST['Solicitante']) && !empty($_POST['Usuario']) && !empty($_POST['Descripcion']) && !empty($_POST['FechaHora'])) {
+            $pedido = new Pedido(null, Solicitante::findByID($_POST['Solicitante']['idSolicitante']), Usuario::findByID($_POST['Usuario']['idUsuario']), $_POST['Descripcion'], $_POST['FechaHora']);
+            $pedidoController->insert($pedido);
+        } else {
+            echo "Campos incompletos.";
+        }
+        break;
+        case ('eliminar'):
+        if (!empty($_POST['pedidoID'])) {
+            $pedidoController->delete(Pedido::findById($_POST['pedidoID']));
+        } else {
+            echo "Campos incompletos.";
+        }
+        break;
+        case ('editar'):
+            if (!empty($_POST['pedidoID'])){
+                $pedido = new Pedido($_POST['pedidoID'], Solicitante::findByID($_POST['Solicitante']['idSolicitante']), Usuario::findByID($_POST['Usuario']['idUsuario']), $_POST['Descripcion'], $_POST['FechaHora'])
+                $pedidoController->update($pedido);
+        } else {
+            echo "Campos incompletos.";
+        }
+        break;
+    }
+}
+
+if (isset($_GET['action'])) {
+    $pedidoController = new PedidoController();
+    require_once('../model/Pedido.php'); 
+    switch ($_GET['action']){
+        case ('index'):
+             $pedidoController->index();
+        break;
+    }
+}
+?>
