@@ -2,7 +2,6 @@
 //--------------------------------------------------------------
 //Me posiciono sobre el Modelo y llamos a la CLASE Empresa.php
 //--------------------------------------------------------------
-//require_once ("../view/vistaEmpresa.php");
 require_once ("../model/Empresa.php");
 
 //-----------------------------------------------
@@ -14,7 +13,7 @@ require_once ("../model/Empresa.php");
 //$_POST["accion"]="nuevo";
 //$_POST["accion"]="listar";
 //$_POST["accion"]="eliminar";
-$_POST["accion"]="update";
+//$_POST["accion"]="update";
 
 //Asigano valores al metodo _POST
 $_POST['txt_razonSocial'] = 'hola' ;
