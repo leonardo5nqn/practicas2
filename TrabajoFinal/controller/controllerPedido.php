@@ -1,4 +1,5 @@
 <?php 
+// require ('../utils/conexion.php');
 class PedidoController
 {	
     public function __construct(){}
@@ -6,7 +7,7 @@ class PedidoController
     public function index(){
         require_once('../model/Pedido.php');
         $pedidos = Pedido::findAll();
-        require_once('../view/viewPedidoIndex.php');
+        require_once('../view/viewPedidoIndex.php');   
     }
     
     public function nuevo(){
@@ -16,27 +17,32 @@ class PedidoController
     public function insert($pedido){
         require_once('../model/Pedido.php');
         var_dump("insert: ".$pedido->insert()." e ir al index de vista.");
-        //header('Location: ../index.php');
     }
+    
     public function update($pedido){
         require_once('../model/Pedido.php');
         var_dump("update: ".$pedido->update()." e ir al index de vista.");
-        //header('Location: ../index.php');
     }
+    
     public function delete($pedido){
         require_once('../model/Pedido.php');
-        var_dump("delete: ".$pedido->delete()." e ir al index de vista.");
-        //header('Location: ../index.php');
+        if(strpos($pedido->delete(), 'Error') === 0) { 
+            header('Location: controllerPedido.php?action=index&error='.$pedido->getID());
+        } else { 
+            header('Location: controllerPedido.php?action=index');
+        }
     }
+    
 }
 
 if (isset($_POST['action'])) {
-    $pedidoController = new PedidoController();
+    require_once('PedidoController.php');
     require_once('../model/Pedido.php');
-    require_once('../model/Solicitante.php'); 
     require_once('../model/Usuario.php'); 
+    require_once('../model/Solicitante.php'); 
+    $pedidoController = new PedidoController();
     switch ($_POST['action']){
-        case ('nuevo'):
+        case ('new'):
         if (!empty($_POST['Solicitante']) && !empty($_POST['Usuario']) && !empty($_POST['Descripcion']) && !empty($_POST['FechaHora'])) {
             $pedido = new Pedido(null, Solicitante::findByID($_POST['Solicitante']['idSolicitante']), Usuario::findByID($_POST['Usuario']['idUsuario']), $_POST['Descripcion'], $_POST['FechaHora']);
             $pedidoController->insert($pedido);
@@ -44,16 +50,9 @@ if (isset($_POST['action'])) {
             echo "Campos incompletos.";
         }
         break;
-        case ('eliminar'):
-        if (!empty($_POST['pedidoID'])) {
-            $pedidoController->delete(Pedido::findById($_POST['pedidoID']));
-        } else {
-            echo "Campos incompletos.";
-        }
-        break;
-        case ('editar'):
+        case ('update'):
             if (!empty($_POST['pedidoID'])){
-                $pedido = new Pedido($_POST['pedidoID'], Solicitante::findByID($_POST['Solicitante']['idSolicitante']), Usuario::findByID($_POST['Usuario']['idUsuario']), $_POST['Descripcion'], $_POST['FechaHora'])
+                $pedido = new Pedido($_POST['pedidoID'], Solicitante::findByID($_POST['Solicitante']['idSolicitante']), Usuario::findByID($_POST['Usuario']['idUsuario']), $_POST['Descripcion'], $_POST['FechaHora']);
                 $pedidoController->update($pedido);
         } else {
             echo "Campos incompletos.";
@@ -64,10 +63,20 @@ if (isset($_POST['action'])) {
 
 if (isset($_GET['action'])) {
     $pedidoController = new PedidoController();
-    require_once('../model/Pedido.php'); 
     switch ($_GET['action']){
         case ('index'):
-             $pedidoController->index();
+        $error = null;
+        if (!empty($_GET['error'])) {
+            $error = $_GET['error'];
+        } 
+        $pedidoController->index($error);
+        break;
+        case ('delete'):
+        if (!empty($_GET['id'])) {
+            $pedidoController->delete(Pedido::findById($_GET['id']));
+        } else {
+            echo "Campos incompletos.";
+        }
         break;
     }
 }

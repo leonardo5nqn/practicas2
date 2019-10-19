@@ -2,10 +2,11 @@
 class SolicitanteController
 {	
     public function __construct(){}
-    public function index(){
+
+    public function index($error){
         require_once('../model/Solicitante.php');
         $solicitantes = Solicitante::findAll();
-        require_once('../view/viewSolicitanteIndex.php');
+        require_once('../view/viewSolicitanteIndex.php');   
     }
     public function nuevo(){
         echo 'ir a la ruta de creacion de pedido';
@@ -22,8 +23,11 @@ class SolicitanteController
     }
     public function delete($solicitante){
         require_once('../model/Solicitante.php');
-        var_dump("delete: ".$solicitante->delete()." e ir al index de vista.");
-        //header('Location: ../index.php');
+        if(strpos($solicitante->delete(), 'Error') === 0) { 
+            header('Location: controllerSolicitante.php?action=index&error='.$solicitante->getIDSolicitante());
+        } else { 
+            header('Location: controllerSolicitante.php?action=index');
+        }
     }
 }
 if (isset($_POST['action'])) {
@@ -32,24 +36,18 @@ if (isset($_POST['action'])) {
     require_once('../model/Empresa.php'); 
     require_once('../model/Persona.php'); 
     switch ($_POST['action']){
-        case ('nuevo'):
+        case ('new'):
         if (!empty($_POST['persona']) && !empty($_POST['empresa'])) {
-            $solicitante = new Solicitante(null, Persona::findByID($_POST['Persona']['personaid']), Empresa::findByID($_POST['Empresa']['IDEmpresa']));
+            $solicitante = new Solicitante(null, Persona::findByID($_POST['persona']['personaid']), Empresa::findByID($_POST['empresa']['IDEmpresa']));
             $solicitanteController->insert($solicitante);
         } else {
             echo "Campos incompletos.";
         }
         break;
-        case ('eliminar'):
-        if (!empty($_POST['idSolicitante'])) {
-            $solicitanteController->delete(Solicitante::findById($_POST['idSolicitante']));
-        } else {
-            echo "Campos incompletos.";
-        }
-        break;
-        case ('editar'):
+        
+        case ('update'):
         if (!empty($_POST['idSolicitante'])){
-            $solicitante = new Solicitante($_POST['idSolicitante'], Persona::findByID($_POST['Persona']['personaid']), Empresa::findByID($_POST['Empresa']['IDEmpresa']);
+            $solicitante = new Solicitante($_POST['idSolicitante'], Persona::findByID($_POST['persona']['personaid']), Empresa::findByID($_POST['empresa']['IDEmpresa']));
             $solicitanteController->update($solicitante);
         } else {
             echo "Campos incompletos.";
@@ -62,7 +60,18 @@ if (isset($_GET['action'])) {
     require_once('../model/Solicitante.php'); 
     switch ($_GET['action']){
         case ('index'):
-        $solicitanteController->index();
+        $error = null;
+        if (!empty($_GET['error'])) {
+            $error = $_GET['error'];
+        } 
+        $solicitanteController->index($error);
+        break;
+        case ('delete'):
+        if (!empty($_GET['id'])) {
+            $solicitanteController->delete(Solicitante::findById($_GET['id']));
+        } else {
+            echo "Campos incompletos.";
+        }
         break;
     }
 }
