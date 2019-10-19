@@ -1,31 +1,32 @@
 <?php
-    require("../utils/conexion.php");
-    require("./Empresa.php");
-    require("./Persona.php");
+    require_once ("../utils/conexion.php");
+    require_once ("Empresa.php");
+    require_once ("Persona.php");
 
     class Solicitante {
 
-        private $idSolicitante;
+        private $IDSolicitante;
         private $persona;
         private $empresa;
         
-        public function __construct($_idSolcitante,  $_persona, $_empresa){
-            $this->setIdSolicitante($_idSolcitante);
+        public function __construct($_idSolcitante, $_persona, $_empresa){
+            $this->setIDSolicitante($_idSolcitante);
             $this->setPersona($_persona);
             $this->setEmpresa($_empresa);
         }
         
-        public function getIdSolicitante(){
-            return $this->idSolicitante;
+        public function getIDSolicitante(){
+            return $this->IDSolicitante;
         }
-        
-        private function setIdSolicitante($_idSolcitante){
-            $this->idSolicitante=$_idSolcitante;
+
+        private function setIDSolicitante($_idSolcitante){
+            $this->IDSolicitante=$_idSolcitante;
         }
 
         public function getPersona(){
             return $this->persona;
         }
+
         private function setPersona($_persona){
             $this->persona=$_persona;
         }
@@ -33,15 +34,16 @@
         public function getEmpresa(){
             return $this->empresa;
         }
+        
         private function setEmpresa($_empresa){
             $this->empresa=$_empresa;
         }
 
         public function insert (){
          $conexion = Conexion::conectar();
-         $resultado = $conexion->query("INSERT INTO Solicitante(IDSolicitante, PersonaID, EmpresaID) VALUES ('".$this->getIdSolicitante()."','".$this->getPersona()->getpersonaid()."','".$this->getEmpresa()->getIDEmpresa()."')");
+         $resultado = $conexion->query('INSERT INTO Solicitante(IDSolicitante, IDPersona, EmpresaID) VALUES ("'.$this->getIDSolicitante().'", "'.$this->getPersona()->getIDPersona().'", "'.$this->getEmpresa()->getIDEmpresa().'")');
          $resultid = mysqli_insert_id($conexion);
-         $this->setIdSolicitante($resultid);
+         $this->setIDSolicitante($resultid);
          if($conexion->error){
             return ("Error: ".$conexion->error);
              } else {
@@ -51,7 +53,7 @@
 
         public function delete(){
          $conexion = Conexion::conectar();
-         $resultado = $conexion->query("DELETE FROM Solicitante WHERE IDSolicitante = ".$this->getIdSolicitante());
+         $resultado = $conexion->query("DELETE FROM Solicitante WHERE IDSolicitante = ".$this->getIDSolicitante());
          if($conexion->error){
             return ("Error: ".$conexion->error);
              } else {
@@ -61,7 +63,7 @@
 
         public function update(){
          $conexion = Conexion::conectar();
-         $resultado = $conexion->query("UPDATE Solcitante SET IDSolicitante =".$this->getIdSolicitante().",PersonaID=".$this->getPersona()->getpersonaid().",EmpresaID=".$this->getEmpresa()->getIDEmpresa());
+         $resultado = $conexion->query("UPDATE Solcitante SET IDSolicitante =".$this->getIDSolicitante().",IDPersona=".$this->getPersona()->getIDPersona().",EmpresaID=".$this->getEmpresa()->getIDEmpresa());
             if($conexion->error){
                return ("Error: ".$conexion->error);
                 } else {
@@ -69,12 +71,12 @@
               }
         }
 
-        public static function findAll(){
+        public function findAll(){
          $resultado=Conexion::conectar()->query("SELECT * FROM Solicitante");
             if ($resultado->num_rows > 0) { 
                $solicitante = array();
                while ($row = $resultado->fetch_assoc()) { 
-                  array_push($cisternas, new Solicitante($row['IDSolicitante'], Persona::findById($row['PersonaID']), Empresa::findById($row['EmpresaID'])));
+                  array_push($solicitante, new Solicitante($row['IDSolicitante'], Persona::findById($row['IDPersona']), Empresa::findById($row['EmpresaID'])));
                }
             return ($solicitante);
             }    
@@ -83,12 +85,12 @@
             }
         }
 
-        public static function findById($id){   
+        public function findById($id){   
             $resultado=Conexion::conectar()->query("SELECT * FROM Solicitante WHERE IDSolicitante = ".$id);
             if ($resultado->num_rows > 0) { 
                $solicitante = array();
-               while ($row = $resultado->fetch_assoc()) { 
-                  array_push($cisternas, new Solicitante($row['IDSolicitante'], Persona::findById($row['PersonaID']), Empresa::findById($row['EmpresaID'])));
+               while ($row = $resultado->fetch_assoc()) {
+                  array_push($solicitante, new Solicitante($row['IDSolicitante'], Persona::findById($row['IDPersona']), Empresa::findById($row['EmpresaID'])));
                }
             return ($solicitante[0]);
             }    
@@ -97,12 +99,12 @@
             }     
         }
 
-        public static function findAllWhere($where){
+        public function findAllWhere($where){
          $resultado=Conexion::conectar()->query("SELECT * FROM Solicitante WHERE ".$where);
          if ($resultado->num_rows > 0) { 
             $solicitante = array();
             while ($row = $resultado->fetch_assoc()) { 
-               array_push($cisternas, new Solicitante($row['IDSolicitante'], Persona::findById($row['PersonaID']), Empresa::findById($row['EmpresaID'])));
+               array_push($cisternas, new Solicitante($row['IDSolicitante'], Persona::findById($row['IDPersona']), Empresa::findById($row['EmpresaID'])));
             }
          return ($solicitante);
          }    
@@ -110,37 +112,4 @@
         }
        }
     }
-
-
-
-    //ESTO INSERTA UNA CISTERNA 
-    $instaciaPrueba = new Solicitante(NULL, Persona::findById(1), Empresa::findById(1));
-   
-    var_dump($instaciaPrueba);
- /*    exit(); */
-   
-    $instaciaPrueba->insert();
-
-    //ESTO BOORA UNA CISTERNAS
-    //$re = Cisterna::findAll()[0]->delete();
-
-    //ESTO TRAE MUCHAS CISTERNAS
-    //$re = Cisterna::findAll();
-
-    //ESTO TRAE UNA CISTERNA POR ID
-    $re = Solicitante::findAll();
-    var_dump($re);
-    //ESTO TRAE ARRAY CON WHERE STRING
-    //$re = Cisterna::findAllWhere(" NombreCisterna = 'Nombre 1' OR 1 = 1 ");
-/* 
-    $re->setNombreCisterna("Nombre 60");
-
-    $re->update();
-
-    $re2 = Cisterna::findByID(2);
-
-    var_dump($re2); */exit();
-
-
-
 ?>

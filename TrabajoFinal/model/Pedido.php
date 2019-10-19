@@ -5,18 +5,18 @@ require_once ('Usuario.php');
 
 class Pedido{
 
-    private $pedidoID;
+    private $IDPedido;
     private $solicitante;
     private $usuario;
     private $descripcion;
-    private $fechaHora;
+    private $FechaHora;
 
-    public function __construct($_pedidoID,$_solicitante, $_usuario, $_descripcion, $_fechaHora){
-      $this->setID($_pedidoID);
+    public function __construct($_IDPedido, $_solicitante, $_usuario, $_descripcion, $_FechaHora){
+      $this->setID($_IDPedido);
       $this->setSolicitante($_solicitante);
       $this->setUsuario($_usuario);
       $this->setDescripcion($_descripcion);
-      $this->setFechaHora($_fechaHora);
+      $this->setFechaHora($_FechaHora);
     }
     
    private function setID($_id){
@@ -24,7 +24,7 @@ class Pedido{
      }
      
    public function getID(){
-      return $this->pedidoID;
+      return $this->IDPedido;
    }
   
      public function setSolicitante($_solicitante){
@@ -48,20 +48,20 @@ class Pedido{
      }
     
      public function getDescripcion(){
-        return $this->fecha;
+        return $this->descripcion;
      }
 
      public function setFechaHora($_fecha){
-        $this->fechaHora = $_fecha;
+        $this->FechaHora = $_fecha;
      }
 
      public function getFechaHora(){
-        return $this->fechaHora;
+        return $this->FechaHora;
      }
 
-     public function insert (){
+     public function insert(){
       $conexion = Conexion::conectar();
-      $resultado = $conexion->query("INSERT INTO Pedido (PedidoID, SolicitanteID, UsuarioID, Descripcion, FechaHora) VALUE (".$this->getID().", ".$this->getSolicitante()->getIdSolicitante().", ".$this->getusuario()->getIDUsuario().", '".$this->getDescripcion()."', '".$this->getFechaHora()."')");
+      $resultado = $conexion->query("INSERT INTO Pedido (IDPedido, IDSolicitante, IDUsuario, Descripcion, FechaHora) VALUE (".$this->getID().", ".$this->getSolicitante()->getIdSolicitante().", ".$this->getusuario()->getIDUsuario().", '".$this->getDescripcion()."', '".$this->getFechaHora()."')");
       $resultid = mysqli_insert_id($conexion);
       $this->setID($resultid);
       if($conexion->error){
@@ -73,7 +73,7 @@ class Pedido{
  
      public function delete(){
       $conexion = Conexion::conectar();
-      $resultado = $conexion->query("DELETE FROM Pedido WHERE PedidoID = ".$this->getID());
+      $resultado = $conexion->query("DELETE FROM Pedido WHERE IDPedido = ".$this->getID());
       if($conexion->error){
          return ("Error: ".$conexion->error);
           } else {
@@ -83,7 +83,7 @@ class Pedido{
  
      public function update(){
       $conexion = Conexion::conectar();
-      $resultado = $conexion->query("UPDATE Pedido SETPedidoID = '".$this->getID()."', SolicitanteID = '".$this->getSolicitante()->getIdSolicitante()."', UsuarioID = '".$this->getusuario()->getIDUsuario()."', Descripcion = '".$this->getDescripcion()."', FechaHora ='".$this->getFechaHora()."'");
+      $resultado = $conexion->query("UPDATE Pedido SET IDPedido = '".$this->getID()."', IDSolicitante = '".$this->getSolicitante()->getIdSolicitante()."', IDUsuario = '".$this->getusuario()->getIDUsuario()."', Descripcion = '".$this->getDescripcion()."', FechaHora ='".$this->getFechaHora()."'");
          if($conexion->error){
             return ("Error: ".$conexion->error);
              } else {
@@ -91,12 +91,12 @@ class Pedido{
            }
      }
  
-     public static function findAll(){
+     public function findAll(){
       $resultado=Conexion::conectar()->query("SELECT * FROM Pedido");
          if ($resultado->num_rows > 0) { 
             $pedido = array();
             while ($row = $resultado->fetch_assoc()) { 
-               array_push($pedido, new Pedido($row['PedidoID'], Solicitante::findByID($row['SolicitanteID']), Usuario::findByID($row['UsuarioID']), $row['Descripcion'], $row['FechaHora']));
+               array_push($pedido, new Pedido($row['IDPedido'], Solicitante::findByID($row['IDSolicitante']), Usuario::findByID($row['IDUsuario']), $row['Descripcion'], $row['FechaHora']));
             }
          return ($pedido);
          }    
@@ -105,26 +105,25 @@ class Pedido{
          }
      }
  
-     public static  function findById($id){   
-         $resultado=Conexion::conectar()->query("SELECT * FROM Pedido WHERE PedidoID = ".$id);
+     public function findById($id){   
+         $resultado=Conexion::conectar()->query("SELECT * FROM Pedido WHERE IDPedido = ".$id);
          if ($resultado->num_rows > 0) { 
             $pedido = array();
             while ($row = $resultado->fetch_assoc()) { 
-               array_push($pedido, new Pedido($row['PedidoID'], Solicitante::findByID($row['SolicitanteID']), Usuario::findByID($row['UsuarioID']), $row['Descripcion'], $row['FechaHora']));
+               array_push($pedido, new Pedido($row['IDPedido'], Solicitante::findByID($row['IDSolicitante']), Usuario::findByID($row['IDUsuario']), $row['Descripcion'], $row['FechaHora']));
             }
          return ($pedido[0]);
-         }
-         else { 
+         } else { 
             return ("No existen registros."); 
          }     
      }
  
-     public static function findAllWhere($where){
+     public function findAllWhere($where){
       $resultado=Conexion::conectar()->query("SELECT * FROM Pedido WHERE ".$where);
-      if ($resultado->num_rows > 0) { 
+      if ($resultado->num_rows > 0) {
          $pedido = array();
          while ($row = $resultado->fetch_assoc()) { 
-            array_push($pedido, new Pedido($row['PedidoID'], Solicitante::findByID($row['SolicitanteID']), Usuario::findByID($row['UsuarioID']), $row['Descripcion'], $row['FechaHora']));
+            array_push($pedido, new Pedido($row['IDPedido'], Solicitante::findByID($row['IDSolicitante']), Usuario::findByID($row['IDUsuario']), $row['Descripcion'], $row['FechaHora']));
          }
       return ($pedido);
       }    
