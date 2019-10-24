@@ -29,6 +29,12 @@ class SolicitanteController
             header('Location: controllerSolicitante.php?action=index');
         }
     }
+    public function ver(){
+        require_once('../model/Solicitante.php');
+        $solicitantes = Solicitante::findAll();
+        //$solicitantes = [new Solicitante (null,'hola','chau')];
+        return ($solicitantes);
+    }
 }
 if (isset($_POST['action'])) {
     $solicitanteController = new SolicitanteController();
