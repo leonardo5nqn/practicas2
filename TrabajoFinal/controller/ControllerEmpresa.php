@@ -37,6 +37,11 @@ class EmpresaController
         }
         //var_dump("delete: ".$empresa->delete(). "e ir al indes de la vista");
     }
+    public function ver(){
+        require_once('../model/Empresa.php');
+        $empresas = Empresa::findAll();
+        return ($empresas);
+    }
     
 }
 
@@ -71,7 +76,7 @@ if(isset($_POST['action'])){
     }        
 }
 
-if (isset($_GET['action']){
+if (isset($_GET['action'])){
     $empresaController = new EmpresaController();
     switch ($_GET['action']) {
         case 'index':
