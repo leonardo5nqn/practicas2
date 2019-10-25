@@ -174,5 +174,4 @@ static function listarEmpresa($where){
 //$objet->update();
 //var_dump($objet); exit;
 
-//echo ("Prueba de Conexion");
 ?>
