@@ -36,7 +36,7 @@ class PedidoController
 }
 
 if (isset($_POST['action'])) {
-    require_once('PedidoController.php');
+    //require_once('PedidoController.php');
     require_once('../model/Pedido.php');
     require_once('../model/Usuario.php'); 
     require_once('../model/Solicitante.php'); 
