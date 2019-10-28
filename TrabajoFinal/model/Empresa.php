@@ -61,16 +61,13 @@ private function setTelefono($_tel){
 //Alta
 
 function insert(){
-    $sql= "INSERT INTO Empresa (IDEmpresa, razonSocial, Cuit, Direccion, Telefono ) 
-    values (".$this->IDEmpresa.",'".$this->razonSocial."','".$this->Cuit."','".$this->Direccion."','".$this->Telefono."')";
-    $resultado = Conexion::conectar()->query($sql);
-    //var_dump ($resultado);
-    print $sql;
+    $resultado = Conexion::conectar()->query("INSERT INTO Empresa (razonSocial, Cuit, Direccion, Telefono ) 
+    values ('".$this->getRazonSocial()."','".$this->getCuit()."','".$this->getDireccion()."','".$this->getTelefono()."')");
     //verifico si Inserto por el ID
-    //$resulID = mysqli_insert_id(Conexion::conectar());
-    //$this->setIDEmpresa($resulID);
-    
+    $resulID = mysqli_insert_id(Conexion::conectar());
+    $this->setIDEmpresa($resulID);
     return true;
+    
 }
 //Baja
 function delete(){
