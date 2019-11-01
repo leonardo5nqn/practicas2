@@ -5,8 +5,7 @@
 //LLAMO AL ARCHIVO DE CONEXION A LA BASE DE DATOS y La Clase Persona
 //--------------------------------------------------
 require_once ("../utils/conexion.php");
-//require_once ("../Persona.php");
-//require_once ("Persona.php");
+require_once ("Persona.php");
 
 //-------------------------------------------------
 //DECLARO LA CLASE PARA EL OBJETO Persona
@@ -14,24 +13,24 @@ require_once ("../utils/conexion.php");
 class Empleado {
     //Declaro las variables con visibilidad private, solo para el uso de la clase
     private $IDEmpleado;
-    
-    private $PersonaID;
     private $fechaIngreso;
+    private $PersonaID;
 
     ///---------------------------
     //DEFINO EL CONSTRUCTOR - PHP no soporta sobrecarga de constructores.
     //----------------------------
-    function __construct($_IDEmpleado,  $_personaID, $_fechaIngreso)
+    }
+    private function __construct($_IDEmpleado, $_fechaIngreso, $_personaID)
     {
         $this->setIDEmpleado($_IDEmpleado);
-        
-        $this->setIDPersona($_personaID);
         $this->setIngreso($_fechaIngreso);
+        $this->setIDPersona($_PersonaID);
     }
 
     //---------------------------
     //CREO LOS GETTER Y SETTERS
     //--------------------------
+
     public function getIDEmpleado(){
         return $this->IDEmpleado;
     }
@@ -42,8 +41,8 @@ class Empleado {
     public function getIngreso(){
         return $this->fechaIngreso;
     }
-    private function setIngreso($_fechaIngreso){
-        $this->fechaIngreso = $_fechaIngreso;
+    private function setIngreso($_fechaingreso){
+        $this->fechaIngreso = $_fechaingreso;
     }
 
     public function getIDPersona(){
@@ -51,23 +50,18 @@ class Empleado {
     }
     //verificar el Set
     private function setIDPersona($_idpersona){
-        $this->PersonaID=$_idpersona;
+        $this->PersonaID = Persona::findByID($_idpersona);
     }
-    // private function setIDPersona($_idpersona){
-    //     $this->PersonaID = Persona::findByID($_idpersona);
-    // }
 
     //Alta
 
     function insert(){
-        $sql="INSERT INTO Empleado (IDEmpleado, PersonaID, fechaIngreso) 
-        VALUES ('".$this->getIDEmpleado()."','".$this->getIDPersona()."','".$this->getIngreso()."')";
         $conexion = Conexion::conectar();
-        $resultado = $conexion->query($sql);
-        echo ($sql);
+        $resultado = $conexion->query("INSERT INTO Empleado (IDEmpleado, PersonaID, fechaIngreso) 
+            values ('".$this->getIDEmpleado()."','".$this->PersonaID()."','".$this->getIngreso()."')");
         
-        //$resultadoID =mysqli_insert_id($conexion);
-        //$this ->setIDEmpleado($resultadoID);
+        $resultadoID =mysqli_insert_id($conexion);
+        $this ->setIDEmpleado($resultadoID);
 
         //modelo para verificar el insert (verificar funcionamiento)
         if ($resultado == false){
@@ -155,7 +149,7 @@ class Empleado {
         if ($resultado->num_rows() > 0) { 
             $empleado = array();
             while ($row = $resultado->fetch_assoc()) { 
-                array_push($empleado=$resultado, new Empleado($row['IDEmpleado'],$row['fechaIngreso'].$row['PersonaID']));
+                array_push($empleado=$resultado, new Empleado($$row['IDEmpleado'],$row['fechaIngreso'].$row['PersonaID']));
                 //array_push($empleado, new Empleado($row['IDEmpleado'],Solicitante::findByID($row['PersonaID']), $row['fechaIngreso']));
             }
         return ($empleado);
@@ -165,15 +159,13 @@ class Empleado {
         }   
     }
 }
-//-------------------------------------------------
-// $_IDEmpleado,  $_personaID, $_fechaIngreso
+
 //--------------------------------------------------
 // Puebas en en el servidor PHP del Local host y la base db4free
 // INgreso un Empleado
 
-$instanciaPrueba = new Empleado ('null','2','20190918');
-$instanciaPrueba -> insert();
-var_dump($instanciaPrueba);
+//$instanciaPrueba = new Empleado (Null,"02","20190918");
+//$instanciaPrueba -> insert();
 
 //Borrar Empleado
 //$pruebaEliminar = Empleado::findAll([0]->delete());
@@ -182,8 +174,8 @@ var_dump($instanciaPrueba);
 //$pruebaAll = Empleado::findAll();
 
 //Traer Empleado por ID
-//$pruebaID = Empleado::findByID(1);
-//var_dump($pruebaID);
+$pruebaID = Empleado::findByID(1);
+var_dump($pruebaID);
 
 //traer Array con Where por String
 //$pruebaWhere = Empleado::findAllWhere("PersonaID = '2'");

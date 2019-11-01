@@ -1,6 +1,6 @@
 <?php
 //LLAMO A LA CLASE CONEXION
-require_once("../utils/conexion.php");
+ require_once ("../utils/conexion.php");
 
 class Persona
 {
@@ -112,53 +112,49 @@ class Persona
      //ingresar persona
      function insert()
       {
-         $conexion = Conexion::conectar();
-         /*echo "INSERT INTO Persona (Nombre, Apellido, Telefono, Documento, FechaNacimiento, Domicilio, Email)
-         values ('".$this->getNombre()."','".$this->getApellido()."','".$this->getTelefono()."','".$this->getDoc()."','".$this->getFNacimiento()."','".$this->getDomicilio()."','".$this->getEmail()."')";
-         exit;*/
+         /* $conexion = Conexion::conectar();
          $resultado = $conexion->query("INSERT INTO Persona (Nombre, Apellido, Telefono, Documento, FechaNacimiento, Domicilio, Email)
          values ('".$this->getNombre()."','".$this->getApellido()."','".$this->getTelefono()."','".$this->getDoc()."','".$this->getFNacimiento()."','".$this->getDomicilio()."','".$this->getEmail()."')");
           $resultid = mysqli_insert_id($conexion);
-            
           $this->setpersonaid($resultid);
-          
-          if($conexion->error){
-            return ("Error: ".$conexion->error);
-             } else {
-             return ("Registro insertado correctamente");
-           }
-        }
-
-        
+         $rs= query( $resultado); 
+        if ($rs == false ){
+            echo "error";
+        }     
+        else {
+            echo "se inserto";
+        }   */
+      }  
      //eliminar persona
      function delete()
       {
-        /* echo "DELETE FROM Persona where IDPersona =".$this->getpersonaid()."";
-         exit;*/
-         $conexion = Conexion::conectar();
-         $resultado = $conexion->query("DELETE FROM Persona where IDPersona =".$this->getpersonaid());
-         if($conexion->error){
-            return ("Error: ".$conexion->error);
-             } else {
-             return ("Registro eliminado correctamente");
-           }
+        /*  $resultado = Conexion::conectar()->query("DELETE FROM Persona where IDPersona =".$this->getpersonaid()."");
+        $rs= mysql_query( $resultado); 
+
+        if ($rs == false ){
+            echo "error";
+        }     
+        else {
+            echo "se elimino";
+        } */
       }
 
      //editar persona
       function update()
       {
-         $conexion = Conexion::conectar();
-         $resultado = $conexion->query("UPDATE Persona set  Nombre ='".$this->getNombre()."', Apellido ='".$this->getApellido()."', Telefono ='".$this->getTelefono()."', Documento ='".$this->getDoc()."',
+        /*  $resultado = Conexion::conectar()->query("UPDATE Persona set  Nombre ='".$this->getNombre()."', Apellido ='".$this->getApellido()."', Telefono ='".$this->getTelefono()."', Documento ='".$this->getDoc()."',
          FechaNacimiento ='".$this->getFNacimiento()."', Domicilio ='".$this->getDomicilio()."', Email ='".$this->getEmail()."'
          where IDPersona =".$this->getpersonaid()."");
          
-         if($conexion->error){
-            return ("Error: ".$conexion->error);
-             } else {
-             return ("Registro editado correctamente");
-           }
-        }
-      
+        $rs= mysql_query( $resultado); 
+
+        if ($rs == false ){
+            echo "error";
+        }     
+        else {
+            echo "se modifico";
+        } */
+      }
        //OBTENGO TODAS LAS PERSONAS
       public static function findAll(){
          $resultado=Conexion::conectar()->query("SELECT * FROM Persona" );
@@ -208,9 +204,9 @@ class Persona
 }
 //private function __construct($_personaid, $_Nombre, $_apellido,$_Telefono,$_documento,$_FechaNacimiento,$_Domicilio,$_Email )
     //ESTO INSERTA UNA PERSONA 
-    //$instaciaPrueba = new Persona (NULL,"Nombre 1","Apellido 1", "123","40960987","1998-1-1","Rio negro 1","uno");
+    $instaciaPrueba = new Persona (NULL,"Nombre 1","Apellido 1", "123","40960987","1-1-1998","Rio negro 1","uno");
 
-    //$instaciaPrueba -> insert();
+    $instaciaPrueba -> insert();
 
     //ESTO BORRA UNA PERSONA
     //$re = Persona::findAll()[0]->delete();
@@ -230,7 +226,5 @@ class Persona
 
     //$re2 = Persona::findByID(1);
 
-    //var_dump($re);exit(); 
-    // No se puede eliminar o actualizar una fila principal: falla una restricción de clave foránea (`cisterna`.`Empleado`, CONSTRAINT` Empleado_ibfk_1` REFERENCIAS DE LLAVE EXTRANJERA (`PersonaID`)` Persona` (`IDPersona`) AL BORRAR RESTRICCIÓN AL ACTUALIZAR RESTRICCIÓN)
-    //se pudo hacer pero eliminando los datos que habia en cisterna, empleado, etc. Como solucionar ese problema?
-    ?>
+    //var_dump($re2);exit(); 
+?>

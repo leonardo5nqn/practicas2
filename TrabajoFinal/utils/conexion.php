@@ -26,7 +26,7 @@
             self::$instance->session_write_close();
             self::$instance = null;
         }
-    
-    
+
+       
     }
 ?>  
