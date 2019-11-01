@@ -63,7 +63,7 @@
 
         public function update(){
          $conexion = Conexion::conectar();
-         $resultado = $conexion->query("UPDATE Solcitante SET IDSolicitante =".$this->getIDSolicitante().",IDPersona=".$this->getPersona()->getIDPersona().",EmpresaID=".$this->getEmpresa()->getIDEmpresa());
+         $resultado = $conexion->query("UPDATE Solcitante SET IDPersona=".$this->getPersona()->getIDPersona().",EmpresaID=".$this->getEmpresa()->getIDEmpresa().", WHERE IDSolicitante = ".$this->getIDSolicitante());
             if($conexion->error){
                return ("Error: ".$conexion->error);
                 } else {
