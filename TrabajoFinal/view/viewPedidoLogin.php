@@ -5,7 +5,7 @@ session_start();
 //valido si se ha realizado el inicio de secion correctamkente
 //sino nos retorna al viewLogin.php
 if(!isset($_SESSION['usuario'])){
-    header('Location: viewLogin.php');
+    header('Location: viewPedidoLogin.php');
     exit();
 }
 
