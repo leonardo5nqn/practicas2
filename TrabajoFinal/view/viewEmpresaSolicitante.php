@@ -1,5 +1,5 @@
 <div class="text-center">
-    <h1 class="display-4">Ingresar Empresa</h1>
+    <h1 class="display-4">Empresa</h1>
     <div class= "card">
     <div class="card-body">
   </thead>
@@ -11,14 +11,14 @@
   Razon Social:<br>
   <input type="text" name="razonSocial" required><br>
   Cuit:<br>
-  <input type="number" name="Cuit" minlength="1" maxlength="11" required><br>
+  <input type="text" name="Cuit" required><br>
   Direccion:<br>
   <input type="text" name="Direccion" required><br>
   Telefono:<br>
   <input type="text" name="Telefono" required><br>
   </table>
   </tbody>
-  <br>
+  <br>  
   <button type="submit" class="btn btn-secondary btn-lg" >Guardar</button><br>
 </form>
 </div>
@@ -37,7 +37,7 @@ validar cuit con html5 numerico
 
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 <div class="text-center">
-    <h1 class="display-4">Lista de Empresas</h1>
+    <h1 class="display-4">Empresa</h1>
     <div class= "card">
     <div class="card-body">
     <div class="list-group">
@@ -66,10 +66,9 @@ validar cuit con html5 numerico
 				<td><?php echo $empresa->getCuit();?></td>
         <td><?php echo $empresa->getDireccion();?></td>
         <td><?php echo $empresa->getTelefono();?></td>
-        <td><a href="../controller/controllerEmpresa.php?action=delete&id=<?php echo $empresa->getIDEmpresa(); ?>">Eliminar</a> 
-        <a href="../controller/ControllerEmpresa.php?action=update&id=<?php echo $empresa->getIDEmpresa(); ?>">Modificar</a> </td>
+        <td><a href="../controller/controllerEmpresa.php?action=delete&id=<?php echo $empresa->getIDEmpresa(); ?>">Eliminar</a> </td>
 				<td>
-				<a href="../view/viewSolicitantesEmpresa.php?id="<?php echo $empresa->getIDEmpresa(); ?>>Asignar Solicitante </a>
+				<a href="../view/viewSolicitantesEmpresa.php">ADD Solicitante </a>
         <a href="../view/viewVerSolicitante.php">ver Solicitantes</a>
 				</td>
 			</tr>		

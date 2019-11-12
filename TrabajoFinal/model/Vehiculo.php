@@ -140,9 +140,10 @@ class Vehiculo
         //-------------------------------------
     public static function findAll(){
         $resultado=Conexion::conectar()->query("SELECT * from Vehiculo");
-        if ($resultado->num_rows > 0) { 
-            $persona = array();
-            while ($row = $resultado->fetch_assoc()) { 
+        if ($resultado->num_rows > 0) {
+//            $persona = array();
+            $vehiculo = array();
+            while ($row = $resultado->fetch_assoc()) {
                array_push($vehiculo, new Vehiculo($row['IDVehiculo'],$row['Patente'], $row['Marca'], $row['Modelo'], $row['Color'], $row['TipoVehiculo']));
             }
          return ($vehiculo);
