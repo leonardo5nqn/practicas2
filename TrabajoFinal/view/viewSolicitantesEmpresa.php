@@ -116,11 +116,12 @@ require_once('../controller/controllerSolicitante.php');
  
     <p>Seleccione un solicitante del siguiente menú:</p>
     <p>solicitante:
-<input name="action" type="hidden" value="new">
-      <select>
-        <option value="0">Selección:</option>
+    <form action='/TrabajoFinal/controller/controllerSolicitante.php?action=new' method='post' class="form-group">
+      <input name="action" type="hidden" value="new">
+        <select>
+         <option value="0">Selección:</option>
         
-        <?php
+          <?php
             require_once('../controller/controllerSolicitante.php'); 
             $solicitanteController = new SolicitanteController();
            $valores = $solicitanteController->ver();
@@ -132,10 +133,11 @@ require_once('../controller/controllerSolicitante.php');
                $id = $valor->getIDSolicitante();
                echo '<option value="'.$id.'">'.$nombre.'</option>';
                }
-        ?>
-      </select>
+          ?>
+        </select>
       <input type='submit' value='Guardar' class="btn btn-primary">
     </p>
+    </form>
   </div>
 </body>
 
