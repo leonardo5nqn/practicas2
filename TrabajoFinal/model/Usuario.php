@@ -142,9 +142,9 @@ class Usuario {
             while ($row = $respuesta->fetch_assoc()) {
                 array_push($usuario, new Usuario($row['IDUsuario'], $row['NombreUsuario'], $row['Contrasena'], Persona::findById($row['PersonaID']), Rol::findById($row['IDRol']), $row['Huella']));
             }
-            return ($usuario);
+               return ($usuario);
         } else {
-            return ("No hay registros.");
+            return null;
         }
     }
 }
