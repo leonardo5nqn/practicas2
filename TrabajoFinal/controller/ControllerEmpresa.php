@@ -27,17 +27,23 @@ if ($empresa->insert()){
         }
         
     }
-    public function update($empresa){
+    public function viewUpdate($id) {
         require_once('../model/Empresa.php');
-        //var_dump("update: ".$empresa->update()."e ir al index de la vista");
-      $empresa->update();
-      
+        $empresa = Empresa::findById($id);
+        require_once('../view/viewModificarEmpresa.php');
+    }
+    public function update($empresa){
+        if ($empresa->update()){
+            header("Location: http://localhost/TrabajoFinal/view/viewEmpresaSolicitante.php");
+        }
+        //require_once('../model/Empresa.php');
+        //var_dump($empresa);
+        //$this->index();
     }
     public function delete($empresa){
         require_once('../model/Empresa.php');
         $empresa->delete();
         header('Location: ../view/viewEmpresaSolicitante.php');
-        //var_dump("delete: ".$empresa->delete(). "e ir al indes de la vista");
     }
     public function ver(){
         require_once('../model/Empresa.php');
@@ -76,15 +82,17 @@ if(isset($_POST['action'])){
 
         break;
         case ('update'):
-        if (!empty($_POST['idEmpresa'])){
-            $obj_empresa = new Empresa (null,$_POST['razonSocial'], $_POST['Cuit'], $_POST['Direccion'],$_POST['Telefono']);
-                $empresaController->update($obj_empresa);
-        } else {
-            echo "Campos incompletos.";
-        }
+            //exit("aca");
+            if (!empty($_POST['id']) && !empty($_POST['razonSocial']) && !empty($_POST['Cuit']) && !empty($_POST['Direccion'])&& !empty($_POST['Telefono'])){
+            $empresa = new Empresa($_POST['id'], $_POST['razonSocial'], $_POST['Cuit'], $_POST['Direccion'],$_POST['Telefono']);
+            $empresaController->update($empresa);
+            } else {
+                echo "Campos incompletos.";
+            }
         break;
+        
     }
-}        
+}       
 
 if (isset($_GET['action'])){
     $empresaController = new EmpresaController();
@@ -103,7 +111,13 @@ if (isset($_GET['action'])){
                 echo "Campos incompletos.";
             }
             break;
-            
+            case ('update'):
+            if (!empty($_GET['id'])){
+                $empresaController->viewUpdate(($_GET['id']));
+            } else {
+                echo "Campos incompletos.";
+            }
+            break;   
     }
 }
 
