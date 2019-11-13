@@ -9,8 +9,8 @@
         private $persona;
         private $empresa;
         
-        public function __construct($_idSolcitante, $_persona, $_empresa){
-            $this->setIDSolicitante($_idSolcitante);
+        public function __construct($IDSolicitante, $_persona, $_empresa){
+            $this->setIDSolicitante($IDSolicitante);
             $this->setPersona($_persona);
             $this->setEmpresa($_empresa);
         }
@@ -38,17 +38,13 @@
         private function setEmpresa($_empresa){
             $this->empresa=$_empresa;
         }
-
+        //('INSERT INTO Solicitante(IDSolicitante,IDPersona, EmpresaID) VALUES ("'.$this->getIDSolicitante().'","'.$this->getPersona()->getIDPersona().'", "'.$this->getEmpresa()->getIDEmpresa().'")');
         public function insert (){
-         $conexion = Conexion::conectar();
-         $resultado = $conexion->query('INSERT INTO Solicitante(IDSolicitante, IDPersona, EmpresaID) VALUES ("'.$this->getIDSolicitante().'", "'.$this->getPersona()->getIDPersona().'", "'.$this->getEmpresa()->getIDEmpresa().'")');
+         $conexion = Conexion::conectar(); 
+         $resultado = $conexion->query("INSERT INTO Solicitante (IDSolicitante,IDPersona, EmpresaID) VALUES (".$this->getIDSolicitante().",".$this->getPersona()->getpersonaid().", ".$this->getEmpresa()->getIDEmpresa().")");
          $resultid = mysqli_insert_id($conexion);
          $this->setIDSolicitante($resultid);
-         if($conexion->error){
-            return ("Error: ".$conexion->error);
-             } else {
-             return ("Registro insertado correctamente");
-           }
+         return true;
         }
 
         public function delete(){
@@ -63,7 +59,7 @@
 
         public function update(){
          $conexion = Conexion::conectar();
-         $resultado = $conexion->query("UPDATE Solcitante SET IDPersona=".$this->getPersona()->getIDPersona().",EmpresaID=".$this->getEmpresa()->getIDEmpresa().", WHERE IDSolicitante = ".$this->getIDSolicitante());
+         $resultado = $conexion->query("UPDATE Solcitante SET IDSolicitante =".$this->getIDSolicitante().",IDPersona=".$this->getPersona()->getpersonaid().",EmpresaID=".$this->getEmpresa()->getIDEmpresa());
             if($conexion->error){
                return ("Error: ".$conexion->error);
                 } else {
