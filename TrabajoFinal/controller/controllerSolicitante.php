@@ -12,8 +12,11 @@ class SolicitanteController
         echo 'ir a la ruta de creacion de pedido';
     }
     public function insert($solicitante){
-        require_once('../model/Solicitante.php');
-        var_dump("insert: ".$solicitante->insert()." e ir al index de vista.");
+        if ($solicitante->insert()){
+            header("Location: http://localhost/TrabajoFinal/view/viewSolicitantesEmpresa.php");
+        }
+        //require_once('../model/Solicitante.php');
+        //var_dump($solicitante);
         //header('Location: ../index.php');
     }
     public function update($solicitante){
@@ -45,8 +48,8 @@ if (isset($_POST['action'])) {
     require_once('../model/Persona.php'); 
     switch ($_POST['action']){
         case ('new'):
-        if (!empty($_POST['persona']) && !empty($_POST['empresa'])) {
-            $solicitante = new Solicitante(null, Persona::findByID($_POST['persona']['personaid']), Empresa::findByID($_POST['empresa']['IDEmpresa']));
+        if (!empty($_POST['IDPersona']) && !empty($_POST['IDEmpresa'])) {
+            $solicitante = new Solicitante('NULL', Persona::findByID($_POST['IDPersona']), Empresa::findByID($_POST['IDEmpresa']));
             $solicitanteController->insert($solicitante);
         } else {
             echo "Campos incompletos.";
