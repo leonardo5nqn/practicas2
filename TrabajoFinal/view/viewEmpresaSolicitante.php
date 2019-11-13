@@ -66,10 +66,10 @@ validar cuit con html5 numerico
 				<td><?php echo $empresa->getCuit();?></td>
         <td><?php echo $empresa->getDireccion();?></td>
         <td><?php echo $empresa->getTelefono();?></td>
-        <td><a href="../controller/controllerEmpresa.php?action=delete&id=<?php echo $empresa->getIDEmpresa(); ?>">Eliminar</a> 
-        <a href="../controller/ControllerEmpresa.php?action=update&id=<?php echo $empresa->getIDEmpresa(); ?>">Modificar</a> </td>
+        <td><a href="../controller/controllerEmpresa.php?action=delete&id=<?php echo $empresa->getIDEmpresa(); ?>"onclick="return confirm('Confirma que deseas borrar este registro.');">Eliminar</a> </td>
+        <td><a href="../controller/ControllerEmpresa.php?action=update&id=<?php echo $empresa->getIDEmpresa(); ?>">Modificar</a> </td>
 				<td>
-				<a href="../view/viewSolicitantesEmpresa.php?id="<?php echo $empresa->getIDEmpresa(); ?>>Asignar Solicitante </a>
+				<a href="../view/viewSolicitantesEmpresa.php"<?php echo $empresa->getIDEmpresa(); ?>>Asignar Solicitante </a>
         <a href="../view/viewVerSolicitante.php">ver Solicitantes</a>
 				</td>
 			</tr>		
