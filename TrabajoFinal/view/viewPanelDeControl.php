@@ -23,7 +23,7 @@
 
         <td>
             <a style="text-decoration:none; font-size: 30px; margin:130px; padding: 20px;"
-            href="../controller/controllerEmpresa.php?action=index">Empresa</a>
+            href="../view/viewEmpresaSolicitante.php">Empresa</a>
         </td>
 
     </tr>
