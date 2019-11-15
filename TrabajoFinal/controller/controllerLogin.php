@@ -14,7 +14,7 @@ class LoginController
 
     }
     public function rebote(){
-        session_start();
+        //session_start();
         require_once('../view/viewLogin.php');
 
     }

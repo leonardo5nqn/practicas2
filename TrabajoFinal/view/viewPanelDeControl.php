@@ -1,8 +1,11 @@
+<!-- <?php
+session_start(); //Iniciamos la Sesion o la Continuamos
+?> -->
 <div>
     <h1 align="left">Panel de Control</h1>
     <h3 align="left">
         USUARIO LOGUEADO: <?php
-        session_start(); //Iniciamos la Sesion o la Continuamos
+        
         //var_dump($_SESSION);
         echo $_SESSION["Usuario"] ?>
     </h3>
