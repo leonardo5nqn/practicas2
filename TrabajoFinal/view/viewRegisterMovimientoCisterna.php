@@ -32,13 +32,15 @@
             <select name="IDCisterna" required>
               <?php
                     foreach($cisternas as $row){
-                        echo '<option value='.$row->getID().'>'.$row->getNombreCisterna().'</option>';
+                      if($id == $row->getID()){
+                        echo '<option value='.$row->getID().'selected="selected">'.$row->getNombreCisterna().'</option>';
+                     }else{
+                      echo '<option value='.$row->getID().'>'.$row->getNombreCisterna().'</option>';
+                     }
                     }	
                 ?>
             </select> 
             <br>
-            <br> Porcentaje: 
-            <input type="number" name="Porcentaje" class="form-control" required>
             <br> ID Pedido Vehiculo Chofer: 
             <select name="IDPedidoVehiculoChofer" required>
               <?php
@@ -56,13 +58,11 @@
 </div>
 <h2>
   <?php 
-        $value = 0;
         if($movimientos !== 'No existen registros.') {
-            foreach ($movimientos as $movimiento){
-                $value += $movimiento->getPorcentaje();
+            foreach ($movimientos as $movimiento) {
+             echo("Porcentaje de carga ".$movimiento->getCisterna()->getNombreCisterna()." : ".array_sum(array_column($movimientos, $movimiento->getCisterna()->getID()))." % </br>");
             }
         }
-        echo("Porcentaje de carga: ".$value." %");
     ?>
 </h2>
 <div class="container">
@@ -92,6 +92,7 @@
           <td><?php echo $movimiento->getCisterna()->getNombreCisterna();?></td>
           <td><?php echo $movimiento->getPorcentaje();?></td>
           <td><?php echo $movimiento->getIDPedidoVehiculoCarga();?></td>
+          <td><a href="controllerMovimientoCisterna.php?action=update&id=<?php echo $movimiento->getID(); ?>"> Actualizar </a></td>
           <td><a href="controllerMovimientoCisterna.php?action=delete&id=<?php echo $movimiento->getID(); ?>"> Eliminar </a></td>
         </tr>
       </tbody>
