@@ -9,8 +9,8 @@
         private $persona;
         private $empresa;
         
-        public function __construct($IDSolicitante, $_persona, $_empresa){
-            $this->setIDSolicitante($IDSolicitante);
+        public function __construct($_idSolcitante, $_persona, $_empresa){
+            $this->setIDSolicitante($_idSolcitante);
             $this->setPersona($_persona);
             $this->setEmpresa($_empresa);
         }
@@ -38,13 +38,17 @@
         private function setEmpresa($_empresa){
             $this->empresa=$_empresa;
         }
-        //('INSERT INTO Solicitante(IDSolicitante,IDPersona, EmpresaID) VALUES ("'.$this->getIDSolicitante().'","'.$this->getPersona()->getIDPersona().'", "'.$this->getEmpresa()->getIDEmpresa().'")');
+
         public function insert (){
-         $conexion = Conexion::conectar(); 
-         $resultado = $conexion->query("INSERT INTO Solicitante (IDSolicitante,IDPersona, EmpresaID) VALUES (".$this->getIDSolicitante().",".$this->getPersona()->getpersonaid().", ".$this->getEmpresa()->getIDEmpresa().")");
+         $conexion = Conexion::conectar();
+         $resultado = $conexion->query('INSERT INTO Solicitante(IDSolicitante, IDPersona, EmpresaID) VALUES ("'.$this->getIDSolicitante().'", "'.$this->getPersona()->getIDPersona().'", "'.$this->getEmpresa()->getIDEmpresa().'")');
          $resultid = mysqli_insert_id($conexion);
          $this->setIDSolicitante($resultid);
-         return true;
+         if($conexion->error){
+            return ("Error: ".$conexion->error);
+             } else {
+             return ("Registro insertado correctamente");
+           }
         }
 
         public function delete(){
@@ -59,7 +63,7 @@
 
         public function update(){
          $conexion = Conexion::conectar();
-         $resultado = $conexion->query("UPDATE Solcitante SET IDSolicitante =".$this->getIDSolicitante().",IDPersona=".$this->getPersona()->getpersonaid().",EmpresaID=".$this->getEmpresa()->getIDEmpresa());
+         $resultado = $conexion->query("UPDATE Solcitante SET IDPersona=".$this->getPersona()->getIDPersona().",EmpresaID=".$this->getEmpresa()->getIDEmpresa().", WHERE IDSolicitante = ".$this->getIDSolicitante());
             if($conexion->error){
                return ("Error: ".$conexion->error);
                 } else {
@@ -67,7 +71,7 @@
               }
         }
 
-        public static function findAll(){
+        public function findAll(){
          $resultado=Conexion::conectar()->query("SELECT * FROM Solicitante");
             if ($resultado->num_rows > 0) { 
                $solicitante = array();
@@ -81,7 +85,7 @@
             }
         }
 
-        public static function findById($id){
+        public function findById($id){   
             $resultado=Conexion::conectar()->query("SELECT * FROM Solicitante WHERE IDSolicitante = ".$id);
             if ($resultado->num_rows > 0) { 
                $solicitante = array();
