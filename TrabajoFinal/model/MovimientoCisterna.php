@@ -115,8 +115,8 @@ class MovimientoCisterna {
     
     public function update() {
         $conexion  = Conexion::conectar();
-        $resultado = $conexion->queryquery('UPDATE MovimientoCisterna set IDUsuario ="'.$this->getUsuario()->getIDUsuario().'", FechaHora ="'.$this->getFechaHora().'", Litros ="'.$this->getLitros().'", IDTipoCarga ="'.$this->getTipoCarga()->getID().'",
-        IDCisterna ="'.$this->getCisterna()->getIdCisterna().'", Porcentaje ="'.$this->getPorcentage().'", IDPedidoVehiculoChofer ="'.$this->getidPedidoVehiculoCarga()."', WHERE IDMovimiento =".$this->getID());
+        $resultado = $conexion->query('UPDATE MovimientoCisterna set IDUsuario ="'.$this->getUsuario()->getIDUsuario().'", FechaHora ="'.$this->getFechaHora().'", Litros ="'.$this->getLitros().'", IDTipoCarga ="'.$this->getTipoCarga()->getID().'",
+        IDCisterna ="'.$this->getCisterna()->getID().'", Porcentaje ="'.$this->getPorcentaje().'", IDPedidoVehiculoChofer ="'.$this->getidPedidoVehiculoCarga()."', WHERE IDMovimiento =".$this->getID());
         if ($conexion->error) {
             return ("Error: ".$conexion->error);
         } else {
