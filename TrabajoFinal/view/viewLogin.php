@@ -8,6 +8,6 @@
     <input  type="text" name="Usuario"><br><br>
     <label>Contrase&ntilde;a</label>
     <input type="password" name="Contrasena" size="20px" value="" /><br><br>
-    <input type="submit" name="Iniciar" value="Iniciar Sesi&oacute;n"> 
+    <input type="submit" name="Iniciar" value="Iniciar Sesion"> 
 </form>
 </div>

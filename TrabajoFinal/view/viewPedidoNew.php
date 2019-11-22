@@ -2,7 +2,7 @@
 <br>
 <div>
     <a class="btn btn-danger" href="../controller/controllerPedido.php?action=listar"
-     align="left"> Volver </a>
+     align="left">Volver </a>
     <h1 align="center">Nuevo Pedido</h1>
     <h4 align="center">
         USUARIO LOGUEADO: <?php

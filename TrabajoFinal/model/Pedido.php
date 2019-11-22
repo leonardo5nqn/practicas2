@@ -61,7 +61,12 @@ class Pedido{
 
      public function insert(){
       $conexion = Conexion::conectar();
-      $resultado = $conexion->query("INSERT INTO Pedido (IDPedido, IDSolicitante, IDUsuario, Descripcion, FechaHora) VALUE (".$this->getID().", ".$this->getSolicitante()->getIdSolicitante().", ".$this->getusuario()->getIDUsuario().", '".$this->getDescripcion()."', '".$this->getFechaHora()."')");
+      
+
+      $resultado = $conexion->query("INSERT INTO Pedido (IDSolicitante, 
+      IDUsuario, Descripcion, FechaHora) VALUE ( "
+      .$this->getSolicitante()->getIdSolicitante().", ".$this->getusuario()->getIDUsuario().
+      ", '".$this->getDescripcion()."', '".$this->getFechaHora()."')");
       $resultid = mysqli_insert_id($conexion);
       $this->setID($resultid);
       if($conexion->error){

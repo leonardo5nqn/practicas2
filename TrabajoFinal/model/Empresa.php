@@ -1,4 +1,4 @@
-<<?php
+<?php
 //LLAMO A LA CLASE CONEXION
 require_once ("../utils/conexion.php");
 
