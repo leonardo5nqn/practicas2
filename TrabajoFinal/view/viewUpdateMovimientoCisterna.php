@@ -8,10 +8,15 @@
                 <input type='hidden' name='action' value='update'>
                 <input type='hidden' name='id' <?php echo'value="'.$movimientoCisterna->getID().'"'?>>
                 Playero:
-                <select name="IDUsuario" <?php echo 'value="'.$movimientoCisterna->getUsuario()->getIDUsuario().'"'?> required>
+                <select name="IDUsuario" required>
                     <?php
+                    $selected = $movimientoCisterna->getUsuario()->getIDUsuario();
                     foreach($playeros as $row){
-                        echo '<option value='.$row->getIDUsuario().'>'.$row->getPersona()->getNombre().' '.$row->getPersona()->getApellido().'</option>';
+                        if($selected === $row->getIDUsuario()){
+                            echo '<option value='.$row->getIDUsuario().' selected >'.$row->getPersona()->getNombre().' '.$row->getPersona()->getApellido().'</option>';
+                        } else {
+                            echo '<option value='.$row->getIDUsuario().'>'.$row->getPersona()->getNombre().' '.$row->getPersona()->getApellido().'</option>';
+                        }
                     }	
                 ?>
                 </select>
@@ -21,35 +26,44 @@
                 <br> Litros:
                 <input type="number" name="Litros" class="form-control" <?php echo 'value="'.$movimientoCisterna->getLitros().'"'?> required>
                 <br> Tipo de Carga:
-                <select name="IDTipoCarga" <?php echo 'value="'.$movimientoCisterna->getTipoCarga()->getID().'"'?>>
+                <select name="IDTipoCarga">
                     <?php
+                    $selected = $movimientoCisterna->getTipoCarga()->getID();
                     foreach($cargas as $carga){
-                        echo '<option value='.$carga->getID().'>'.$carga->getDescripcion().'</option>';
-                    }	
+                        if($selected === $carga->getID()){
+                            echo '<option value='.$carga->getID().' selected>'.$carga->getDescripcion().'</option>';
+                        } else {
+                            echo '<option value='.$carga->getID().'>'.$carga->getDescripcion().'</option>';
+                        }
+                    }
                 ?>
                 </select>
                 <br>
                 <br> Cisterna:
-                <select name="IDCisterna" required <?php echo 'value="'.$movimientoCisterna->getCisterna()->getID().'"'?>>
+                <select name="IDCisterna" required>
                     <?php
+                    $id = $movimientoCisterna->getCisterna()->getID();
                     foreach($cisternas as $row){
-                      if($id == $row->getID()){
-                        echo '<option value='.$row->getID().'selected="selected">'.$row->getNombreCisterna().'</option>';
+                      if($id === $row->getID()){
+                          echo '<option value='.$row->getID().' selected >'.$row->getNombreCisterna().'</option>';
                      }else{
-                      echo '<option value='.$row->getID().'>'.$row->getNombreCisterna().'</option>';
+                          echo '<option value='.$row->getID().'>'.$row->getNombreCisterna().'</option>';
                      }
                     }	
                 ?>
                 </select>
                 <br>
-                <br> Porcentaje:
-                <input type="number" name="Porcentaje" class="form-control" <?php echo 'value="'.$movimientoCisterna->getPorcentaje().'"'?> required>
                 <br> ID Pedido Vehiculo Chofer:
-                <select name="IDPedidoVehiculoChofer" <?php echo 'value="'.$movimientoCisterna->getIDPedidoVehiculoCarga().'"'?> required>
+                <select name="IDPedidoVehiculoChofer" required>
                     <?php
+                    $pedidoVehiculo = $movimientoCisterna->getIDPedidoVehiculoCarga();
                     foreach($pedidos as $pedido){
+                     if($pedidoVehiculo === $pedido->getID()){
+                        echo '<option value='.$pedido->getID().' selected >'.$pedido->getID().'</option>';
+                    } else {
                         echo '<option value='.$pedido->getID().'>'.$pedido->getID().'</option>';
                     }
+                }
                 ?>
                 </select>
                 <br>
