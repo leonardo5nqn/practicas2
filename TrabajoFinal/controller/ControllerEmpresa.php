@@ -21,11 +21,14 @@ class EmpresaController
     }
 
     public function insert ($empresa){
-if ($empresa->insert()){
-        header("Location: http://localhost/TrabajoFinal/view/viewEmpresaSolicitante.php");
+        if ($empresa->insert()){
+        $this->index();
+        // header("Location: http://localhost/TrabajoFinal/view/viewEmpresaSolicitante.php");
         }
         
     }
+        
+    
     public function viewUpdate($id) {
         require_once('../model/Empresa.php');
         $empresa = Empresa::findById($id);
