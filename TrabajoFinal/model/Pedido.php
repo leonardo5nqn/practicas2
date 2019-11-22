@@ -85,11 +85,14 @@ class Pedido{
           return ("Registro eliminado correctamente");
         }
      }
- 
      public function update(){
       $conexion = Conexion::conectar();
-      $resultado = $conexion->query("UPDATE Pedido SET IDPedido = '".$this->getID()."', IDSolicitante = '".$this->getSolicitante()->getIdSolicitante()."', IDUsuario = '".$this->getusuario()->getIDUsuario()."', Descripcion = '".$this->getDescripcion()."', FechaHora ='".$this->getFechaHora()."'");
-         if($conexion->error){
+      $resultado = $conexion->query("UPDATE Pedido SET " .
+      " IDSolicitante = '" . $this->getSolicitante()->getIdSolicitante() .
+      "', IDUsuario = '" . $this->getusuario()->getIDUsuario() .
+      "', Descripcion = '" . $this->getDescripcion() .
+      "', FechaHora ='" . $this->getFechaHora() . "' WHERE IDPedido = ".$this->getID().";");
+          if($conexion->error){
             return ("Error: ".$conexion->error);
              } else {
              return ("Registro actualizado correctamente");

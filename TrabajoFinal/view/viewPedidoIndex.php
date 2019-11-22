@@ -18,11 +18,11 @@
 <table border='1' style="width: 100%">
 
     <tr>
-        <td>Solicitante</td>
-        <td>Usuario</td>
-        <td>Descripción</td>
-        <td>Fecha y Hora</td>
-        <td colspan=2 align="center"> Acciones</td>
+        <td><h4> SOLICITANTE</h4></td>
+        <td><h4>USUARIO</h4></td>
+        <td><h4>DESCRIPCION</h4></td>
+        <td><h4>FECHA Y HORA<h4></td>
+        <td colspan=2 align="center"><h4>ACCIONES</h4></td>
     </tr>
     <?php
     foreach ($pedidos as $pedido) { ?>
