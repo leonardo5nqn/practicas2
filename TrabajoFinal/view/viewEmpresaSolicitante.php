@@ -6,7 +6,6 @@
   <tbody>
 <form action = '../controller/controllerEmpresa.php' method="post">
 <input name="action" type="hidden" value="new">
- 
 <table>
   Razon Social:<br>
   <input type="text" name="razonSocial" required><br>
@@ -25,14 +24,6 @@
 </div>
 </div>
 </div>
-
-<?php
-/*
-validar cuit con html5 numerico 
-<a href="../view/viewSolicitantesEmpresa.php">ADD Solicitante</a>
-<a href="../view/viewVerSolicitante.php">ver Solicitantes</a>
-*/
-?>
 
 
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
@@ -57,7 +48,6 @@ validar cuit con html5 numerico
   require_once('../controller/controllerEmpresa.php'); 
   $empresaController = new EmpresaController();
  $empresas = $empresaController->ver();
- //print_r($valores);
 
 	foreach ($empresas as $empresa) { ?>
 		
@@ -69,8 +59,8 @@ validar cuit con html5 numerico
         <td><a href="../controller/controllerEmpresa.php?action=delete&id=<?php echo $empresa->getIDEmpresa(); ?>"onclick="return confirm('Confirma que deseas borrar este registro.');">Eliminar</a> </td>
         <td><a href="../controller/ControllerEmpresa.php?action=update&id=<?php echo $empresa->getIDEmpresa(); ?>">Modificar</a> </td>
 				<td>
-				<a href="../view/viewSolicitantesEmpresa.php"<?php echo $empresa->getIDEmpresa(); ?>>Asignar Solicitante </a>
-        <a href="../view/viewVerSolicitante.php">ver Solicitantes</a>
+				<a href="../controller/controllerNuevoSolicitante.php?action=idempresa&id=<?php echo $empresa->getIDEmpresa(); ?>">Asignar Solicitante </a>
+        <a href="../controller/controllerSolicitante.php?action=verEmpresa&id=<?php echo $empresa->getIDEmpresa(); ?>">ver Solicitantes</a>
 				</td>
 			</tr>		
 	<?php } ?>  
