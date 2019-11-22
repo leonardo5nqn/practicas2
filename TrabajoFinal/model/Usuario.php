@@ -119,7 +119,7 @@ class Usuario {
             }
             return ($usuario);
         } else {
-            return ("No existen registros.");
+            return null;
         }
     }
     public static function findByID($id) {
@@ -144,7 +144,7 @@ class Usuario {
             }
             return ($usuario);
         } else {
-            return ("No hay registros.");
+            return null;
         }
     }
 }

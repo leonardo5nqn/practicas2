@@ -3,7 +3,7 @@
     <h1>INICIAR SESION</h1>
 </div>
 <div align="center">
-<form name="form_login" method="post" action="../controller/controllerLogin.php?action=login">
+<form name="form_login" method="post" action="controllerLogin.php?action=login">
     <label>Usuario: </label>
     <input  type="text" name="Usuario"><br><br>
     <label>Contrase&ntilde;a</label>

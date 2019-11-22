@@ -138,6 +138,7 @@ if (isset($_POST['action'])) {
 }
 // INICIANDO VISTA
 if (isset($_GET['action'])) {
+    // Instanciamos el controlador o clase de PedidoController para usar despues
     $pedidoController = new PedidoController();
     switch ($_GET['action']) {
         case ('listar'): {
