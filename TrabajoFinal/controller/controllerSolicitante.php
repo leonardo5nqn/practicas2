@@ -15,15 +15,10 @@ class SolicitanteController
         if ($solicitante->insert()){
             header("Location: http://localhost/TrabajoFinal/view/viewSolicitantesEmpresa.php");
         }
-        //require_once('../model/Solicitante.php');
-        //var_dump($solicitante);
-        //header('Location: ../index.php');
     }
     public function update($solicitante){
         require_once('../model/Solicitante.php');
         var_dump("update: ".$solicitante->update()." e ir al index de vista.");
-
-        //header('Location: ../index.php');
     }
     public function delete($solicitante){
         require_once('../model/Solicitante.php');
@@ -36,9 +31,15 @@ class SolicitanteController
     public function ver(){
         require_once('../model/Solicitante.php');
         $solicitantes = Solicitante::findAll();
-        //$solicitantes = [new Solicitante (null,'hola','chau')];
         return ($solicitantes);
     }
+    public function findWhere($id){
+        require_once('../model/Solicitante.php');
+        require_once('../model/Empresa.php');
+        $solicitantes = Solicitante::findAllWhere('EmpresaID ='.$id);
+        require_once('../view/viewVerSolicitante.php');
+    }
+
 }
 
 if (isset($_POST['action'])) {
@@ -83,7 +84,14 @@ if (isset($_GET['action'])) {
         } else {
             echo "Campos incompletos.";
         }
-        break;
+        break; 
+            case ('verEmpresa'):
+                if (!empty($_GET['id'])){
+                    $solicitanteController->findWhere(($_GET['id']));
+                } else {
+                    echo "Campos incompletos.";
+                }
+                break;
     }
 }
 ?>
