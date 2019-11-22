@@ -49,7 +49,7 @@ class MovimientoCisternaController {
     public function update($movimientoCisterna) {
         require_once('../model/MovimientoCisterna.php');
         $movimientoCisterna->update();
-        $this->index();
+        $this->register($movimientoCisterna->getCisterna()->getID());
     }
 
     public function delete($movimientoCisterna) {
@@ -72,7 +72,7 @@ if (isset($_POST['action'])) {
         case ('new'): 
             if (!empty($_POST['IDUsuario']) && !empty($_POST['FechaHora']) && !empty($_POST['Litros']) && !empty($_POST['IDTipoCarga']) && !empty($_POST['IDCisterna']) && !empty($_POST['IDPedidoVehiculoChofer'])) {
                 $movimientoCisterna = new MovimientoCisterna('NULL', Usuario::findByID($_POST['IDUsuario']), $_POST['FechaHora'], $_POST['Litros'], TipoCarga::findByID($_POST['IDTipoCarga']), Cisterna::findByID($_POST['IDCisterna']), 0, $_POST['IDPedidoVehiculoChofer']);
-                $movimientoCisterna-setPorcentaje(($_POST['Litros']/$movimientoCisterna->getCisterna()->getTotalLitros()*100));
+                $movimientoCisterna->setPorcentaje($_POST['Litros']/$movimientoCisterna->getCisterna()->getTotalLitros()*100);
                 $movimientoCisternaController->insert($movimientoCisterna);
             } else {
                 echo "Campos incompletos.";
@@ -81,7 +81,7 @@ if (isset($_POST['action'])) {
         case ('update'):
             if (!empty($_POST['id']) && !empty($_POST['IDUsuario']) && !empty($_POST['FechaHora']) && !empty($_POST['Litros']) && !empty($_POST['IDTipoCarga']) && !empty($_POST['IDCisterna']) && !empty($_POST['IDPedidoVehiculoChofer'])) {
                 $movimientoCisterna = new MovimientoCisterna($_POST['id'], Usuario::findByID($_POST['IDUsuario']), $_POST['FechaHora'], $_POST['Litros'], TipoCarga::findByID($_POST['IDTipoCarga']), Cisterna::findByID($_POST['IDCisterna']), 0, $_POST['IDPedidoVehiculoChofer']);
-                $movimientoCisterna-setPorcentaje(($_POST['Litros']/$movimientoCisterna->getCisterna()->getTotalLitros()*100));
+                $movimientoCisterna->setPorcentaje($_POST['Litros']/$movimientoCisterna->getCisterna()->getTotalLitros()*100);
                 $movimientoCisternaController->update($movimientoCisterna);
             } else {
                 echo "Campos incompletos.";
