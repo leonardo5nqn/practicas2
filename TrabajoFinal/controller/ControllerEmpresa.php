@@ -23,7 +23,6 @@ class EmpresaController
     public function insert ($empresa){
 if ($empresa->insert()){
         header("Location: http://localhost/TrabajoFinal/view/viewEmpresaSolicitante.php");
-        //../view/viewEmpresaSolicitante.php
         }
         
     }
@@ -36,9 +35,6 @@ if ($empresa->insert()){
         if ($empresa->update()){
             header("Location: http://localhost/TrabajoFinal/view/viewEmpresaSolicitante.php");
         }
-        //require_once('../model/Empresa.php');
-        //var_dump($empresa);
-        //$this->index();
     }
     public function delete($empresa){
         require_once('../model/Empresa.php');
@@ -57,7 +53,6 @@ if ($empresa->insert()){
 //genero el If para setear el formulario
 if(isset($_POST['action'])){
     
-    //require_once('EmpresaController.php');
     require_once('../model/Empresa.php');
     require_once('../model/Solicitante.php');
     require_once('../model/Usuario.php'); 
@@ -82,7 +77,6 @@ if(isset($_POST['action'])){
 
         break;
         case ('update'):
-            //exit("aca");
             if (!empty($_POST['id']) && !empty($_POST['razonSocial']) && !empty($_POST['Cuit']) && !empty($_POST['Direccion'])&& !empty($_POST['Telefono'])){
             $empresa = new Empresa($_POST['id'], $_POST['razonSocial'], $_POST['Cuit'], $_POST['Direccion'],$_POST['Telefono']);
             $empresaController->update($empresa);
