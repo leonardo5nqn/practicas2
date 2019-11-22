@@ -1,4 +1,4 @@
-<?php
+<<?php
 //LLAMO A LA CLASE CONEXION
 require_once ("../utils/conexion.php");
 
@@ -57,16 +57,16 @@ private function setTelefono($_tel){
 //Alta
 
 function insert(){
-    $resultado = Conexion::conectar()->query("INSERT INTO Empresa (IDEmpresa, razonSocial, Cuit, Direccion, Telefono ) 
-    values ('".$this->IDEmpresa."','".$this->razonSocial."','".$this->Cuit."','".$this->Direccion."','".$this->Telefono."')");
-    
+    $resultado = Conexion::conectar()->query("INSERT INTO Empresa (razonSocial, Cuit, Direccion, Telefono ) 
+    values ('".$this->getRazonSocial()."','".$this->getCuit()."','".$this->getDireccion()."','".$this->getTelefono()."')");
     //verifico si Inserto por el ID
     $resulID = mysqli_insert_id(Conexion::conectar());
     $this->setIDEmpresa($resulID);
     return true;
+    
 }
 //Baja
-function delet(){
+function delete(){
     $resultado = Conexion::conectar()->query("DELETE FROM Empresa where IDEmpresa =".$this->getIDEmpresa()."");
     return true;
 }
@@ -109,9 +109,7 @@ static function findByID($id){
     }
     else{
         return ("No hay registros");
-    }
-
-    //return (Conexion::conectar()->query("SELECT * FROM Empresa WHERE IDEmpresa = ".$id));    
+    }  
 }    
 
 static function listarEmpresa($where){
@@ -126,19 +124,9 @@ static function listarEmpresa($where){
     else{
         return ("No hay registros");
     }
-    //return (Conexion::conectar()->query("SELECT * FROM Empresa ".$where));
 }
 
 }
 
-//-------------------------------------------------------------
-//--- Pruebas Empresas
-//$IDEmpresa, $_razonSocial, $_Cuit, $_Direccion, $_Telefono
-//________________________________________----------------------
-//$instaPrueEmpresa = new Empresa ("1","Arcor","20436374382","Leguizamon 234","2994637936");
-//$instaPrueEmpresa->insert();
-
-//Traigo todas las empresas
-//$reso = Empresa::findAll();
 
 ?>

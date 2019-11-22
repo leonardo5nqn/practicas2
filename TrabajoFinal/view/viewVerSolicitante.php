@@ -1,15 +1,12 @@
-<?php 
-    require_once('../controller/controllerSolicitante.php'); 
-        $solicitanteController = new SolicitanteController();
-        $solicitantes = $solicitanteController->ver();
-?>
+
 <table border='1'>
 	<tr>
-		<td>Nombre</td>
+		<td>Nombre completo</td>
 		<td>Documento</td>
         <td>Telefono</td>
         <td>Email</td>
         <td>Domicilio</td>
+		<td>empresa</td>
 
 	</tr>
 <?php
@@ -20,6 +17,8 @@
                 <td><?php echo $solicitante->getPersona()->getTelefono() ?></td>
                 <td><?php echo $solicitante->getPersona()->getEmail() ?></td>
                 <td><?php echo $solicitante->getPersona()->getDomicilio() ?></td>
+				<td><?php echo $solicitante->getEmpresa()->getRazonSocial() ?></td>
+
 
 			</tr>		
 	<?php } ?>
