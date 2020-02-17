@@ -1,10 +1,10 @@
 <?php 
+require_once ("../model/Solicitante.php");
 class SolicitanteController
 {	
     public function __construct(){}
 
     public function index($error){
-        require_once('../model/Solicitante.php');
         $solicitantes = Solicitante::findAll();
         require_once('../view/viewSolicitanteIndex.php');   
     }
@@ -17,11 +17,9 @@ class SolicitanteController
         }
     }
     public function update($solicitante){
-        require_once('../model/Solicitante.php');
         var_dump("update: ".$solicitante->update()." e ir al index de vista.");
     }
     public function delete($solicitante){
-        require_once('../model/Solicitante.php');
         if(strpos($solicitante->delete(), 'Error') === 0) { 
             header('Location: controllerSolicitante.php?action=index&error='.$solicitante->getIDSolicitante());
         } else { 
@@ -29,12 +27,10 @@ class SolicitanteController
         }
     }
     public function ver(){
-        require_once('../model/Solicitante.php');
         $solicitantes = Solicitante::findAll();
         return ($solicitantes);
     }
     public function findWhere($id){
-        require_once('../model/Solicitante.php');
         require_once('../model/Empresa.php');
         $solicitantes = Solicitante::findAllWhere('EmpresaID ='.$id);
         require_once('../view/viewVerSolicitante.php');
