@@ -28,6 +28,11 @@ class PersonaController
         var_dump("delete: ".$persona->delete()." e ir al index de vista.");
         //header('Location: ../index.php');
     }
+    public function ver(){
+        require_once('../model/Persona.php');
+        $personas = Persona::findAll();
+        return ($personas);
+    }
 }
 
 if (isset($_POST['action'])) {
