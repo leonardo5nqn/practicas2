@@ -1,3 +1,7 @@
+<div>
+    <a class="btn btn-danger" href="../view/viewPanelDeControl.php"> Volver </a>
+
+</div>
 <div class="text-center">
     <h1 class="display-4">Ingresar Empresa</h1>
     <div class= "card">
@@ -18,7 +22,7 @@
   </table>
   </tbody>
   <br>
-  <button type="submit" class="btn btn-secondary btn-lg" >Guardar</button><br>
+  <button type="submit" class="btn btn-primary btn-lg" >Guardar</button><br>
 </form>
 </div>
 </div>
@@ -56,11 +60,11 @@
 				<td><?php echo $empresa->getCuit();?></td>
         <td><?php echo $empresa->getDireccion();?></td>
         <td><?php echo $empresa->getTelefono();?></td>
-        <td><a href="../controller/controllerEmpresa.php?action=delete&id=<?php echo $empresa->getIDEmpresa(); ?>"onclick="return confirm('Confirma que deseas borrar este registro.');">Eliminar</a> </td>
-        <td><a href="../controller/ControllerEmpresa.php?action=update&id=<?php echo $empresa->getIDEmpresa(); ?>">Modificar</a> </td>
+        <td><a class="btn btn-danger" href="../controller/controllerEmpresa.php?action=delete&id=<?php echo $empresa->getIDEmpresa(); ?>"onclick="return confirm('Confirma que deseas borrar este registro.');">Eliminar</a> </td>
+        <td><a  class="btn btn-primary" href="../controller/ControllerEmpresa.php?action=update&id=<?php echo $empresa->getIDEmpresa(); ?>">Modificar</a> </td>
 				<td>
-				<a href="../controller/controllerNuevoSolicitante.php?action=idempresa&id=<?php echo $empresa->getIDEmpresa(); ?>">Asignar Solicitante </a>
-        <a href="../controller/controllerSolicitante.php?action=verEmpresa&id=<?php echo $empresa->getIDEmpresa(); ?>">ver Solicitantes</a>
+				<a class="btn btn-primary" href="../controller/controllerNuevoSolicitante.php?action=idempresa&id=<?php echo $empresa->getIDEmpresa(); ?>">Asignar Solicitante </a>
+        <a class="btn btn-primary" href="../controller/controllerNuevoSolicitante.php?action=verEmpresa&id=<?php echo $empresa->getIDEmpresa(); ?>">ver Solicitantes</a>
 				</td>
 			</tr>		
 	<?php } ?>  
