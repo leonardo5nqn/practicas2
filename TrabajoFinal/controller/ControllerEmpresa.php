@@ -11,7 +11,6 @@ class EmpresaController
     }
 
     public function index(){
-        require_once('../model/Empresa.php');
         $empresa = Empresa::findAll();
         require_once('../view/viewEmpresaIndex.php');
     }
@@ -21,16 +20,12 @@ class EmpresaController
     }
 
     public function insert ($empresa){
-        if ($empresa->insert()){
-        require_once('../view/viewEmpresaSolicitante.php');
-
-        // header("Location: http://localhost/TrabajoFinal/view/viewEmpresaSolicitante.php");
+if ($empresa->insert()){
+        header("Location: http://localhost/TrabajoFinal/view/viewEmpresaSolicitante.php");
         }
         
     }
-        
     public function viewUpdate($id) {
-        require_once('../model/Empresa.php');
         $empresa = Empresa::findById($id);
         require_once('../view/viewModificarEmpresa.php');
     }
@@ -40,12 +35,10 @@ class EmpresaController
         }
     }
     public function delete($empresa){
-        require_once('../model/Empresa.php');
         $empresa->delete();
         header('Location: ../view/viewEmpresaSolicitante.php');
     }
     public function ver(){
-        require_once('../model/Empresa.php');
         $empresas = Empresa::findAll();
         return ($empresas);
     }
@@ -66,7 +59,7 @@ if(isset($_POST['action'])){
     switch ($_POST['action']){
         case ('new'):
             
-            //utilizo el !empty para veificar que una variable no este nula
+            //utilizo el !empty para determinar si una variable está vacía
             if (!empty($_POST['razonSocial']) && !empty($_POST['Cuit']) && !empty($_POST['Direccion'])&& !empty($_POST['Telefono']))
             {
                 //genero la instancia del objeto Empresa
