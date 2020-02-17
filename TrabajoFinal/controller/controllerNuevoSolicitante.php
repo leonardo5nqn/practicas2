@@ -33,6 +33,11 @@ class NuevoSolicitante
         $empresa = Empresa::findById($id);
         require_once('../view/viewSolicitantesEmpresa.php');
     }
+    public function findWhere($id){
+        require_once('../model/Empresa.php');
+        $solicitantes = Solicitante::findAllWhere('EmpresaID ='.$id);
+        require_once('../view/viewVerSolicitante.php');
+    }
 }
 
 if (isset($_POST['action'])) {
@@ -75,6 +80,13 @@ if (isset($_GET['action'])) {
         } else {
             echo "Campos incompletos.";
         }
+        break;
+        case ('verEmpresa'):
+            if (!empty($_GET['id'])){
+                $nuevoSolicitante->findWhere(($_GET['id']));
+            } else {
+                echo "Campos incompletos.";
+            }
         break;
     }
 }
