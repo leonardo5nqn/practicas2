@@ -1,6 +1,10 @@
 <?php
 require_once('../controller/controllerSolicitante.php');
 ?>
+<div>
+    <a class="btn btn-danger" href="../view/viewEmpresaSolicitante.php"> Volver </a>
+
+</div>
 <div class="text-center">
     <h1 class="display-4">Ingresar solicitante</h1>
     <div class= "card">
@@ -29,7 +33,7 @@ require_once('../controller/controllerSolicitante.php');
   </table>
   </tbody>
   <br>
-  <button type="submit" class="btn btn-secondary btn-lg" >Guardar</button><br>
+  <button type="submit" class="btn  btn-primary btn-lg" >Guardar</button><br>
 </form>
 </div>
 </div>
